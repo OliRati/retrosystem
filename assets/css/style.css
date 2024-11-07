@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: gray;
+    color: black;
+}
+
+header {
+    height: 2em;
+    background-color: white;
+}
+
+.background {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 4em);
+    display: flex;
+}
+
+footer {
+    height: 2em;
+    background-color: white;
+}
+
+h1 {
+    position: absolute;
+    top: 5em;
+    left: 4em;
+    font-size: 2em;
+    background-color: lightgreen;
+    border-radius: 15px;
+    width: 15em;
+    height: 1.4em;
+    padding: 1em;
+    text-align: center;
+    box-shadow: 5px 5px 10px darkgreen;
+}
