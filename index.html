@@ -4,17 +4,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>RetroSystem demo</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="./assets/js/script.js" defer></script>
 </head>
 
 <body>
-    <header></header>
-    <div class="background">
-        <h1>Hello World !!!</h1>
+    <header>
+        <div id="menuframe">
+            <div id="menuearthframe">
+                <p id="menuearth" class="menuitem">
+                    <i class="fa-solid fa-earth-europe"></i>
+                </p>
+                <div id="earthbox" class="menushadow">
+                    <p id="menuearthsystem" class="menuitem">About This Earth System</p>
+                    <p class="menuseparator"></p>
+                    <p id="menulogout" class="menuitem">Log Out</p>
+                </div>
+            </div>
+            <div id="menuconfigframe">
+                <p id="menuconfig" class="menuitem">
+                    Config
+                </p>
+                <div id="configbox" class="menushadow">
+                    <p id="menunotransition" class="menuitem"><i id="menucoche0" class="fa-regular fa-square"></i>No
+                        transition</p>
+                    <p id="menurandomtransition" class="menuitem"><i id="menucoche1"
+                            class="fa-regular fa-square"></i>Random transition</p>
+                    <p id="menuorderedtransition" class="menuitem"><i id="menucoche2"
+                            class="fa-regular fa-square-check"></i>Ordered transition</p>
+                    <p id="menuslowmovetransition" class="menuitem"><i id="menucoche3"
+                            class="fa-regular fa-square"></i>Slowmove</p>
+                    <p id="menurollontransition" class="menuitem"><i id="menucoche4"
+                            class="fa-regular fa-square"></i>Rollon</p>
+                    <p id="menurotatetransition" class="menuitem"><i id="menucoche5"
+                            class="fa-regular fa-square"></i>Rotate</p>
+                    <p id="menuturntransition" class="menuitem"><i id="menucoche6" class="fa-regular fa-square"></i>Turn
+                    </p>
+                </div>
+            </div>
+            <div id="menuviewframe">
+                <p id="menuview" class="menuitem">
+                    View
+                </p>
+                <div id="viewbox" class="menushadow">
+                    <p id="menuShowPlaylist" class="menuitem">Show playlist</p>
+                </div>
+            </div>
+            <div id="menuaboutframe">
+                <p id="menuabout" class="menuitem">
+                    About
+                </p>
+                <div id="aboutbox" class="menushadow">
+                    <p class="title">The RetroSystem Demo</p>
+                    <p class="menuseparator"></p>
+                    <p class="text">A little demo featuring old style computer interface.</p>
+                    <p class="menuseparator"></p>
+                    <p class="text">Bring to you by OliRati, Have fun ;-)</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="background">
+        <div id="windowframe1">
+            <div id="windowbar1"></div>
+            <p>Hello World !!!</p>
+        </div>
+        <div id="windowframe2">
+            <div id="windowbar2"></div>
+            <p>Beautifull World !!!</p>
+        </div>
     </div>
-    <footer></footer>
+
+    <footer id="footer"></footer>
 </body>
 
 </html>

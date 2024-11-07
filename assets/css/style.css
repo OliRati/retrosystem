@@ -8,21 +8,24 @@ body {
     color: black;
 }
 
-header {
-    height: 2em;
-    background-color: white;
-}
-
-.background {
+#background {
     position: relative;
     width: 100vw;
-    height: calc(100vh - 4em);
+    height: calc(100vh - 3em);
     display: flex;
 }
 
+header,
 footer {
-    height: 2em;
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    height: 1.5em;
+    width: 100vw;
+
     background-color: white;
+    box-shadow: 0 0 30px rgba(0,0,0,5);
 }
 
 h1 {
@@ -32,9 +35,221 @@ h1 {
     font-size: 2em;
     background-color: lightgreen;
     border-radius: 15px;
-    width: 15em;
+    width: 10em;
     height: 1.4em;
     padding: 1em;
     text-align: center;
     box-shadow: 5px 5px 10px darkgreen;
+}
+
+/* Menu items styles */
+
+@keyframes movemenu{
+    0% {
+        transform-origin: left top;
+        transform: scaleY(0)
+    }
+    100% {
+        transform-origin: left top;
+        transform: scaleY(1);
+    }
+}
+
+#menuframe {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: line;
+    width: 7em;
+    margin-left: .5em;
+    margin-right: .5em;
+    font-size: 1em;
+    font-weight: 300;
+    margin-top: auto;    /* Vertical center */
+    margin-bottom: auto;
+}
+
+#menuearthframe,
+#menuconfigframe,
+#menuviewframe,
+#menuaboutframe
+{
+    position: relative;
+}
+
+#earthbox,
+#configbox,
+#viewbox,
+#aboutbox
+{
+    display: none;
+    position: absolute;
+    top: 1.5em;
+    left: 0;
+    width: 300px;
+    background-color: #BBB;
+    border: #BBB 2px solid;
+    border: 1px solid black;
+    padding: 10px;
+    z-index: 1;
+}
+
+/* Box shadow on top, left, and bottom sides */
+.menushadow {
+    box-shadow:
+        -10px 0px 10px -10px rgba(0, 0, 0, 0.5),
+        /* Left shadow */
+        10px 0px 10px -10px rgba(0, 0, 0, 0.5),
+        /* Right shadow */
+        0px 10px 10px -10px rgba(0, 0, 0, 0.5);
+        /* Bottom shadow */
+}
+
+#menuearth,
+#menuconfig,
+#menuview,
+#menuabout {
+    padding-left: .3em;
+    padding-right: .3em;
+}
+
+.menuitem {
+    padding-left: .3em;
+    padding-right: .3em;
+}
+
+.menuitem::first-letter {
+    font-weight: 1000;
+}
+
+.menuitem:hover {
+    background-color: #666;
+    color: #FFF;
+}
+
+.menuitem i {
+    padding-right: .3em;
+}
+
+.menuseparator {
+    border: 1px solid gray;
+    height: 1px;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+/* Window decoration */
+
+.windowbar {
+    padding: 1px;
+    border-bottom: 1px solid black;
+    height: calc(1.5em + 2px);
+    width: 100%;
+    background-color: white;
+    display: flex;
+}
+
+.windowbarstart {
+    margin-left: 2px;
+    width: 1.2em;
+    height: 1.5em;
+}
+
+.windowbarcube {
+    width: 1.5em;
+    height: calc(1.5em - 6px);
+    margin: 2px 4px;
+    border: 1px solid black;
+    box-shadow: 1px 1px gray;
+}
+
+.windowbarclose {
+    position: relative;
+    width: 1.3em;
+    height: calc(1.5em - 6px);
+    border: 1px solid black;
+    box-shadow: 1px 1px gray;
+    margin: 2px 4px;
+}
+
+.windowbarclose:before,
+.windowbarclose:after {
+    position: absolute;
+    content: '';
+    width: 90%;
+    height: 0px;
+    border: 1px solid black;
+    left: 0px;
+    top: calc(50% - 1px);
+}
+
+.windowbarclose:before{
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+
+.windowbarclose:after{
+    -webkit-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
+
+.windowtitleframe {
+    padding: 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.windowbarend {
+    margin-top: 1px;
+    width: inherit;
+    height: 1.5em;
+}
+
+.windowtitle {
+    margin: 2px 5px;
+    white-space: nowrap;
+    width: fit-content;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+.windowbardecoration {
+    border-top: 1px solid black;
+    border-bottom: 1px solid grey;
+    margin: 2px 0;
+}
+
+#windowbar1,
+#windowbar2 {
+    width: calc(100% - 2px);
+}
+
+/* Window frame size */
+
+#windowframe1
+{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 50%;
+    height: 50%;
+    background-color: darkgray;
+    border: 1px solid black;
+    box-shadow: 0 0 30px rgba(0,0,0,5);
+}
+
+#windowframe2
+{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 50%;
+    height: 50%;
+    background-color: darkgray;
+    border: 1px solid black;
+    box-shadow: 0 0 30px rgba(0,0,0,5);
 }
