@@ -236,3 +236,38 @@ footerFrame.addEventListener("click", () => {
 
 document.getElementById('windowbar1').appendChild(addWindowFrame('Hello World'));
 document.getElementById('windowbar2').appendChild(addWindowFrame('Beautifull World', true));
+
+/* Create a new window */
+
+function createWindow(name, title, posx, posy, width, height, closebtn = false) {
+    const div = document.createElement('div');
+    div.className = name;
+    div.innerHTML = `
+            <div id="` + name + `">
+            <div id="` + name + `Bar"></div>
+            `;
+
+    div.style.position = "absolute";
+    div.style.left = posx;
+    div.style.top = posy;
+    div.style.width = width;
+    div.style.height = height;
+    div.style.backgroundColor = "darkgray";
+    div.style.border = "1px solid black";
+    div.style.boxShadow = "0 0 30px rgba(0, 0, 0, 5";
+
+    document.getElementById('background').appendChild(div);
+
+    document.getElementById(name + 'Bar').appendChild(addWindowFrame(title, closebtn));
+
+    return div;
+}
+
+const window1 = createWindow("window1", "First", "100px", "100px", "200px", "300px", false);
+window1.innerHTML += "<p>New Window 1</p>";
+
+const window2 = createWindow("window2", "Second", "150px", "150px", "200px", "300px", true);
+window2.innerHTML += "<p>New Window 2</p>";
+
+const window3 = createWindow("window3", "Third", "200px", "200px", "200px", "300px", true);
+window3.innerHTML += "<p>New Window 3</p>";
