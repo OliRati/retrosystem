@@ -28,20 +28,6 @@ footer {
     box-shadow: 0 0 30px rgba(0,0,0,5);
 }
 
-h1 {
-    position: absolute;
-    top: 5em;
-    left: 4em;
-    font-size: 2em;
-    background-color: lightgreen;
-    border-radius: 15px;
-    width: 10em;
-    height: 1.4em;
-    padding: 1em;
-    text-align: center;
-    box-shadow: 5px 5px 10px darkgreen;
-}
-
 /* Menu items styles */
 
 @keyframes movemenu{
@@ -62,8 +48,9 @@ h1 {
     width: 7em;
     margin-left: .5em;
     margin-right: .5em;
+    font-family: "Open Sans", sans-serif;
     font-size: 1em;
-    font-weight: 300;
+    font-weight: 500;
     margin-top: auto;    /* Vertical center */
     margin-bottom: auto;
 }
@@ -118,7 +105,7 @@ h1 {
 }
 
 .menuitem::first-letter {
-    font-weight: 1000;
+    font-weight: 700;
 }
 
 .menuitem:hover {
@@ -212,11 +199,12 @@ h1 {
 }
 
 .windowtitle {
-    margin: 2px 5px;
+    margin: 0 3px;
     white-space: nowrap;
     width: fit-content;
-    font-size: 1.1em;
-    font-weight: 300;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
+    font-weight: 500;
 }
 
 .windowbardecoration {
