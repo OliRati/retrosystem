@@ -12,7 +12,7 @@ let selectedChecklist = 2;
 const background = document.getElementById("background");
 
 
-/* Add window frame decoration */
+/* Add window title bar */
 
 function addWindowFrame(title, closebutton = false) {
     const div = document.createElement('div');
@@ -50,6 +50,30 @@ function addWindowFrame(title, closebutton = false) {
     }
     return div;
 }
+
+/* Create a new window */
+
+function createWindow(id, title, posx, posy, width, height, closebtn = false) {
+    const div = document.createElement('div');
+    div.className = 'windowframe';
+    div.innerHTML = `
+            <div id="` + id + `">
+            <div id="` + id + `Bar"></div>
+            `;
+
+    div.style.left = posx;
+    div.style.top = posy;
+    div.style.width = width;
+    div.style.height = height;
+
+    document.getElementById('background').appendChild(div);
+
+    document.getElementById(id + 'Bar').appendChild(addWindowFrame(title, closebtn));
+
+    return div;
+}
+
+/* Menu fonctionality implementation */
 
 function adjustMenuStates(i) {
     if ((i != 0) && menuEarthShown) {
@@ -232,42 +256,19 @@ footerFrame.addEventListener("click", () => {
         adjustMenuStates(-1);
 });
 
-/* Add window title bar */
+/* Add 5 window to desktop */
 
-document.getElementById('windowbar1').appendChild(addWindowFrame('Hello World'));
-document.getElementById('windowbar2').appendChild(addWindowFrame('Beautifull World', true));
+const window1 = createWindow("window1", "Hello World", "25px", "25px", "200px", "300px", false);
+window1.innerHTML += "<p>Hello World !!!</p>";
 
-/* Create a new window */
+const window2 = createWindow("window2", "Beautifull World", "75px", "75px", "200px", "300px", false);
+window2.innerHTML += "<p>That's a beautifull world !!!</p>";
 
-function createWindow(name, title, posx, posy, width, height, closebtn = false) {
-    const div = document.createElement('div');
-    div.className = name;
-    div.innerHTML = `
-            <div id="` + name + `">
-            <div id="` + name + `Bar"></div>
-            `;
-
-    div.style.position = "absolute";
-    div.style.left = posx;
-    div.style.top = posy;
-    div.style.width = width;
-    div.style.height = height;
-    div.style.backgroundColor = "darkgray";
-    div.style.border = "1px solid black";
-    div.style.boxShadow = "0 0 30px rgba(0, 0, 0, 5";
-
-    document.getElementById('background').appendChild(div);
-
-    document.getElementById(name + 'Bar').appendChild(addWindowFrame(title, closebtn));
-
-    return div;
-}
-
-const window1 = createWindow("window1", "First", "100px", "100px", "200px", "300px", false);
-window1.innerHTML += "<p>New Window 1</p>";
-
-const window2 = createWindow("window2", "Second", "150px", "150px", "200px", "300px", true);
-window2.innerHTML += "<p>New Window 2</p>";
-
-const window3 = createWindow("window3", "Third", "200px", "200px", "200px", "300px", true);
+const window3 = createWindow("window3", "First", "125px", "125px", "200px", "300px", false);
 window3.innerHTML += "<p>New Window 3</p>";
+
+const window4 = createWindow("window4", "Second", "175px", "175px", "200px", "300px", true);
+window4.innerHTML += "<p>New Window 4</p>";
+
+const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", true);
+window5.innerHTML += "<p>New Window 5</p>";

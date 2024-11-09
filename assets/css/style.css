@@ -149,26 +149,27 @@ h1 {
 }
 
 .windowbarstart {
+    margin-top: 2px;
     margin-left: 2px;
     width: 1.2em;
     height: 1.5em;
 }
 
 .windowbarcube {
-    width: 1.5em;
+    width: calc(1.5em - 6px);
     height: calc(1.5em - 6px);
-    margin: 2px 4px;
+    margin: 2px 3px;
     border: 1px solid black;
     box-shadow: 1px 1px gray;
 }
 
 .windowbarclose {
     position: relative;
-    width: 1.3em;
+    width: calc(1.5em - 6px);
     height: calc(1.5em - 6px);
     border: 1px solid black;
     box-shadow: 1px 1px gray;
-    margin: 2px 4px;
+    margin: 2px 2px 2px 3px;
 }
 
 .windowbarclose:before,
@@ -200,7 +201,8 @@ h1 {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    flex-grow: 1;
+    width: 50%;
 }
 
 .windowbarend {
@@ -223,32 +225,10 @@ h1 {
     margin: 2px 0;
 }
 
-#windowbar1,
-#windowbar2 {
-    width: calc(100% - 2px);
-}
+/* Default window frame decoration */
 
-/* Window frame size */
-
-#windowframe1
-{
+.windowframe {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 50%;
-    height: 50%;
-    background-color: darkgray;
-    border: 1px solid black;
-    box-shadow: 0 0 30px rgba(0,0,0,5);
-}
-
-#windowframe2
-{
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    width: 50%;
-    height: 50%;
     background-color: darkgray;
     border: 1px solid black;
     box-shadow: 0 0 30px rgba(0,0,0,5);
