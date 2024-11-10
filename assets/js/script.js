@@ -9,10 +9,17 @@ let menuAboutShown = false;
 
 let selectedChecklist = 2;
 
+/*
+ * Window creation routines
+ */
+
+/* The desktop background */
 const background = document.getElementById("background");
 
+/* The list of all windows created */
+let windowList = [];
 
-/* Add window title bar */
+/* Add a title bar to window */
 
 function addWindowFrame(title, closebutton = false) {
     const div = document.createElement('div');
@@ -51,12 +58,6 @@ function addWindowFrame(title, closebutton = false) {
     return div;
 }
 
-/*
- * Window creation routines
- */
-
-let windowList = [];
-
 /* Get the max zIndex in use for a window */
 
 function getMaxZIndex() {
@@ -71,15 +72,42 @@ function getMaxZIndex() {
     return zmax;
 }
 
+/* Move window to the topmost position */
+
+function bringWindowTopmost(div) {
+    let zmax = 0;
+    let zmin = 65535;
+
+    windowList.forEach(window => {
+        let zwin = parseInt(window.style.zIndex);
+        if (zwin > zmax)
+            zmax = zwin;
+        if (zwin < zmin)
+            zmin = zwin;
+    });
+
+    if (parseInt(div.style.zIndex) < zmax) {
+        div.style.zIndex = zmax + 1;
+    }
+
+    if (zmin > 0) {
+        // Reorder all windows zIndex
+        windowList.forEach(window => {
+            let zwin = parseInt(window.style.zIndex);
+            zwin -= zmin;
+            window.style.zIndex = zwin;
+        });
+    }
+}
+
 /* Create a new window on top of others */
 
 function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     const div = document.createElement('div');
+
     div.className = 'windowframe';
-    div.innerHTML = `
-            <div id="` + id + `">
-            <div id="` + id + `Bar"></div>
-            `;
+
+    div.appendChild(addWindowFrame(title, closebtn));
 
     div.style.zIndex = getMaxZIndex() + 1;
 
@@ -90,40 +118,74 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
 
     document.getElementById('background').appendChild(div);
 
-    document.getElementById(id + 'Bar').appendChild(addWindowFrame(title, closebtn));
-
     windowList.push(div);
-
-    div.addEventListener("click", () => {
-        let zmax = 0;
-        let zmin = 65535;
-
-        windowList.forEach(window => {
-            let zwin = parseInt(window.style.zIndex);
-            if (zwin > zmax)
-                zmax = zwin;
-            if (zwin < zmin)
-                zmin = zwin;
+    
+    /*
+        div.addEventListener("click", () => {
+            bringWindowTopmost(div);
         });
-
-        if (parseInt(div.style.zIndex) < zmax) {
-            div.style.zIndex = zmax + 1;
-        }
-
-        if (zmin > 0) {
-            // Reorder all windows zIndex
-            windowList.forEach(window => {
-                let zwin = parseInt(window.style.zIndex);
-                zwin -= zmin;
-                window.style.zIndex = zwin;
+    
+        var windowbars = div.getElementsByClassName("windowbar");
+        if (windowbars.length === 1) {
+            windowbars[0].addEventListener('click', (e) => {
+                console.dir(e);
             });
         }
+    */
+
+    div.addEventListener("mousedown", (e) => {
+        let shiftX = e.clientX - div.getBoundingClientRect().left;
+        let shiftY = e.clientY - div.getBoundingClientRect().top;
+
+        let width = div.getBoundingClientRect().width;
+        let height = div.getBoundingClientRect().height;
+
+        console.log("w:"+width+" h:"+height);
+
+        bringWindowTopmost(div);
+
+        function moveAt(pageX, pageY) {
+            clientwidth = document.getElementById('background').getBoundingClientRect().width;
+            clientheight = document.getElementById('background').getBoundingClientRect().height;
+
+            posx = pageX - shiftX;
+            posy = pageY - shiftY;
+
+            if (posx < 0) posx = 0;
+            if (posx + width >  clientwidth)
+                posx = clientwidth - width;
+            if (posy < 0) posy = 0;
+            if (posy + height >  clientheight)
+                posy = clientheight - height;
+
+            div.style.left = posx + 'px';
+            div.style.top = posy + 'px';
+        }
+
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+
+        function onMouseUp() {
+            document.removeEventListener("mousemove", onMouseMove);
+            div.removeEventListener('mousemove', onMouseUp);
+        }
+
+        div.addEventListener('mouseup', onMouseUp);
     });
+
+    div.ondragstart = function () {
+        return false;
+    };
 
     return div;
 }
 
-/* Menu fonctionality implementation */
+/*
+ * Main menu fonctionality implementation
+ */
 
 function adjustMenuStates(i) {
     if ((i != 0) && menuEarthShown) {
@@ -217,7 +279,9 @@ var menuCoche = [
     document.getElementById("menucoche5"),
     document.getElementById("menucoche6")];
 
-function adjustChecklist() {
+function adjustChecklist(nb) {
+    selectedChecklist = nb;
+
     for (let idx = 0; idx < menuCoche.length; idx++) {
         if (idx === selectedChecklist)
             menuCoche[idx].classList.replace("fa-square", "fa-square-check");
@@ -231,56 +295,43 @@ var menuNoTransitionCoche = document.getElementById("menunotransitioncoche");
 menuNoTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    selectedChecklist = 0;
-    adjustChecklist();
+    adjustChecklist(0);
 });
 
 var menuRandomTransition = document.getElementById("menurandomtransition");
 menuRandomTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 1;
-    adjustChecklist();
+    adjustChecklist(1);
 });
 
 var menuOrderedTransition = document.getElementById("menuorderedtransition");
 menuOrderedTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 2;
-    adjustChecklist();
+    adjustChecklist(2);
 });
 
 var menuSloMoveTrnasition = document.getElementById("menuslowmovetransition");
 menuSloMoveTrnasition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 3;
-    adjustChecklist();
+    adjustChecklist(3);
 });
 
 var menuRollonTransition = document.getElementById("menurollontransition");
 menuRollonTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 4;
-    adjustChecklist();
+    adjustChecklist(4);
 });
 
 var menuRotateTransition = document.getElementById("menurotatetransition");
 menuRotateTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 5;
-    adjustChecklist();
+    adjustChecklist(5);
 });
 
 var menuTurnTransition = document.getElementById("menuturntransition");
 menuTurnTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
-    selectedChecklist = 6;
-    adjustChecklist();
+    adjustChecklist(6);
 });
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
