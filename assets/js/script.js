@@ -51,7 +51,27 @@ function addWindowFrame(title, closebutton = false) {
     return div;
 }
 
-/* Create a new window */
+/*
+ * Window creation routines
+ */
+
+let windowList = [];
+
+/* Get the max zIndex in use for a window */
+
+function getMaxZIndex() {
+    let zmax = 0;
+
+    windowList.forEach(window => {
+        let z = parseInt(window.style.zIndex);
+        if (z > zmax)
+            zmax = z;
+    });
+
+    return zmax;
+}
+
+/* Create a new window on top of others */
 
 function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     const div = document.createElement('div');
@@ -61,6 +81,8 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
             <div id="` + id + `Bar"></div>
             `;
 
+    div.style.zIndex = getMaxZIndex() + 1;
+
     div.style.left = posx;
     div.style.top = posy;
     div.style.width = width;
@@ -69,6 +91,34 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     document.getElementById('background').appendChild(div);
 
     document.getElementById(id + 'Bar').appendChild(addWindowFrame(title, closebtn));
+
+    windowList.push(div);
+
+    div.addEventListener("click", () => {
+        let zmax = 0;
+        let zmin = 65535;
+
+        windowList.forEach(window => {
+            let zwin = parseInt(window.style.zIndex);
+            if (zwin > zmax)
+                zmax = zwin;
+            if (zwin < zmin)
+                zmin = zwin;
+        });
+
+        if (parseInt(div.style.zIndex) < zmax) {
+            div.style.zIndex = zmax + 1;
+        }
+
+        if (zmin > 0) {
+            // Reorder all windows zIndex
+            windowList.forEach(window => {
+                let zwin = parseInt(window.style.zIndex);
+                zwin -= zmin;
+                window.style.zIndex = zwin;
+            });
+        }
+    });
 
     return div;
 }
@@ -258,8 +308,11 @@ footerFrame.addEventListener("click", () => {
 
 /* Add 5 window to desktop */
 
-const window1 = createWindow("window1", "Hello World", "25px", "25px", "200px", "300px", false);
-window1.innerHTML += "<p>Hello World !!!</p>";
+const window1 = createWindow("window1", "Hello", "25px", "25px", "200px", "300px", false);
+window1.innerHTML += `
+    <h3>Hello</h3>
+    <p>This little window demo allow you to change focus by clicking inside one window.</p>
+    `;
 
 const window2 = createWindow("window2", "Beautifull World", "75px", "75px", "200px", "300px", false);
 window2.innerHTML += "<p>That's a beautifull world !!!</p>";
@@ -267,8 +320,11 @@ window2.innerHTML += "<p>That's a beautifull world !!!</p>";
 const window3 = createWindow("window3", "First", "125px", "125px", "200px", "300px", false);
 window3.innerHTML += "<p>New Window 3</p>";
 
+
 const window4 = createWindow("window4", "Second", "175px", "175px", "200px", "300px", true);
 window4.innerHTML += "<p>New Window 4</p>";
 
 const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", true);
-window5.innerHTML += "<p>New Window 5</p>";
+window5.innerHTML += `
+    <h3>Click <i class="fa-regular fa-face-smile-wink"></i></h3>
+    <p>to change topmost window</p>`;
