@@ -41,7 +41,8 @@ footer {
     }
 }
 
-#menuframe {
+#menuframe,
+#statusframe {
     display: flex;
     flex-direction: row;
     margin-left: .5em;
