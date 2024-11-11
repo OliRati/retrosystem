@@ -119,43 +119,38 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     document.getElementById('background').appendChild(div);
 
     windowList.push(div);
-    
-    /*
-        div.addEventListener("click", () => {
-            bringWindowTopmost(div);
+/*
+    var windowbars = div.getElementsByClassName("windowbar");
+    if (windowbars.length === 1) {
+        windowbars[0].addEventListener('click', (e) => {
+            console.dir(e);
         });
-    
-        var windowbars = div.getElementsByClassName("windowbar");
-        if (windowbars.length === 1) {
-            windowbars[0].addEventListener('click', (e) => {
-                console.dir(e);
-            });
-        }
-    */
+    }
+*/
+    div.addEventListener("mousedown", (event) => {
+        const background = document.getElementById('background');
 
-    div.addEventListener("mousedown", (e) => {
-        let shiftX = e.clientX - div.getBoundingClientRect().left;
-        let shiftY = e.clientY - div.getBoundingClientRect().top;
+        const clientwidth = background.getBoundingClientRect().width;
+        const clientheight = background.getBoundingClientRect().height;
+
+        let shiftX = event.pageX - div.getBoundingClientRect().left;
+        let shiftY = event.pageY - div.getBoundingClientRect().top
+            + document.getElementById('mainmenu').getBoundingClientRect().height;
 
         let width = div.getBoundingClientRect().width;
         let height = div.getBoundingClientRect().height;
 
-        console.log("w:"+width+" h:"+height);
-
         bringWindowTopmost(div);
 
-        function moveAt(pageX, pageY) {
-            clientwidth = document.getElementById('background').getBoundingClientRect().width;
-            clientheight = document.getElementById('background').getBoundingClientRect().height;
-
-            posx = pageX - shiftX;
-            posy = pageY - shiftY;
+        function moveAt(x, y) {
+            posx = x - shiftX;
+            posy = y - shiftY;
 
             if (posx < 0) posx = 0;
-            if (posx + width >  clientwidth)
+            if (posx + width > clientwidth)
                 posx = clientwidth - width;
             if (posy < 0) posy = 0;
-            if (posy + height >  clientheight)
+            if (posy + height > clientheight)
                 posy = clientheight - height;
 
             div.style.left = posx + 'px';
@@ -170,15 +165,11 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
 
         function onMouseUp() {
             document.removeEventListener("mousemove", onMouseMove);
-            div.removeEventListener('mousemove', onMouseUp);
+            document.removeEventListener('mouseup', onMouseUp);
         }
 
-        div.addEventListener('mouseup', onMouseUp);
+        document.addEventListener('mouseup', onMouseUp);
     });
-
-    div.ondragstart = function () {
-        return false;
-    };
 
     return div;
 }
@@ -372,8 +363,10 @@ const window3 = createWindow("window3", "First", "125px", "125px", "200px", "300
 window3.innerHTML += "<p>New Window 3</p>";
 
 
-const window4 = createWindow("window4", "Second", "175px", "175px", "200px", "300px", true);
-window4.innerHTML += "<p>New Window 4</p>";
+const window4 = createWindow("window4", "Dancing", "175px", "175px", "200px", "300px", true);
+window4.innerHTML += `
+    <h3>Dancing windows</h3>
+    <p>Now windows can be moved with mouse</p>`;
 
 const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", true);
 window5.innerHTML += `

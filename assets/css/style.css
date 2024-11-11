@@ -9,10 +9,10 @@ body {
 }
 
 #background {
+    display: flex;
     position: relative;
     width: 100vw;
-    height: calc(100vh - 3em);
-    display: flex;
+    height: calc(100vh - 2 * 1.6em);
 }
 
 header,
@@ -21,7 +21,7 @@ footer {
     z-index: 16384;
 
     display: flex;
-    height: 1.5em;
+    height: 1.6em;
     width: 100vw;
 
     background-color: white;
@@ -51,6 +51,7 @@ footer {
     font-weight: 500;
     margin-top: auto;    /* Vertical center */
     margin-bottom: auto;
+    user-select: none;
 }
 
 #menuearthframe,
@@ -117,16 +118,17 @@ footer {
 /* Window decoration */
 
 .windowbar {
-    padding: 1px;
+    display: flex;
+    background-color: white;
     border-bottom: 1px solid black;
+    padding: 0 1px;
     height: calc(1.5em + 2px);
     width: calc(100% - 2px);
-    background-color: white;
-    display: flex;
+    user-select: none;
 }
 
 .windowbarstart {
-    margin-top: 2px;
+    margin-top: 1px;
     margin-left: 2px;
     width: 0.7em;
     height: 1.5em;
