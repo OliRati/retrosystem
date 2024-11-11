@@ -187,6 +187,15 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     return div;
 }
 
+/* Update System status string */
+function newSystemStatus(text) {
+    document.getElementById("statusframe").innerHTML = text;
+
+    setTimeout(() => {
+        document.getElementById("statusframe").innerHTML = "Ready.";
+    }, 5000);
+}
+
 /*
  * Main menu fonctionality implementation
  */
@@ -272,6 +281,28 @@ menuShowPlaylist.addEventListener("click", () => {
     windowShown = !windowShown;
 
     adjustMenuStates(-1);
+});
+
+let winid = 0;
+let origX = 50;
+let origY = 50;
+
+var menuNewWindow = document.getElementById("menuNewWindow");
+menuNewWindow.addEventListener("click", () => {
+    adjustMenuStates(-1);
+    let width = Math.floor((Math.random() * 300) + 300);
+    let height = Math.floor((Math.random() * 400) + 200);
+    let newWin = createWindow("newone", "New " + winid, origX + "px", origY + "px", width + "px", height + "px", false);
+    newWin.innerHTML += "<h3>New window size " + width + "x" + height + "</h3>";
+
+    newSystemStatus("Window " + winid + " Created.");
+    origX += 30;
+    origY += 25;
+    if (origX > 400) {
+        origX = 50;
+        origY = 50;
+    }
+    winid++;
 });
 
 var menuCoche = [
