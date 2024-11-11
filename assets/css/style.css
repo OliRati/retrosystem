@@ -122,7 +122,7 @@ footer {
     background-color: white;
     border-bottom: 1px solid black;
     padding: 0 1px;
-    height: calc(1.5em + 2px);
+    height: 1.5em;
     width: calc(100% - 2px);
     user-select: none;
 }
@@ -175,10 +175,8 @@ footer {
 }
 
 .windowtitleframe {
-    padding: 1px;
+    padding: 0 1px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
     flex-grow: 1;
     width: 50%;

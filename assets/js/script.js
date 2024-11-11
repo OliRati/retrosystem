@@ -119,14 +119,15 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
     document.getElementById('background').appendChild(div);
 
     windowList.push(div);
-/*
+
     var windowbars = div.getElementsByClassName("windowbar");
     if (windowbars.length === 1) {
-        windowbars[0].addEventListener('click', (e) => {
-            console.dir(e);
+        windowbars[0].addEventListener('click', (event) => {
+            console.log("Here");
+            console.dir(event);
         });
     }
-*/
+
     div.addEventListener("mousedown", (event) => {
         const background = document.getElementById('background');
 
@@ -142,33 +143,45 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
 
         bringWindowTopmost(div);
 
-        function moveAt(x, y) {
-            posx = x - shiftX;
-            posy = y - shiftY;
+        /* Mouse down on title bar => move window */
+        const titlebarheight = div.firstChild.getBoundingClientRect().height;
+        const windowframetop = div.getBoundingClientRect().top;
 
-            if (posx < 0) posx = 0;
-            if (posx + width > clientwidth)
-                posx = clientwidth - width;
-            if (posy < 0) posy = 0;
-            if (posy + height > clientheight)
-                posy = clientheight - height;
+        if (event.pageY < (titlebarheight + windowframetop)) {
+            console.log("got it");
 
-            div.style.left = posx + 'px';
-            div.style.top = posy + 'px';
+            function moveAt(x, y) {
+                posx = x - shiftX;
+                posy = y - shiftY;
+
+                if (posx < 0) posx = 0;
+                if (posx + width > clientwidth)
+                    posx = clientwidth - width;
+                if (posy < 0) posy = 0;
+                if (posy + height > clientheight)
+                    posy = clientheight - height;
+
+                div.style.left = posx + 'px';
+                div.style.top = posy + 'px';
+            }
+
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener("mousemove", onMouseMove);
+
+            function onMouseUp() {
+                document.removeEventListener("mousemove", onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            }
+
+            document.addEventListener('mouseup', onMouseUp);
+
+            div.ondragstart = function () {
+                return false;
+            };
         }
-
-        function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
-        }
-
-        document.addEventListener("mousemove", onMouseMove);
-
-        function onMouseUp() {
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-
-        document.addEventListener('mouseup', onMouseUp);
     });
 
     return div;
@@ -352,23 +365,40 @@ footerFrame.addEventListener("click", () => {
 
 const window1 = createWindow("window1", "Hello", "25px", "25px", "200px", "300px", false);
 window1.innerHTML += `
-    <h3>Hello</h3>
-    <p>This little window demo allow you to change focus by clicking inside one window.</p>
+    <h3>Hello World !!</h3>
+    <p>This little window demo show you my programming skills in HTML JavaScript CSS.</p>
     `;
 
-const window2 = createWindow("window2", "Beautifull World", "75px", "75px", "200px", "300px", false);
-window2.innerHTML += "<p>That's a beautifull world !!!</p>";
+const window2 = createWindow("window2", "World", "75px", "75px", "200px", "300px", false);
+window2.innerHTML += `<h3>New World Window</h3>
+    <p>A new world is happening. Stay tuned.</p>`;
 
-const window3 = createWindow("window3", "First", "125px", "125px", "200px", "300px", false);
-window3.innerHTML += "<p>New Window 3</p>";
+const window3 = createWindow("window3", "TopMost", "125px", "125px", "200px", "300px", false);
+window3.innerHTML += `<h3>Bring on top</h3>
+        <p>To bring a window to front click inside.</p>`;
 
 
 const window4 = createWindow("window4", "Dancing", "175px", "175px", "200px", "300px", true);
 window4.innerHTML += `
     <h3>Dancing windows</h3>
-    <p>Now windows can be moved with mouse</p>`;
+    <p>Now windows can be moved with mouse with a click inside title bar.</p>`;
 
 const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", true);
 window5.innerHTML += `
     <h3>Click <i class="fa-regular fa-face-smile-wink"></i></h3>
-    <p>to change topmost window</p>`;
+    <p id="demo">Click button below to change color</p>
+    <button onclick="changeColor()">Click me</button>`;
+
+/* Window Click me function */
+let color = 0;
+function changeColor() {
+    color++;
+    if (color == 1)
+        document.getElementById("demo").style.color = 'red';
+    else if (color == 2)
+        document.getElementById("demo").style.color = 'green';
+    else if (color == 3) {
+        color = 0;
+        document.getElementById("demo").style.color = 'blue';
+    }
+}
