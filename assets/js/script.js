@@ -100,10 +100,23 @@ function bringWindowTopmost(div) {
     }
 }
 
-/* Create a new window on top of others */
+/* Window type mask */
 const WINMASK_CLOSABLE = 1;
 const WINMASK_RESIZABLE = 2;
 const WINMASK_MOVABLE = 4;
+
+/* Remove a window */
+
+function removeWindow(win) {
+    /* Remove that window from list */
+    const index = windowList.indexOf(win);
+    if (index > -1) {
+        windowList.splice(index, 1);
+        win.remove();
+    }
+}
+
+/* Create a new window on top of others */
 
 function createWindow(id, title, posx, posy, width, height, winmask = 0) {
     const background = document.getElementById('background');
@@ -137,20 +150,30 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
         });
     }
 
+    if (winmask & WINMASK_CLOSABLE) {
+        const closebtn = div.getElementsByClassName("windowbarclose");
+        if (closebtn.length === 1) {
+            closebtn[0].addEventListener('click', () => {
+                console.log("close button");
+            });
+        }
+
+    }
+
     const windowWidth = div.getBoundingClientRect().width;
     const windowHeight = div.getBoundingClientRect().height;
 
-    if (!(winmask & WINMASK_MOVABLE)) {
-        /* Place unmovable window at the center of background area */
-        div.style.left = ((clientWidth - windowWidth) / 2) + "px";
-        div.style.top = ((clientHeight - windowHeight) / 2) + "px";
-    } else {
+    if (winmask & WINMASK_MOVABLE) {
         /* Ensure the full window size is in background area */
         if ((div.getBoundingClientRect().top + windowHeight) > clientHeight)
             div.style.top = (clientHeight - windowHeight) + "px";
 
         if ((div.getBoundingClientRect().left + windowWidth) > clientWidth)
             div.style.left = (clientWidth - windowWidth) + "px";
+    } else {
+        /* Place unmovable window at the center of background area */
+        div.style.left = ((clientWidth - windowWidth) / 2) + "px";
+        div.style.top = ((clientHeight - windowHeight) / 2) + "px";
     }
 
     div.addEventListener("mousedown", (event) => {
@@ -409,9 +432,8 @@ menuEarthSystem.addEventListener("click", () => {
 
         function closeAboutBox() {
             aboutEarthSystemOpened = false;
-            newWin.style.display = "none";
-            newWin.innerHTML = "";
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
+            removeWindow(newWin);
         }
 
         document.getElementById("closeaboutearthsystem").addEventListener("click", closeAboutBox);
@@ -460,8 +482,7 @@ window4.innerHTML += `
 
 const window5 = createWindow("window5", "Third", 225, 225, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 window5.innerHTML += `
-    <h3>A static window not movable.</h3>
-    <h3>Click <i class="fa-regular fa-face-smile-wink"></i></h3>
+    <h3>A Click window <i class="fa-regular fa-face-smile-wink"></i></h3>
     <p id="demo">Click button below to change color</p>
     <button onclick="changeColor()">Click me</button>`;
 
