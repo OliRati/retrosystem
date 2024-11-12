@@ -101,13 +101,19 @@ function bringWindowTopmost(div) {
 }
 
 /* Create a new window on top of others */
+const WINMASK_CLOSABLE = 1;
+const WINMASK_RESIZABLE = 2;
+const WINMASK_MOVABLE = 4;
 
-function createWindow(id, title, posx, posy, width, height, closebtn = false) {
+function createWindow(id, title, posx, posy, width, height, winmask = 0) {
     const div = document.createElement('div');
 
-    div.className = 'windowframe';
-
-    div.appendChild(addWindowFrame(title, closebtn));
+    if (winmask & WINMASK_MOVABLE) {
+        div.className = 'windowframe';
+        div.appendChild(addWindowFrame(title, winmask & WINMASK_CLOSABLE));
+    }
+    else
+        div.className = 'staticwindowframe';
 
     div.style.zIndex = getMaxZIndex() + 1;
 
@@ -143,44 +149,44 @@ function createWindow(id, title, posx, posy, width, height, closebtn = false) {
 
         bringWindowTopmost(div);
 
-        /* Mouse down on title bar => move window */
-        const titlebarheight = div.firstChild.getBoundingClientRect().height;
-        const windowframetop = div.getBoundingClientRect().top;
+        if (winmask & WINMASK_MOVABLE) {
+            /* Mouse down on title bar => move window */
+            const titlebarheight = div.firstChild.getBoundingClientRect().height;
+            const windowframetop = div.getBoundingClientRect().top;
 
-        if (event.pageY < (titlebarheight + windowframetop)) {
-            console.log("got it");
+            if (event.pageY < (titlebarheight + windowframetop)) {
+                function moveAt(x, y) {
+                    posx = x - shiftX;
+                    posy = y - shiftY;
 
-            function moveAt(x, y) {
-                posx = x - shiftX;
-                posy = y - shiftY;
+                    if (posx < 0) posx = 0;
+                    if (posx + width > clientwidth)
+                        posx = clientwidth - width;
+                    if (posy < 0) posy = 0;
+                    if (posy + height > clientheight)
+                        posy = clientheight - height;
 
-                if (posx < 0) posx = 0;
-                if (posx + width > clientwidth)
-                    posx = clientwidth - width;
-                if (posy < 0) posy = 0;
-                if (posy + height > clientheight)
-                    posy = clientheight - height;
+                    div.style.left = posx + 'px';
+                    div.style.top = posy + 'px';
+                }
 
-                div.style.left = posx + 'px';
-                div.style.top = posy + 'px';
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+
+                document.addEventListener("mousemove", onMouseMove);
+
+                function onMouseUp() {
+                    document.removeEventListener("mousemove", onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                }
+
+                document.addEventListener('mouseup', onMouseUp);
+
+                div.ondragstart = function () {
+                    return false;
+                };
             }
-
-            function onMouseMove(event) {
-                moveAt(event.pageX, event.pageY);
-            }
-
-            document.addEventListener("mousemove", onMouseMove);
-
-            function onMouseUp() {
-                document.removeEventListener("mousemove", onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-            }
-
-            document.addEventListener('mouseup', onMouseUp);
-
-            div.ondragstart = function () {
-                return false;
-            };
         }
     });
 
@@ -292,7 +298,7 @@ menuNewWindow.addEventListener("click", () => {
     adjustMenuStates(-1);
     let width = Math.floor((Math.random() * 300) + 300);
     let height = Math.floor((Math.random() * 400) + 200);
-    let newWin = createWindow("newone", "New " + winid, origX + "px", origY + "px", width + "px", height + "px", false);
+    let newWin = createWindow("newone", "New " + winid, origX + "px", origY + "px", width + "px", height + "px", WINMASK_MOVABLE | WINMASK_CLOSABLE);
     newWin.innerHTML += "<h3>New window size " + width + "x" + height + "</h3>";
 
     newSystemStatus("Window " + winid + " Created.");
@@ -394,28 +400,29 @@ footerFrame.addEventListener("click", () => {
 
 /* Add 5 window to desktop */
 
-const window1 = createWindow("window1", "Hello", "25px", "25px", "200px", "300px", false);
+const window1 = createWindow("window1", "Hello", "25px", "25px", "200px", "300px", WINMASK_MOVABLE);
 window1.innerHTML += `
     <h3>Hello World !!</h3>
     <p>This little window demo show you my programming skills in HTML JavaScript CSS.</p>
     `;
 
-const window2 = createWindow("window2", "World", "75px", "75px", "200px", "300px", false);
+const window2 = createWindow("window2", "World", "75px", "75px", "200px", "300px", WINMASK_MOVABLE);
 window2.innerHTML += `<h3>New World Window</h3>
     <p>A new world is happening. Stay tuned.</p>`;
 
-const window3 = createWindow("window3", "TopMost", "125px", "125px", "200px", "300px", false);
+const window3 = createWindow("window3", "TopMost", "125px", "125px", "200px", "300px", WINMASK_MOVABLE);
 window3.innerHTML += `<h3>Bring on top</h3>
         <p>To bring a window to front click inside.</p>`;
 
 
-const window4 = createWindow("window4", "Dancing", "175px", "175px", "200px", "300px", true);
+const window4 = createWindow("window4", "Dancing", "175px", "175px", "200px", "300px", WINMASK_MOVABLE | WINMASK_CLOSABLE);
 window4.innerHTML += `
     <h3>Dancing windows</h3>
     <p>Now windows can be moved with mouse with a click inside title bar.</p>`;
 
-const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", true);
+const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", WINMASK_CLOSABLE);
 window5.innerHTML += `
+    <h3>A static window not movable.</h3>
     <h3>Click <i class="fa-regular fa-face-smile-wink"></i></h3>
     <p id="demo">Click button below to change color</p>
     <button onclick="changeColor()">Click me</button>`;

@@ -13,6 +13,7 @@ body {
     position: relative;
     width: 100vw;
     height: calc(100vh - 2 * 1.6em);
+    overflow: hidden;
 }
 
 header,
@@ -210,5 +211,25 @@ footer {
     position: absolute;
     background-color: darkgray;
     border: 1px solid black;
+    box-shadow: 0 0 30px rgba(0,0,0,5);
+}
+
+/* Default static window frame decoration */
+
+.staticwindowframe {
+    position: absolute;
+    background-color: darkgray;
+    border: 6px solid black;
+}
+
+.staticwindowframe:before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    z-index: -1;
+    border: 2px solid white;
     box-shadow: 0 0 30px rgba(0,0,0,5);
 }
