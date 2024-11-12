@@ -26,16 +26,17 @@ footer {
     width: 100vw;
 
     background-color: white;
-    box-shadow: 0 0 30px rgba(0,0,0,5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
 }
 
 /* Menu items styles */
 
-@keyframes movemenu{
+@keyframes movemenu {
     0% {
         transform-origin: left top;
         transform: scaleY(0)
     }
+
     100% {
         transform-origin: left top;
         transform: scaleY(1);
@@ -51,7 +52,8 @@ footer {
     font-family: "Open Sans", sans-serif;
     font-size: 1em;
     font-weight: 500;
-    margin-top: auto;    /* Vertical center */
+    margin-top: auto;
+    /* Vertical center */
     margin-bottom: auto;
     user-select: none;
 }
@@ -59,16 +61,14 @@ footer {
 #menuearthframe,
 #menuconfigframe,
 #menuviewframe,
-#menuaboutframe
-{
+#menuaboutframe {
     position: relative;
 }
 
 #earthbox,
 #configbox,
 #viewbox,
-#aboutbox
-{
+#aboutbox {
     display: none;
     position: absolute;
     top: 1.5em;
@@ -89,7 +89,7 @@ footer {
         10px 0px 10px -10px rgba(0, 0, 0, 0.5),
         /* Right shadow */
         0px 10px 10px -10px rgba(0, 0, 0, 0.5);
-        /* Bottom shadow */
+    /* Bottom shadow */
 }
 
 .menuitem {
@@ -164,16 +164,16 @@ footer {
     top: calc(50% - 1px);
 }
 
-.windowbarclose:before{
-    -webkit-transform:rotate(45deg);
-    -moz-transform:rotate(45deg);
-    transform:rotate(45deg);
+.windowbarclose:before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
-.windowbarclose:after{
-    -webkit-transform:rotate(-45deg);
-    -moz-transform:rotate(-45deg);
-    transform:rotate(-45deg);
+.windowbarclose:after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
 .windowtitleframe {
@@ -211,7 +211,7 @@ footer {
     position: absolute;
     background-color: darkgray;
     border: 1px solid black;
-    box-shadow: 0 0 30px rgba(0,0,0,5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
 }
 
 /* Default static window frame decoration */
@@ -231,5 +231,44 @@ footer {
     bottom: -4px;
     z-index: -1;
     border: 2px solid white;
-    box-shadow: 0 0 30px rgba(0,0,0,5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
+}
+
+/* A button style with old school style */
+button {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    border: 2px solid black;
+    padding: 5px 15px;
+    border-radius: 50vh;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: darkgray;
+}
+
+.hidden {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.margincontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    position: relative;
+}
+
+.top {
+    text-align: left;
+}
+
+.bottom {
+    text-align: center;
 }

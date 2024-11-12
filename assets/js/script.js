@@ -106,8 +106,11 @@ const WINMASK_RESIZABLE = 2;
 const WINMASK_MOVABLE = 4;
 
 function createWindow(id, title, posx, posy, width, height, winmask = 0) {
-    const div = document.createElement('div');
+    const background = document.getElementById('background');
+    const clientWidth = background.getBoundingClientRect().width;
+    const clientHeight = background.getBoundingClientRect().height;
 
+    const div = document.createElement('div');
     if (winmask & WINMASK_MOVABLE) {
         div.className = 'windowframe';
         div.appendChild(addWindowFrame(title, winmask & WINMASK_CLOSABLE));
@@ -117,12 +120,12 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
 
     div.style.zIndex = getMaxZIndex() + 1;
 
-    div.style.left = posx;
-    div.style.top = posy;
-    div.style.width = width;
-    div.style.height = height;
+    div.style.left = posx + "px";
+    div.style.top = posy + "px";
+    div.style.width = width + "px";
+    div.style.height = height + "px";
 
-    document.getElementById('background').appendChild(div);
+    background.appendChild(div);
 
     windowList.push(div);
 
@@ -134,6 +137,22 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
         });
     }
 
+    const windowWidth = div.getBoundingClientRect().width;
+    const windowHeight = div.getBoundingClientRect().height;
+
+    if (!(winmask & WINMASK_MOVABLE)) {
+        /* Place unmovable window at the center of background area */
+        div.style.left = ((clientWidth - windowWidth) / 2) + "px";
+        div.style.top = ((clientHeight - windowHeight) / 2) + "px";
+    } else {
+        /* Ensure the full window size is in background area */
+        if ((div.getBoundingClientRect().top + windowHeight) > clientHeight)
+            div.style.top = (clientHeight - windowHeight) + "px";
+
+        if ((div.getBoundingClientRect().left + windowWidth) > clientWidth)
+            div.style.left = (clientWidth - windowWidth) + "px";
+    }
+
     div.addEventListener("mousedown", (event) => {
         const background = document.getElementById('background');
 
@@ -143,9 +162,6 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
         let shiftX = event.pageX - div.getBoundingClientRect().left;
         let shiftY = event.pageY - div.getBoundingClientRect().top
             + document.getElementById('mainmenu').getBoundingClientRect().height;
-
-        let width = div.getBoundingClientRect().width;
-        let height = div.getBoundingClientRect().height;
 
         bringWindowTopmost(div);
 
@@ -296,9 +312,12 @@ let origY = 50;
 var menuNewWindow = document.getElementById("menuNewWindow");
 menuNewWindow.addEventListener("click", () => {
     adjustMenuStates(-1);
+
     let width = Math.floor((Math.random() * 300) + 300);
     let height = Math.floor((Math.random() * 400) + 200);
-    let newWin = createWindow("newone", "New " + winid, origX + "px", origY + "px", width + "px", height + "px", WINMASK_MOVABLE | WINMASK_CLOSABLE);
+
+    let newWin = createWindow("newone", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+
     newWin.innerHTML += "<h3>New window size " + width + "x" + height + "</h3>";
 
     newSystemStatus("Window " + winid + " Created.");
@@ -376,8 +395,27 @@ menuTurnTransition.addEventListener("click", () => {
 });
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
+let aboutEarthSystemOpened = false;
 menuEarthSystem.addEventListener("click", () => {
     adjustMenuStates(-1);
+
+    if (!aboutEarthSystemOpened) {
+        aboutEarthSystemOpened = true;
+        let newWin = createWindow("newone", "About Earth System", 0, 0, 350, 400, 0);
+
+        let aboutbox = document.getElementById("aboutearthsystem");
+        newWin.innerHTML += aboutbox.outerHTML;
+        newWin.firstChild.style.display = "block";
+
+        function closeAboutBox() {
+            aboutEarthSystemOpened = false;
+            newWin.style.display = "none";
+            newWin.innerHTML = "";
+            document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
+        }
+
+        document.getElementById("closeaboutearthsystem").addEventListener("click", closeAboutBox);
+    }
 });
 
 var menuLogout = document.getElementById("menulogout");
@@ -400,27 +438,27 @@ footerFrame.addEventListener("click", () => {
 
 /* Add 5 window to desktop */
 
-const window1 = createWindow("window1", "Hello", "25px", "25px", "200px", "300px", WINMASK_MOVABLE);
+const window1 = createWindow("window1", "Hello", 25, 25, 200, 300, WINMASK_MOVABLE);
 window1.innerHTML += `
     <h3>Hello World !!</h3>
     <p>This little window demo show you my programming skills in HTML JavaScript CSS.</p>
     `;
 
-const window2 = createWindow("window2", "World", "75px", "75px", "200px", "300px", WINMASK_MOVABLE);
+const window2 = createWindow("window2", "World", 75, 75, 200, 300, WINMASK_MOVABLE);
 window2.innerHTML += `<h3>New World Window</h3>
     <p>A new world is happening. Stay tuned.</p>`;
 
-const window3 = createWindow("window3", "TopMost", "125px", "125px", "200px", "300px", WINMASK_MOVABLE);
+const window3 = createWindow("window3", "TopMost", 125, 125, 200, 300, WINMASK_MOVABLE);
 window3.innerHTML += `<h3>Bring on top</h3>
         <p>To bring a window to front click inside.</p>`;
 
 
-const window4 = createWindow("window4", "Dancing", "175px", "175px", "200px", "300px", WINMASK_MOVABLE | WINMASK_CLOSABLE);
+const window4 = createWindow("window4", "Dancing", 175, 175, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 window4.innerHTML += `
     <h3>Dancing windows</h3>
     <p>Now windows can be moved with mouse with a click inside title bar.</p>`;
 
-const window5 = createWindow("window5", "Third", "225px", "225px", "200px", "300px", WINMASK_CLOSABLE);
+const window5 = createWindow("window5", "Third", 225, 225, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 window5.innerHTML += `
     <h3>A static window not movable.</h3>
     <h3>Click <i class="fa-regular fa-face-smile-wink"></i></h3>
