@@ -428,8 +428,7 @@ menuEarthSystem.addEventListener("click", () => {
 
         let aboutbox = document.getElementById("aboutearthsystem");
         newWin.innerHTML += aboutbox.outerHTML;
-        newWin.firstChild.style.display = "block";
-
+        
         function closeAboutBox() {
             aboutEarthSystemOpened = false;
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);

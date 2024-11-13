@@ -255,10 +255,24 @@ button:hover {
     background-color: darkgray;
 }
 
-.hidden {
+/* Used to hide HTML resources used in windows */
+
+.hiddenResources {
     display: none;
-    width: 100%;
-    height: 100%;
+}
+
+/* About the earth system css */
+
+.title {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: maroon;
+}
+
+.text {
+    font-size: 1em;
+    font-weight: 500;
+    color: darkorange;
 }
 
 .margincontainer {
