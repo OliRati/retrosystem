@@ -116,7 +116,20 @@ function removeWindow(win) {
     }
 }
 
-/* Create a new window on top of others */
+/* Create a new window on top of others
+ *-------------------------------------------------
+ * id             id of dom element to bring into window at creation
+ *                or 0 for custom drawn content
+ * title          Title of window
+ * poxx, poxy     Position relative to background area of new window
+ * width, height  width and height of new window
+ * winmask        Creation mask for window type
+ *                  WINMASK_CLOSABLE         A window with a close button in title bar
+ *                  WINMASK_MOVABLE          A window with a title bar to move it on background 
+ *                  const WINMASK_RESIZABLE  A resizable window ( not implemented yet )
+ * 
+ * return the element newly creted in the DOM
+ */
 
 function createWindow(id, title, posx, posy, width, height, winmask = 0) {
     const background = document.getElementById('background');
@@ -140,8 +153,22 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
 
     background.appendChild(div);
 
+    if (id) {
+        let content = document.getElementById(id);
+        if (content) {
+            div.innerHTML += content.outerHTML;
+        }
+        else {
+            div.innerHTML += `
+                <div class="margincontainer">
+                    <p class="error">Error id="` + id + `' Undefined in DOM.</p>
+                </div>`;
+        }
+    }
+
     windowList.push(div);
 
+    /*
     var windowbars = div.getElementsByClassName("windowbar");
     if (windowbars.length === 1) {
         windowbars[0].addEventListener('click', (event) => {
@@ -149,15 +176,16 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
             console.dir(event);
         });
     }
+    */
 
     if (winmask & WINMASK_CLOSABLE) {
         const closebtn = div.getElementsByClassName("windowbarclose");
         if (closebtn.length === 1) {
             closebtn[0].addEventListener('click', () => {
-                console.log("close button");
+                console.log("Here");
+                removeWindow(div);
             });
         }
-
     }
 
     const windowWidth = div.getBoundingClientRect().width;
@@ -339,13 +367,19 @@ menuNewWindow.addEventListener("click", () => {
     let width = Math.floor((Math.random() * 300) + 300);
     let height = Math.floor((Math.random() * 400) + 200);
 
-    let newWin = createWindow("newone", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+    let newWin = createWindow("newWindow", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
-    newWin.innerHTML += "<h3>New window size " + width + "x" + height + "</h3>";
+    let content = newWin.getElementsByClassName("margincontainer");
+    if (content.length>0) {
+        content[0].innerHTML = `
+            <p class="title">New window size ` + width + `x` + height + `</h3>
+            `;
+    }
 
     newSystemStatus("Window " + winid + " Created.");
+
     origX += 30;
-    origY += 25;
+    origY += 30;
     if (origX > 400) {
         origX = 50;
         origY = 50;
@@ -424,11 +458,8 @@ menuEarthSystem.addEventListener("click", () => {
 
     if (!aboutEarthSystemOpened) {
         aboutEarthSystemOpened = true;
-        let newWin = createWindow("newone", "About Earth System", 0, 0, 350, 400, 0);
+        let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0);
 
-        let aboutbox = document.getElementById("aboutearthsystem");
-        newWin.innerHTML += aboutbox.outerHTML;
-        
         function closeAboutBox() {
             aboutEarthSystemOpened = false;
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
@@ -459,33 +490,20 @@ footerFrame.addEventListener("click", () => {
 
 /* Add 5 window to desktop */
 
-const window1 = createWindow("window1", "Hello", 25, 25, 200, 300, WINMASK_MOVABLE);
-window1.innerHTML += `
-    <h3>Hello World !!</h3>
-    <p>This little window demo show you my programming skills in HTML JavaScript CSS.</p>
-    `;
+const window1 = createWindow("helloWindow", "Hello", 25, 25, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
-const window2 = createWindow("window2", "World", 75, 75, 200, 300, WINMASK_MOVABLE);
-window2.innerHTML += `<h3>New World Window</h3>
-    <p>A new world is happening. Stay tuned.</p>`;
+const window2 = createWindow("worldWindow", "World", 75, 75, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
-const window3 = createWindow("window3", "TopMost", 125, 125, 200, 300, WINMASK_MOVABLE);
-window3.innerHTML += `<h3>Bring on top</h3>
-        <p>To bring a window to front click inside.</p>`;
+const window3 = createWindow("topMostWindow", "TopMost", 125, 125, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
+const window4 = createWindow("dancingWindow", "Dancing", 175, 175, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
-const window4 = createWindow("window4", "Dancing", 175, 175, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
-window4.innerHTML += `
-    <h3>Dancing windows</h3>
-    <p>Now windows can be moved with mouse with a click inside title bar.</p>`;
+const window5 = createWindow("unknowntest", "Error", 225, 225, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
-const window5 = createWindow("window5", "Third", 225, 225, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
-window5.innerHTML += `
-    <h3>A Click window <i class="fa-regular fa-face-smile-wink"></i></h3>
-    <p id="demo">Click button below to change color</p>
-    <button onclick="changeColor()">Click me</button>`;
+/* Click Window creation and interface for Click me button */
 
-/* Window Click me function */
+const window6 = createWindow("clickWindow", "Third", 275, 275, 200, 300, WINMASK_MOVABLE);
+
 let color = 0;
 function changeColor() {
     color++;
@@ -497,4 +515,8 @@ function changeColor() {
         color = 0;
         document.getElementById("demo").style.color = 'blue';
     }
+}
+
+function exitClickWindow() {
+    removeWindow(window6)
 }

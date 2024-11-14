@@ -218,6 +218,7 @@ footer {
     background-color: darkgray;
     border: 1px solid black;
     box-shadow: 0 0 30px rgba(0, 0, 0, 5);
+    overflow: hidden;
 }
 
 /* Default static window frame decoration */
@@ -266,16 +267,23 @@ button:hover {
 .title {
     font-size: 1.2em;
     font-weight: 700;
-    color: maroon;
+    color: black;
 }
 
 .text {
     font-size: 1em;
     font-weight: 500;
-    color: darkorange;
+    color: black;
 }
 
-.margincontainer {
+.error {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: crimson
+}
+
+/* Static Window container with bottom buttons */
+.marginflexcontainer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -283,6 +291,7 @@ button:hover {
     width: calc(100% - 10px);
     height: calc(100% - 10px);
     position: relative;
+    overflow: hidden;
 }
 
 .top {
@@ -291,4 +300,13 @@ button:hover {
 
 .bottom {
     text-align: center;
+}
+
+/* Standard Window container */
+.margincontainer {
+    margin: 5px;
+    width: calc(100% - 10px);
+    height: calc(100% - 1.5em - 11px);
+    position: relative;
+    overflow: hidden;
 }
