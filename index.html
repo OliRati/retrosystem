@@ -61,6 +61,7 @@
                 <div id="viewbox" class="menushadow">
                     <p id="menuShowPlaylist" class="menuitem">Show playlist</p>
                     <p id="menuNewWindow" class="menuitem">New window</p>
+                    <p id="menuViewCalculator" class="menuitem">Calculator</p>
                 </div>
             </div>
             <div id="menuaboutframe">
@@ -88,7 +89,7 @@
     <div class="hiddenResources">
 
         <div class="margincontainer" id="newWindow">
-            <p class="title">New window</p>    
+            <p class="title">New window</p>
         </div>
 
         <div class="marginflexcontainer" id="aboutearthsystem">
@@ -133,6 +134,44 @@
             <button onclick="exitClickWindow()">Exit</button>
         </div>
 
+        <div class="margincontainer" id="calculatorWindow">
+
+            <div class="calclcd">0.0</div>
+            <div class="calckeypad">
+                <div class="shortbuttonlinev">
+                    <div class="shortbuttonline">
+                        <div class="smallbutton">C</div>
+                        <div class="smallbutton">=</div>
+                        <div class="smallbutton">/</div>
+                    </div>
+                    <div class="shortbuttonline">
+                        <div class="smallbutton">7</div>
+                        <div class="smallbutton">8</div>
+                        <div class="smallbutton">9</div>
+                    </div>
+                    <div class="shortbuttonline">
+                        <div class="smallbutton">4</div>
+                        <div class="smallbutton">5</div>
+                        <div class="smallbutton">6</div>
+                    </div>
+                    <div class="shortbuttonline">
+                        <div class="smallbutton">1</div>
+                        <div class="smallbutton">2</div>
+                        <div class="smallbutton">3</div>
+                    </div>
+                    <div class="shortbuttonline">
+                        <div class="smallbutton bigbuttonh">0</div>
+                        <div class="smallbutton">.</div>
+                    </div>
+                </div>
+                <div class="lastline">
+                    <div class="smallbutton">*</div>
+                    <div class="smallbutton">-</div>
+                    <div class="smallbutton">+</div>
+                    <div class="smallbutton bigbuttonv">=</div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

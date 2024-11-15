@@ -126,12 +126,15 @@ function removeWindow(win) {
  * winmask        Creation mask for window type
  *                  WINMASK_CLOSABLE         A window with a close button in title bar
  *                  WINMASK_MOVABLE          A window with a title bar to move it on background 
- *                  const WINMASK_RESIZABLE  A resizable window ( not implemented yet )
+ *                  const WINMASK_RESIZABLE  A resizable window ( not implemented yet ) 
+ * 
+ * onCloseWindow  Function called when the window is close by the title bar cross icon
+ *                if function return true, closing is allowed, otherwise disabled
  * 
  * return the element newly creted in the DOM
  */
 
-function createWindow(id, title, posx, posy, width, height, winmask = 0) {
+function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CLOSABLE | WINMASK_MOVABLE, onCloseWindow = () => { return true }) {
     const background = document.getElementById('background');
     const clientWidth = background.getBoundingClientRect().width;
     const clientHeight = background.getBoundingClientRect().height;
@@ -182,8 +185,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = 0) {
         const closebtn = div.getElementsByClassName("windowbarclose");
         if (closebtn.length === 1) {
             closebtn[0].addEventListener('click', () => {
-                console.log("Here");
-                removeWindow(div);
+                if (onCloseWindow())
+                    removeWindow(div);
             });
         }
     }
@@ -370,9 +373,9 @@ menuNewWindow.addEventListener("click", () => {
     let newWin = createWindow("newWindow", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
     let content = newWin.getElementsByClassName("margincontainer");
-    if (content.length>0) {
+    if (content.length > 0) {
         content[0].innerHTML = `
-            <p class="title">New window size ` + width + `x` + height + `</h3>
+            <p class="title">New window size ` + width + `x` + height + `</p>
             `;
     }
 
@@ -385,6 +388,35 @@ menuNewWindow.addEventListener("click", () => {
         origY = 50;
     }
     winid++;
+});
+
+let calculatorShown = false;
+var menuViewCalculator = document.getElementById("menuViewCalculator");
+menuViewCalculator.addEventListener("click", () => {
+    adjustMenuStates(-1);
+
+    function onCloseCalculator() {
+        calculatorShown = false;
+        return true;
+    }
+
+    if (!calculatorShown) {
+        let newWin = createWindow("calculatorWindow", "Calculator",
+            origX, origY, 290, 430,
+            WINMASK_MOVABLE | WINMASK_CLOSABLE,
+            onCloseCalculator
+        );
+
+        newSystemStatus("Opening calculator...");
+
+        origX += 30;
+        origY += 30;
+        if (origX > 400) {
+            origX = 50;
+            origY = 50;
+        }
+        calculatorShown = true;
+    }
 });
 
 var menuCoche = [
