@@ -350,44 +350,55 @@ menuAbout.addEventListener("click", () => {
     adjustMenuStates(3);
 });
 
-let windowShown = false;
-var menuShowPlaylist = document.getElementById("menuShowPlaylist");
-
-menuShowPlaylist.addEventListener("click", () => {
-    windowShown = !windowShown;
-
-    adjustMenuStates(-1);
-});
-
-let winid = 0;
+/* Startup position for new window without position */
 let origX = 50;
 let origY = 50;
 
-var menuNewWindow = document.getElementById("menuNewWindow");
-menuNewWindow.addEventListener("click", () => {
-    adjustMenuStates(-1);
-
-    let width = Math.floor((Math.random() * 300) + 300);
-    let height = Math.floor((Math.random() * 400) + 200);
-
-    let newWin = createWindow("newWindow", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
-
-    let content = newWin.getElementsByClassName("margincontainer");
-    if (content.length > 0) {
-        content[0].innerHTML = `
-            <p class="title">New window size ` + width + `x` + height + `</p>
-            `;
-    }
-
-    newSystemStatus("Window " + winid + " Created.");
-
+function nextWindowPos() {
     origX += 30;
     origY += 30;
     if (origX > 400) {
         origX = 50;
         origY = 50;
     }
-    winid++;
+}
+
+let debugShown = false;
+var menuShowDebug = document.getElementById("menuShowDebug");
+menuShowDebug.addEventListener("click", () => {
+    function onCloseWindow() {
+        debugShown = false;
+        return true;
+    }
+
+    if (!debugShown) {
+        debugShown = true;
+        let newWin = createWindow("debugWindow", "Debugging", origX, origY, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        nextWindowPos();
+    }
+    adjustMenuStates(-1);
+});
+
+let winid = 0;
+
+let helpShown = false;
+var menuHelp = document.getElementById("menuHelp");
+menuHelp.addEventListener("click", () => {
+    adjustMenuStates(-1);
+
+    function onCloseWindow() {
+        helpShown = false;
+        return true;
+    }
+
+    if (!helpShown) {
+        helpShown = true;
+        let newWin = createWindow("helpWindow", "Help", origX, origY, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        newSystemStatus("Help opened.");
+
+        nextWindowPos();
+        winid++;
+    }
 });
 
 let calculatorShown = false;
@@ -661,19 +672,15 @@ footerFrame.addEventListener("click", () => {
         adjustMenuStates(-1);
 });
 
-/* Add 5 window to desktop */
+/* Add window to desktop */
 
-const window1 = createWindow("helloWindow", "Hello", 25, 25, 200, 300);
+const window1 = createWindow("helloWindow", "Hello", 25, 25, 250, 350);
 
-const window2 = createWindow("worldWindow", "World", 75, 75, 200, 300);
+const window2 = createWindow("worldWindow", "World", 75, 75, 250, 350);
 
-const window3 = createWindow("topMostWindow", "TopMost", 125, 125, 200, 300);
+/* ClickMe Window creation and interface for Click me button */
 
-const window4 = createWindow("dancingWindow", "Dancing", 175, 175, 200, 300);
-
-/* Click Window creation and interface for Click me button */
-
-const window6 = createWindow("clickWindow", "Third", 225, 225, 200, 300, WINMASK_MOVABLE);
+const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK_MOVABLE);
 
 let color = 0;
 function changeColor() {
@@ -690,4 +697,25 @@ function changeColor() {
 
 function exitClickWindow() {
     removeWindow(window6)
+}
+
+/* Debugging tools */
+
+function debugAddNewWindow() {
+    let width = Math.floor((Math.random() * 300) + 300);
+    let height = Math.floor((Math.random() * 400) + 200);
+
+    let newWin = createWindow("newWindow", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+
+    let content = newWin.getElementsByClassName("margincontainer");
+    if (content.length > 0) {
+        content[0].innerHTML = `
+        <p class="title">New window size ` + width + `x` + height + `</p>
+        `;
+    }
+
+    newSystemStatus("Window " + winid + " Created.");
+
+    nextWindowPos();
+    winid++;
 }

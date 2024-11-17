@@ -59,8 +59,8 @@
                     View
                 </p>
                 <div id="viewbox" class="menushadow">
-                    <p id="menuShowPlaylist" class="menuitem">Show playlist</p>
-                    <p id="menuNewWindow" class="menuitem">New window</p>
+                    <p id="menuShowDebug" class="menuitem">Debugging tools</p>
+                    <p id="menuHelp" class="menuitem">Help</p>
                     <p id="menuViewCalculator" class="menuitem">Calculator</p>
                 </div>
             </div>
@@ -108,34 +108,31 @@
         </div>
 
         <div class="margincontainer" id="helloWindow">
-            <h3>Hello World !!</h3>
-            <p>This little window demo show you my programming skills in HTML JavaScript CSS.</p>
+            <p class="title">Hello World !!</p>
+            <p class="paragraph">This little window demo show you my programming skills in HTML JavaScript CSS.</p>
         </div>
 
         <div class="margincontainer" id="worldWindow">
-            <h3>New World Window</h3>
-            <p>A new world is happening. Stay tuned.</p>
+            <p class="title">New World Window</p>
+            <p class="paragraph">A new world is happening. Stay tuned.</p>
         </div>
 
-        <div class="margincontainer" id="topMostWindow">
-            <h3>Bring on top</h3>
-            <p>To bring a window to front click inside.</p>
+        <div class="margincontainer" id="helpWindow">
+            <p class="title">Help with windows</p>
+            <p class="paragraph">Close a window by clicking the cross in the title bar (if available).</p>
+            <p class="paragraph">Move a window with the mouse by a click and drag inside the title bar.</p>
+            <p class="paragraph">Bring on top a window by a click inside window area.</p>
+            <p class="paragraph">A system window appear in the center and can't be moved.</p>
         </div>
 
-        <div class="margincontainer" id="dancingWindow">
-            <h3>Dancing windows</h3>
-            <p>Now windows can be moved with mouse with a click inside title bar.</p>
-        </div>
-
-        <div class="margincontainer" id="clickWindow">
-            <h3>A Click window <i class="fa-regular fa-face-smile-wink"></i></h3>
+        <div class="margincontainer" id="clickmeWindow">
+            <p class="title">A Click window <i class="fa-regular fa-face-smile-wink"></i></p>
             <p id="demo">Click button below to change color</p>
             <button onclick="changeColor()">Click me</button>
             <button onclick="exitClickWindow()">Exit</button>
         </div>
 
         <div class="margincontainer" id="calculatorWindow">
-
             <div class="calclcd" id="calcLcd">0</div>
             <div class="calckeypad">
                 <div class="shortbuttonlinev">
@@ -170,6 +167,24 @@
                     <div class="smallbutton" id="calcAdd">+</div>
                     <div class="smallbutton bigbuttonv" id="calcEval">=</div>
                 </div>
+            </div>
+        </div>
+
+        <div class="margincontainer" id="debugWindow">
+            <p class="title">Debug tools</p>
+            <div class="boxed">
+                <form id="newwindowform">
+                    <div>
+                        <textarea name="newwindowtitle" id="newwindowtitle" placeholder="New window title"></textarea>
+                    </div>
+                    <div>
+                        <textarea name="newwindpwcontent" id="newwindowcontent"
+                            placeholder="New window content"></textarea>
+                    </div>
+                    <div>
+                        <input type="button" value="Create Window" onclick="debugAddNewWindow()">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
