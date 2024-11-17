@@ -324,6 +324,7 @@ button:hover {
     font-size: 2em;
     background-color: lightgreen;
     color: darkgreen;
+    overflow: hidden;
 }
 
 .calckeypad {
@@ -354,6 +355,10 @@ button:hover {
     font-size: 2em;
     margin: 5px;
     user-select: none;
+}
+
+.smallbutton:hover {
+    background-color: darkgray;
 }
 
 .bigbuttonh {

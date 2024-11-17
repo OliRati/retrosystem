@@ -407,6 +407,147 @@ menuViewCalculator.addEventListener("click", () => {
             onCloseCalculator
         );
 
+        /* Initialize keypad interactions */
+
+        let operator = "";
+        let valueLast = "";
+        let value = "";
+
+        function updateLcdDisplay(val) {
+            if (val != "")
+                document.getElementById("calcLcd").innerText = val;
+            else
+                document.getElementById("calcLcd").innerText = "0";
+        }
+
+        document.getElementById("calcClear").addEventListener('click', () => {
+            valueLast = "";
+            operator = "";
+            value = "";
+            updateLcdDisplay("");
+        });
+
+        document.getElementById("calcPercent").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + "(" + value + "/100)");
+            }
+            valueLast = "";
+            operator = "";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calcDivide").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + value);
+            }
+            valueLast = value;
+            operator = "/";
+            value = "";
+            updateLcdDisplay(valueLast);
+        });
+
+        document.getElementById("calcMutiply").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + value);
+            }
+            valueLast = value;
+            operator = "*";
+            value = "";
+            updateLcdDisplay(valueLast);
+        });
+
+        document.getElementById("calcSubstract").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + value);
+            }
+            valueLast = value;
+            operator = "-";
+            value = "";
+            updateLcdDisplay(valueLast);
+        });
+
+        document.getElementById("calcAdd").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + value);
+            }
+            valueLast = value;
+            operator = "+";
+            value = "";
+            updateLcdDisplay(valueLast);
+        });
+
+        document.getElementById("calcEval").addEventListener('click', () => {
+            if (operator) {
+                value = eval(valueLast + operator + value);
+            }
+            valueLast = "";
+            operator = "";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc0").addEventListener('click', () => {
+            if (value != "") {
+                value += "0";
+                updateLcdDisplay(value);
+            }
+        });
+
+        document.getElementById("calc1").addEventListener('click', () => {
+            value += "1";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc2").addEventListener('click', () => {
+            value += "2";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc3").addEventListener('click', () => {
+            value += "3";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc4").addEventListener('click', () => {
+            value += "4";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc5").addEventListener('click', () => {
+            value += "5";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc6").addEventListener('click', () => {
+            value += "6";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc7").addEventListener('click', () => {
+            value += "7";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc8").addEventListener('click', () => {
+            value += "8";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calc9").addEventListener('click', () => {
+            value += "9";
+            updateLcdDisplay(value);
+        });
+
+        document.getElementById("calcDecimal").addEventListener('click', () => {
+            if (value != "") {
+                value += ".";
+                updateLcdDisplay(value);
+            }
+            else {
+                value += "0.";
+                updateLcdDisplay(value);
+            }
+        });
+
         newSystemStatus("Opening calculator...");
 
         origX += 30;
@@ -522,19 +663,17 @@ footerFrame.addEventListener("click", () => {
 
 /* Add 5 window to desktop */
 
-const window1 = createWindow("helloWindow", "Hello", 25, 25, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+const window1 = createWindow("helloWindow", "Hello", 25, 25, 200, 300);
 
-const window2 = createWindow("worldWindow", "World", 75, 75, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+const window2 = createWindow("worldWindow", "World", 75, 75, 200, 300);
 
-const window3 = createWindow("topMostWindow", "TopMost", 125, 125, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+const window3 = createWindow("topMostWindow", "TopMost", 125, 125, 200, 300);
 
-const window4 = createWindow("dancingWindow", "Dancing", 175, 175, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
-
-const window5 = createWindow("unknowntest", "Error", 225, 225, 200, 300, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+const window4 = createWindow("dancingWindow", "Dancing", 175, 175, 200, 300);
 
 /* Click Window creation and interface for Click me button */
 
-const window6 = createWindow("clickWindow", "Third", 275, 275, 200, 300, WINMASK_MOVABLE);
+const window6 = createWindow("clickWindow", "Third", 225, 225, 200, 300, WINMASK_MOVABLE);
 
 let color = 0;
 function changeColor() {
