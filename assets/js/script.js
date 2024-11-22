@@ -439,61 +439,78 @@ menuViewCalculator.addEventListener("click", () => {
         });
 
         document.getElementById("calcPercent").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + "(" + value + "/100)");
+            if (value) {
+                if (operator) {
+                    let newvalue = eval(valueLast + operator + "(" + value + "/100)");
+                    value = newvalue.toString();
+                }
+                valueLast = "";
+                operator = "";
+                updateLcdDisplay(value);
             }
-            valueLast = "";
-            operator = "";
-            updateLcdDisplay(value);
         });
 
         document.getElementById("calcDivide").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + value);
+            if (value) {
+                if (operator) {
+                    let newvalue = eval(valueLast + operator + value);
+                    value = newvalue.toString();
+                }
+                valueLast = value;
+                operator = "/";
+                value = "";
+                updateLcdDisplay(valueLast);
             }
-            valueLast = value;
-            operator = "/";
-            value = "";
-            updateLcdDisplay(valueLast);
         });
 
         document.getElementById("calcMutiply").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + value);
+            if (value) {
+                if (operator) {
+                    let newvalue = eval(valueLast + operator + value);
+                    value = newvalue.toString();
+                }
+                valueLast = value;
+                operator = "*";
+                value = "";
+                updateLcdDisplay(valueLast);
             }
-            valueLast = value;
-            operator = "*";
-            value = "";
-            updateLcdDisplay(valueLast);
         });
 
         document.getElementById("calcSubstract").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + value);
+            if (value) {
+                if (operator) {
+                    value = num.toString((valueLast + operator + value));
+                }
+                valueLast = value;
+                operator = "-";
+                value = "";
+                updateLcdDisplay(valueLast);
             }
-            valueLast = value;
-            operator = "-";
-            value = "";
-            updateLcdDisplay(valueLast);
         });
 
         document.getElementById("calcAdd").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + value);
+            if (value) {
+                if (operator) {
+                    let newvalue = eval(valueLast + operator + value);
+                    value = newvalue.toString();
+                }
+                valueLast = value;
+                operator = "+";
+                value = "";
+                updateLcdDisplay(valueLast);
             }
-            valueLast = value;
-            operator = "+";
-            value = "";
-            updateLcdDisplay(valueLast);
         });
 
         document.getElementById("calcEval").addEventListener('click', () => {
-            if (operator) {
-                value = eval(valueLast + operator + value);
+            if (value) {
+                if (operator) {
+                    let newvalue = eval(valueLast + operator + value);
+                    value = newvalue.toString();
+                }
+                valueLast = "";
+                operator = "";
+                updateLcdDisplay(value);
             }
-            valueLast = "";
-            operator = "";
-            updateLcdDisplay(value);
         });
 
         document.getElementById("calc0").addEventListener('click', () => {
@@ -550,8 +567,10 @@ menuViewCalculator.addEventListener("click", () => {
 
         document.getElementById("calcDecimal").addEventListener('click', () => {
             if (value != "") {
-                value += ".";
-                updateLcdDisplay(value);
+                if (!value.includes('.')) {
+                    value += ".";
+                    updateLcdDisplay(value);
+                }
             }
             else {
                 value += "0.";
