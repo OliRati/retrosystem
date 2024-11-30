@@ -17,7 +17,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="./assets/css/style.css">
-    
+
     <script type="module" src="./assets/js/script.js" defer></script>
 </head>
 
@@ -129,8 +129,8 @@
         <div class="margincontainer" id="clickmeWindow">
             <p class="title">A Click window <i class="fa-regular fa-face-smile-wink"></i></p>
             <p id="demo">Click button below to change color</p>
-            <button onclick="changeColor()">Click me</button>
-            <button onclick="exitClickWindow()">Exit</button>
+            <button id="changeColorClickWindow">Click me</button>
+            <button id="exitClickWindow">Exit</button>
         </div>
 
         <div class="margincontainer" id="calculatorWindow">
@@ -174,18 +174,15 @@
         <div class="margincontainer" id="debugWindow">
             <p class="title">Debug tools</p>
             <div class="boxed">
-                <form id="newwindowform">
-                    <div>
-                        <textarea name="newwindowtitle" id="newwindowtitle" placeholder="New window title"></textarea>
-                    </div>
-                    <div>
-                        <textarea name="newwindpwcontent" id="newwindowcontent"
-                            placeholder="New window content"></textarea>
-                    </div>
-                    <div>
-                        <input type="button" value="Create Window" onclick="debugAddNewWindow()">
-                    </div>
-                </form>
+                <div>
+                    <textarea name="newwindowtitle" id="newwindowtitle" placeholder="New window title"></textarea>
+                </div>
+                <div>
+                    <textarea name="newwindpwcontent" id="newwindowcontent" placeholder="New window content"></textarea>
+                </div>
+                <div>
+                    <button id="debugAddNewWindow">Create window</button>
+                </div>
             </div>
         </div>
     </div>

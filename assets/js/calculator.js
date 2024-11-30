@@ -4,7 +4,7 @@ import {
     WINMASK_CLOSABLE,
     WINMASK_RESIZABLE,
     WINMASK_MOVABLE
-} from "./script.js";
+} from "./windows.js";
 
 let origX = -1;
 let origY = -1;
