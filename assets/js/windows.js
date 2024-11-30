@@ -2,6 +2,19 @@
  * Window creation routines
  */
 
+/* Startup position for new window without position */
+let origX = 50;
+let origY = 50;
+
+function nextWindowPos() {
+    origX += 30;
+    origY += 30;
+    if (origX > 400) {
+        origX = 50;
+        origY = 50;
+    }
+}
+
 /* The desktop background */
 const background = document.getElementById("background");
 
@@ -111,6 +124,7 @@ function removeWindow(win) {
  *                or 0 for custom drawn content
  * title          Title of window
  * poxx, poxy     Position relative to background area of new window
+ *                if posx and or posy is -1 then activete auto positionning
  * width, height  width and height of new window
  * winmask        Creation mask for window type
  *                  WINMASK_CLOSABLE         A window with a close button in title bar
@@ -137,6 +151,12 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         div.className = 'staticwindowframe';
 
     div.style.zIndex = getMaxZIndex() + 1;
+
+    if ((posx === -1) || (posy === -2)) {
+        posx = origX;
+        posy = origY;
+        nextWindowPos();
+    }
 
     div.style.left = posx + "px";
     div.style.top = posy + "px";

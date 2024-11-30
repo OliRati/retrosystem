@@ -98,19 +98,6 @@ menuAbout.addEventListener("click", () => {
     adjustMenuStates(3);
 });
 
-/* Startup position for new window without position */
-let origX = 50;
-let origY = 50;
-
-function nextWindowPos() {
-    origX += 30;
-    origY += 30;
-    if (origX > 400) {
-        origX = 50;
-        origY = 50;
-    }
-}
-
 /* Debugging tools */
 
 let debugShown = false;
@@ -121,7 +108,7 @@ menuShowDebug.addEventListener("click", () => {
         let width = Math.floor((Math.random() * 300) + 300);
         let height = Math.floor((Math.random() * 400) + 200);
 
-        let newWin = createWindow("newWindow", "New " + winid, origX, origY, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+        let newWin = createWindow("newWindow", "New " + winid, -1, -1, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
 
         let content = newWin.getElementsByClassName("margincontainer");
         if (content.length > 0) {
@@ -132,7 +119,6 @@ menuShowDebug.addEventListener("click", () => {
 
         newSystemStatus("Window " + winid + " Created.");
 
-        nextWindowPos();
         winid++;
     }
 
@@ -146,11 +132,11 @@ menuShowDebug.addEventListener("click", () => {
 
     if (!debugShown) {
         debugShown = true;
-        let newWin = createWindow("debugWindow", "Debugging", origX, origY, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        nextWindowPos();
+        let newWin = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
 
         document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
     }
+    
     adjustMenuStates(-1);
 });
 
@@ -168,10 +154,9 @@ menuHelp.addEventListener("click", () => {
 
     if (!helpShown) {
         helpShown = true;
-        let newWin = createWindow("helpWindow", "Help", origX, origY, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
         newSystemStatus("Help opened.");
 
-        nextWindowPos();
         winid++;
     }
 });
