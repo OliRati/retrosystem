@@ -6,9 +6,6 @@ import {
     WINMASK_MOVABLE
 } from "./windows.js";
 
-let origX = -1;
-let origY = -1;
-
 let calculatorShown = false;
 
 function calculatorWindow() {
@@ -197,7 +194,7 @@ function calculatorWindow() {
         }
 
         let newWin = createWindow("calculatorWindow", "Calculator",
-            origX, origY, 290, 430,
+            -1, -1, 290, 430,
             WINMASK_MOVABLE | WINMASK_CLOSABLE,
             onCloseCalculator
         );
@@ -232,12 +229,6 @@ function calculatorWindow() {
 
         newSystemStatus("Opening calculator...");
 
-        origX += 30;
-        origY += 30;
-        if (origX > 400) {
-            origX = 50;
-            origY = 50;
-        }
         calculatorShown = true;
     }
 }
