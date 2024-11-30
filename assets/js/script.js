@@ -406,39 +406,23 @@ var menuViewCalculator = document.getElementById("menuViewCalculator");
 menuViewCalculator.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    function onCloseCalculator() {
-        calculatorShown = false;
-        return true;
-    }
-
     if (!calculatorShown) {
-        let newWin = createWindow("calculatorWindow", "Calculator",
-            origX, origY, 290, 430,
-            WINMASK_MOVABLE | WINMASK_CLOSABLE,
-            onCloseCalculator
-        );
-
-        /* Initialize keypad interactions */
+        // Defines vars for calculator
 
         let operator = "";
         let valueLast = "";
         let value = "";
 
-        function updateLcdDisplay(val) {
-            if (val != "")
-                document.getElementById("calcLcd").innerText = val;
-            else
-                document.getElementById("calcLcd").innerText = "0";
-        }
+        // Defines callback functions
 
-        document.getElementById("calcClear").addEventListener('click', () => {
+        function clearMemory() {
             valueLast = "";
             operator = "";
             value = "";
             updateLcdDisplay("");
-        });
+        }
 
-        document.getElementById("calcPercent").addEventListener('click', () => {
+        function calcPercent() {
             if (value) {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + "(" + value + "/100)");
@@ -448,9 +432,9 @@ menuViewCalculator.addEventListener("click", () => {
                 operator = "";
                 updateLcdDisplay(value);
             }
-        });
+        }
 
-        document.getElementById("calcDivide").addEventListener('click', () => {
+        function calcDivide() {
             if (value) {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
@@ -461,9 +445,9 @@ menuViewCalculator.addEventListener("click", () => {
                 value = "";
                 updateLcdDisplay(valueLast);
             }
-        });
+        }
 
-        document.getElementById("calcMutiply").addEventListener('click', () => {
+        function calcMultiply() {
             if (value) {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
@@ -474,9 +458,9 @@ menuViewCalculator.addEventListener("click", () => {
                 value = "";
                 updateLcdDisplay(valueLast);
             }
-        });
+        }
 
-        document.getElementById("calcSubstract").addEventListener('click', () => {
+        function calcSubstract() {
             if (value) {
                 if (operator) {
                     value = num.toString((valueLast + operator + value));
@@ -486,9 +470,9 @@ menuViewCalculator.addEventListener("click", () => {
                 value = "";
                 updateLcdDisplay(valueLast);
             }
-        });
+        }
 
-        document.getElementById("calcAdd").addEventListener('click', () => {
+        function calcAddition() {
             if (value) {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
@@ -499,9 +483,9 @@ menuViewCalculator.addEventListener("click", () => {
                 value = "";
                 updateLcdDisplay(valueLast);
             }
-        });
+        }
 
-        document.getElementById("calcEval").addEventListener('click', () => {
+        function calcEval() {
             if (value) {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
@@ -511,61 +495,61 @@ menuViewCalculator.addEventListener("click", () => {
                 operator = "";
                 updateLcdDisplay(value);
             }
-        });
+        }
 
-        document.getElementById("calc0").addEventListener('click', () => {
+        function calcNumpad0() {
             if (value != "") {
                 value += "0";
                 updateLcdDisplay(value);
             }
-        });
+        }
 
-        document.getElementById("calc1").addEventListener('click', () => {
+        function calcNumpad1() {
             value += "1";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc2").addEventListener('click', () => {
+        function calcNumpad2() {
             value += "2";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc3").addEventListener('click', () => {
+        function calcNumpad3() {
             value += "3";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc4").addEventListener('click', () => {
+        function calcNumpad4() {
             value += "4";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc5").addEventListener('click', () => {
+        function calcNumpad5() {
             value += "5";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc6").addEventListener('click', () => {
+        function calcNumpad6() {
             value += "6";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc7").addEventListener('click', () => {
+        function calcNumpad7() {
             value += "7";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc8").addEventListener('click', () => {
+        function calcNumpad8() {
             value += "8";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calc9").addEventListener('click', () => {
+        function calcNumpad9() {
             value += "9";
             updateLcdDisplay(value);
-        });
+        }
 
-        document.getElementById("calcDecimal").addEventListener('click', () => {
+        function calcDecimal() {
             if (value != "") {
                 if (!value.includes('.')) {
                     value += ".";
@@ -576,7 +560,68 @@ menuViewCalculator.addEventListener("click", () => {
                 value += "0.";
                 updateLcdDisplay(value);
             }
-        });
+        }
+
+        function onCloseCalculator() {
+            calculatorShown = false;
+
+            // Free all event listeners
+            document.getElementById("calcClear").removeEventListener('click', clearMemory);
+            document.getElementById("calcPercent").removeEventListener('click', calcPercent);
+            document.getElementById("calcDivide").removeEventListener('click', calcDivide);
+            document.getElementById("calcMutiply").removeEventListener('click', calcMultiply);
+            document.getElementById("calcSubstract").removeEventListener('click', calcSubstract);
+            document.getElementById("calcAdd").removeEventListener('click', calcAddition);
+            document.getElementById("calcEval").removeEventListener('click', calcEval);
+            document.getElementById("calc0").removeEventListener('click', calcNumpad0);
+            document.getElementById("calc2").removeEventListener('click', calcNumpad2);
+            document.getElementById("calc1").removeEventListener('click', calcNumpad1);
+            document.getElementById("calc3").removeEventListener('click', calcNumpad3);
+            document.getElementById("calc4").removeEventListener('click', calcNumpad4);
+            document.getElementById("calc5").removeEventListener('click', calcNumpad5);
+            document.getElementById("calc6").removeEventListener('click', calcNumpad6);
+            document.getElementById("calc7").removeEventListener('click', calcNumpad7);
+            document.getElementById("calc8").removeEventListener('click', calcNumpad8);
+            document.getElementById("calc9").removeEventListener('click', calcNumpad9);
+            document.getElementById("calcDecimal").removeEventListener('click', calcDecimal);
+    
+            // Allow window to close
+            return true;
+        }
+
+        let newWin = createWindow("calculatorWindow", "Calculator",
+            origX, origY, 290, 430,
+            WINMASK_MOVABLE | WINMASK_CLOSABLE,
+            onCloseCalculator
+        );
+
+        /* Initialize keypad interactions */
+
+        function updateLcdDisplay(val) {
+            if (val != "")
+                document.getElementById("calcLcd").innerText = val;
+            else
+                document.getElementById("calcLcd").innerText = "0";
+        }
+
+        document.getElementById("calcClear").addEventListener('click', clearMemory);
+        document.getElementById("calcPercent").addEventListener('click', calcPercent);
+        document.getElementById("calcDivide").addEventListener('click', calcDivide);
+        document.getElementById("calcMutiply").addEventListener('click', calcMultiply);
+        document.getElementById("calcSubstract").addEventListener('click', calcSubstract);
+        document.getElementById("calcAdd").addEventListener('click', calcAddition);
+        document.getElementById("calcEval").addEventListener('click', calcEval);
+        document.getElementById("calc0").addEventListener('click', calcNumpad0);
+        document.getElementById("calc1").addEventListener('click', calcNumpad1);
+        document.getElementById("calc2").addEventListener('click', calcNumpad2);
+        document.getElementById("calc3").addEventListener('click', calcNumpad3);
+        document.getElementById("calc4").addEventListener('click', calcNumpad4);
+        document.getElementById("calc5").addEventListener('click', calcNumpad5);
+        document.getElementById("calc6").addEventListener('click', calcNumpad6);
+        document.getElementById("calc7").addEventListener('click', calcNumpad7);
+        document.getElementById("calc8").addEventListener('click', calcNumpad8);
+        document.getElementById("calc9").addEventListener('click', calcNumpad9);
+        document.getElementById("calcDecimal").addEventListener('click', calcDecimal);
 
         newSystemStatus("Opening calculator...");
 

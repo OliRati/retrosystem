@@ -124,7 +124,7 @@ footer {
     background-color: white;
     border-bottom: 1px solid black;
     padding: 0 1px;
-    height: 1.5em;
+    height: 23px;
     width: calc(100% - 2px);
     user-select: none;
     position: relative;
@@ -134,13 +134,12 @@ footer {
 .windowbarstart {
     margin-top: 1px;
     margin-left: 2px;
-    width: 0.7em;
-    height: 1.5em;
+    width: 10px;
 }
 
 .windowbarcube {
-    width: calc(1.5em - 6px);
-    height: calc(1.5em - 6px);
+    width: 17px;
+    height: 17px;
     margin: 2px 3px;
     border: 1px solid black;
     box-shadow: 1px 1px gray;
@@ -148,8 +147,8 @@ footer {
 
 .windowbarclose {
     position: relative;
-    width: calc(1.5em - 6px);
-    height: calc(1.5em - 6px);
+    width: 17px;
+    height: 17px;
     border: 1px solid black;
     box-shadow: 1px 1px gray;
     margin: 2px 2px 2px 3px;
@@ -193,7 +192,6 @@ footer {
 .windowbarend {
     margin-top: 1px;
     width: inherit;
-    height: 1.5em;
 }
 
 .windowtitle {
