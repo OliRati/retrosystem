@@ -67,7 +67,8 @@ function calculatorWindow() {
         function calcSubstract() {
             if (value) {
                 if (operator) {
-                    value = num.toString((valueLast + operator + value));
+                    let newvalue = eval(valueLast + operator + value);
+                    value = newvalue.toString();
                 }
                 valueLast = value;
                 operator = "-";
