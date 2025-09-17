@@ -31,3 +31,25 @@ Access a deployed version [Here](https://olirati.github.io/retrosystem/)
 - Stylish interface with retro icons and typography
 
 ## 📂 Project Structure
+
+  Retrosystem/
+  ├── index.html
+  ├── style.css
+  ├── script.js
+  ├── assets/
+  │ └── icons/
+  └── README.md
+
+## 📈 Possible Improvements
+
+- Add a notification system
+- Integrate localStorage to save the state
+- Create a task manager or an integrated mini-game
+- Enhanced accessibility (keyboard shortcuts, ARIA)
+
+## 👨‍💻 Author
+
+**olirati**
+Web & Mobile Web Developer in career transition
+
+📧 [olirati@free.fr](mailto:olirati@free.fr)
