@@ -32,13 +32,13 @@ Access a deployed version [Here](https://olirati.github.io/retrosystem/)
 
 ## 📂 Project Structure
 
-  Retrosystem/
-  ├── index.html
-  ├── style.css
-  ├── script.js
-  ├── assets/
-  │ └── icons/
-  └── README.md
+  Retrosystem/  
+  ├── index.html  
+  ├── style.css  
+  ├── script.js  
+  ├── assets/  
+  │ └── icons/  
+  └── README.md  
 
 ## 📈 Possible Improvements
 
