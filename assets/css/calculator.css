@@ -1,0 +1,56 @@
+/* Calculator CSS */
+
+.calclcd {
+    width: 80%;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin: 8px auto;
+    padding: 10px;
+    text-align: right;
+    font-size: 2rem;
+    background-color: lightgreen;
+    color: darkgreen;
+    overflow: hidden;
+}
+
+.calckeypad {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.shortbuttonline {
+    display: flex;
+}
+
+.lastline {
+    display: flex;
+    flex-direction: column;
+}
+
+.smallbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: gray;
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    margin: 5px;
+    user-select: none;
+}
+
+.smallbutton:hover {
+    background-color: darkgray;
+}
+
+.bigbuttonh {
+    width: 112px;
+}
+
+.bigbuttonv {
+    height: 112px;
+}

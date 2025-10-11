@@ -1,0 +1,38 @@
+/* About the earth system css */
+
+.boxed {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.title {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: black;
+}
+
+.text {
+    font-size: 1em;
+    font-weight: 500;
+    color: black;
+}
+
+.paragraph {
+    font-size: 1em;
+    font-weight: 500;
+    color: black;
+    margin: .5em 0;
+}
+
+.paragraph::first-letter {
+    font-weight: 700;
+    margin-left: 0.8em;
+    margin-right: 0.06em;
+}
+
+.error {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: crimson
+}

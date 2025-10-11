@@ -1,7 +1,44 @@
+@import url("./debug.css");
+@import url("./calculator.css");
+@import url("./about.css");
+
+/*Reset CSS */
+
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
+
+ul,
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(../font/Roboto-VariableFont_wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-VariableFont_wdth\,wght.ttf);
+}
+
+* {
+    font-family: roboto sans-serif;
+}
+
+/* Screen background */
 
 body {
     background-color: gray;
@@ -254,51 +291,6 @@ button:hover {
     background-color: darkgray;
 }
 
-/* Used to hide HTML resources used in windows */
-
-.hiddenResources {
-    display: none;
-}
-
-/* About the earth system css */
-
-.boxed {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.title {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: black;
-}
-
-.text {
-    font-size: 1em;
-    font-weight: 500;
-    color: black;
-}
-
-.paragraph {
-    font-size: 1em;
-    font-weight: 500;
-    color: black;
-    margin: .5em 0;
-}
-
-.paragraph::first-letter {
-    font-weight: 700;
-    margin-left: 0.8em;
-    margin-right: 0.06em;
-}
-
-.error {
-    font-size: 1.2em;
-    font-weight: 500;
-    color: crimson
-}
-
 /* Static Window container with bottom buttons */
 .marginflexcontainer {
     display: flex;
@@ -320,6 +312,7 @@ button:hover {
 }
 
 /* Standard Window container */
+
 .margincontainer {
     margin: 5px;
     width: calc(100% - 10px);
@@ -328,60 +321,8 @@ button:hover {
     overflow: hidden;
 }
 
-/* Calculator CSS */
+/* Use to hide HTML resources that could be shown at a later time */
 
-.calclcd {
-    width: 80%;
-    height: 30px;
-    border: 2px solid black;
-    border-radius: 4px;
-    margin: 8px auto;
-    padding: 10px;
-    text-align: right;
-    font-size: 2em;
-    background-color: lightgreen;
-    color: darkgreen;
-    overflow: hidden;
-}
-
-.calckeypad {
-    display: flex;
-    width: fit-content;
-    margin: 0 auto;
-}
-
-.shortbuttonline {
-    display: flex;
-}
-
-.lastline {
-    display: flex;
-    flex-direction: column;
-}
-
-.smallbutton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    border-radius: 4px;
-    background-color: gray;
-    color: white;
-    width: 50px;
-    height: 50px;
-    font-size: 2em;
-    margin: 5px;
-    user-select: none;
-}
-
-.smallbutton:hover {
-    background-color: darkgray;
-}
-
-.bigbuttonh {
-    width: 112px;
-}
-
-.bigbuttonv {
-    height: 112px;
+.hiddenResources {
+    display: none;
 }
