@@ -102,6 +102,21 @@ function bringWindowTopmost(div) {
     }
 }
 
+/* Find the topmost window */
+
+function getTopmostWindow() {
+    let topmost = null;
+    let maxZ = -Infinity;
+    windowList.forEach(win => {
+        const z = parseInt(win.style.zIndex);
+        if (z > maxZ) {
+            maxZ = z;
+            topmost = win;
+        }
+    });
+    return topmost;
+}
+
 /* Window type mask */
 const WINMASK_CLOSABLE = 1;
 const WINMASK_RESIZABLE = 2;
@@ -117,6 +132,34 @@ function removeWindow(win) {
         win.remove();
     }
 }
+
+/* Listen for keyboard events at the document level */
+
+document.addEventListener('keydown', function (event) {
+    const topWin = getTopmostWindow();
+    if (!topWin) return;
+
+    // If the window contains a focused input, let it handle the event
+    const focusedInput = topWin.querySelector('input:focus, textarea:focus');
+    if (focusedInput) return; // Let the input handle it
+
+    // Handle the event for the topmost window
+    // dispatch a custom event
+    const customEvent = new KeyboardEvent('window-keydown', event);
+    topWin.dispatchEvent(customEvent);
+
+    // Handle Close window on Escape key
+    if (event.key === 'Escape') {
+        if (typeof topWin.onCloseWindow === 'function') {
+            if (topWin.onCloseWindow()) {
+                removeWindow(topWin);
+            }
+        } else {
+            removeWindow(topWin);
+        }
+    }
+});
+
 
 /* Create a new window on top of others
  *-------------------------------------------------
@@ -143,6 +186,10 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
     const clientHeight = background.getBoundingClientRect().height;
 
     const div = document.createElement('div');
+
+    // Attach the closing callback to the DOM element
+    div.onCloseWindow = onCloseWindow;
+
     if (winmask & WINMASK_MOVABLE) {
         div.className = 'windowframe';
         div.appendChild(addWindowFrame(title, winmask & WINMASK_CLOSABLE));
