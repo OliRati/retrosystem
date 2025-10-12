@@ -180,16 +180,6 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
 
     windowList.push(div);
 
-    /*
-    var windowbars = div.getElementsByClassName("windowbar");
-    if (windowbars.length === 1) {
-        windowbars[0].addEventListener('click', (event) => {
-            console.log("Here");
-            console.dir(event);
-        });
-    }
-    */
-
     if (winmask & WINMASK_CLOSABLE) {
         const closebtn = div.getElementsByClassName("windowbarclose");
         if (closebtn.length === 1) {
@@ -216,7 +206,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         div.style.top = ((clientHeight - windowHeight) / 2) + "px";
     }
 
-    div.addEventListener("mousedown", (event) => {
+    function dragWindow(event) {
         const background = document.getElementById('background');
 
         const clientwidth = background.getBoundingClientRect().width;
@@ -261,13 +251,17 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
                 }
 
                 document.addEventListener('mouseup', onMouseUp);
-
+                document.addEventListener('touchstop', onMouseUp);
+                
                 div.ondragstart = function () {
                     return false;
                 };
             }
         }
-    });
+    }
+
+    div.addEventListener("mousedown", dragWindow );
+    div.addEventListener("touchstart", dragWindow );
 
     return div;
 }
