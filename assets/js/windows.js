@@ -206,6 +206,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         div.style.top = ((clientHeight - windowHeight) / 2) + "px";
     }
 
+    let isDragging = false;
+
     function dragWindow(event) {
         const background = document.getElementById('background');
 
@@ -232,6 +234,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
             const windowframetop = div.getBoundingClientRect().top;
 
             if (coords.y < (titlebarheight + windowframetop)) {
+                isDragging = true;
+
                 function moveAt(x, y) {
                     let posx = x - shiftX;
                     let posy = y - shiftY;
@@ -248,11 +252,14 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
                 }
 
                 function onMouseMove(event) {
+                    if (!isDragging) return;
+
                     const c = getCoords(event);
                     moveAt(c.x, c.y);
                 }
 
                 function onMouseUp() {
+                    isDragging = false;
                     document.removeEventListener("mousemove", onMouseMove);
                     document.removeEventListener('mouseup', onMouseUp);
                     document.removeEventListener("touchmove", onMouseMove);
