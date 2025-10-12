@@ -47,6 +47,7 @@
 }
 
 .windowbarclose:hover {
+    cursor: pointer;
     background-color: gray;
 }
 
@@ -132,6 +133,7 @@ button {
 }
 
 button:hover {
+    cursor: pointer;
     background-color: darkgray;
 }
 

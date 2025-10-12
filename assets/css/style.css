@@ -140,6 +140,7 @@ footer {
 }
 
 .menuitem:hover {
+    cursor: pointer;
     background-color: #666;
     color: #FFF;
 }
@@ -185,6 +186,11 @@ footer {
         }
     }
 
+    .applications-icon:hover {
+        cursor: pointer;
+        background-color: #BBB;
+    }
+
     .applications-name {
         font-size: 1rem;
         font-weight: 600;
@@ -195,5 +201,5 @@ footer {
 /* Use to hide HTML resources that could be shown at a later time */
 
 .hiddenResources {
-    display: block;
+    display: none;
 }

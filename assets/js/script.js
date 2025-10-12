@@ -155,7 +155,7 @@ menuHelp.addEventListener("click", () => {
     if (!helpShown) {
         helpShown = true;
         let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        newSystemStatus("Help openned.");
+        newSystemStatus("Help opened.");
 
         winid++;
     }
@@ -233,16 +233,16 @@ menuTurnTransition.addEventListener("click", () => {
 });
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
-let aboutEarthSystemOpenned = false;
+let aboutEarthSystemOpened = false;
 menuEarthSystem.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    if (!aboutEarthSystemOpenned) {
-        aboutEarthSystemOpenned = true;
+    if (!aboutEarthSystemOpened) {
+        aboutEarthSystemOpened = true;
         let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0);
 
         function closeAboutBox() {
-            aboutEarthSystemOpenned = false;
+            aboutEarthSystemOpened = false;
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
             removeWindow(newWin);
         }
@@ -252,19 +252,19 @@ menuEarthSystem.addEventListener("click", () => {
 });
 
 const menuApplications = document.getElementById("menuapplications");
-let menuApplicationsOpenned = false;
+let menuApplicationsOpened = false;
 menuApplications.addEventListener("click", () => {
     adjustMenuStates(-1);
 
     function onCloseWindow() {
-        menuApplicationsOpenned = false;
+        menuApplicationsOpened = false;
         return true;
     }
 
-    if (!menuApplicationsOpenned) {
-        menuApplicationsOpenned = true;
+    if (!menuApplicationsOpened) {
+        menuApplicationsOpened = true;
         let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        newSystemStatus("Applications manager openned.");
+        newSystemStatus("Applications manager opened.");
     }
 });
 
