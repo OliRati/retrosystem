@@ -212,8 +212,16 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         const clientwidth = background.getBoundingClientRect().width;
         const clientheight = background.getBoundingClientRect().height;
 
-        let shiftX = event.pageX - div.getBoundingClientRect().left;
-        let shiftY = event.pageY - div.getBoundingClientRect().top
+        function getCoords(e) {
+            if (e.touches && e.touches.length > 0) {
+                return { x: e.touches[0].pageX, y: e.touches[0].pageY };
+            }
+            return { x: e.pageX, y: e.pageY };
+        }
+
+        const coords = getCoords(event);
+        let shiftX = coords.x - div.getBoundingClientRect().left;
+        let shiftY = coords.y - div.getBoundingClientRect().top
             + document.getElementById('mainmenu').getBoundingClientRect().height;
 
         bringWindowTopmost(div);
@@ -223,10 +231,10 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
             const titlebarheight = div.firstChild.getBoundingClientRect().height;
             const windowframetop = div.getBoundingClientRect().top;
 
-            if (event.pageY < (titlebarheight + windowframetop)) {
+            if (coords.y < (titlebarheight + windowframetop)) {
                 function moveAt(x, y) {
-                    posx = x - shiftX;
-                    posy = y - shiftY;
+                    let posx = x - shiftX;
+                    let posy = y - shiftY;
 
                     if (posx < 0) posx = 0;
                     if (posx + width > clientwidth)
@@ -240,19 +248,27 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
                 }
 
                 function onMouseMove(event) {
-                    moveAt(event.pageX, event.pageY);
+                    const c = getCoords(event);
+                    moveAt(c.x, c.y);
                 }
-
-                document.addEventListener("mousemove", onMouseMove);
 
                 function onMouseUp() {
                     document.removeEventListener("mousemove", onMouseMove);
                     document.removeEventListener('mouseup', onMouseUp);
+                    document.removeEventListener("touchmove", onMouseMove);
+                    document.removeEventListener('touchend', onMouseUp);
                 }
 
-                document.addEventListener('mouseup', onMouseUp);
-                document.addEventListener('touchstop', onMouseUp);
-                
+                if (event.type.startsWith('touch')) event.preventDefault();
+
+                if (event.type === 'mousedown') {
+                    document.addEventListener("mousemove", onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                } else if (event.type === 'touchstart') {
+                    document.addEventListener("touchmove", onMouseMove, { passive: false });
+                    document.addEventListener('touchend', onMouseUp);
+                }
+
                 div.ondragstart = function () {
                     return false;
                 };
@@ -260,8 +276,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         }
     }
 
-    div.addEventListener("mousedown", dragWindow );
-    div.addEventListener("touchstart", dragWindow );
+    div.addEventListener("mousedown", dragWindow);
+    div.addEventListener("touchstart", dragWindow);
 
     return div;
 }
