@@ -136,7 +136,7 @@ menuShowDebug.addEventListener("click", () => {
 
         document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
     }
-    
+
     adjustMenuStates(-1);
 });
 
@@ -155,7 +155,7 @@ menuHelp.addEventListener("click", () => {
     if (!helpShown) {
         helpShown = true;
         let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        newSystemStatus("Help opened.");
+        newSystemStatus("Help openned.");
 
         winid++;
     }
@@ -233,21 +233,38 @@ menuTurnTransition.addEventListener("click", () => {
 });
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
-let aboutEarthSystemOpened = false;
+let aboutEarthSystemOpenned = false;
 menuEarthSystem.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    if (!aboutEarthSystemOpened) {
-        aboutEarthSystemOpened = true;
+    if (!aboutEarthSystemOpenned) {
+        aboutEarthSystemOpenned = true;
         let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0);
 
         function closeAboutBox() {
-            aboutEarthSystemOpened = false;
+            aboutEarthSystemOpenned = false;
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
             removeWindow(newWin);
         }
 
         document.getElementById("closeaboutearthsystem").addEventListener("click", closeAboutBox);
+    }
+});
+
+const menuApplications = document.getElementById("menuapplications");
+let menuApplicationsOpenned = false;
+menuApplications.addEventListener("click", () => {
+    adjustMenuStates(-1);
+
+    function onCloseWindow() {
+        menuApplicationsOpenned = false;
+        return true;
+    }
+
+    if (!menuApplicationsOpenned) {
+        menuApplicationsOpenned = true;
+        let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        newSystemStatus("Applications manager openned.");
     }
 });
 

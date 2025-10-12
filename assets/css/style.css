@@ -1,3 +1,4 @@
+@import url("./windows.css");
 @import url("./debug.css");
 @import url("./calculator.css");
 @import url("./about.css");
@@ -154,175 +155,45 @@ footer {
     margin-bottom: .3em;
 }
 
-/* Window decoration */
+/* Applications manager css */
 
-.windowbar {
+.applications-container {
+    width: 100%;
+    height: 100%;
     display: flex;
-    background-color: white;
-    border-bottom: 1px solid black;
-    padding: 0 1px;
-    height: 23px;
-    width: calc(100% - 2px);
-    user-select: none;
-    position: relative;
-    z-index: -1;
-}
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
 
-.windowbarstart {
-    margin-top: 1px;
-    margin-left: 2px;
-    width: 10px;
-}
+    >div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.windowbarcube {
-    width: 17px;
-    height: 17px;
-    margin: 2px 3px;
-    border: 1px solid black;
-    box-shadow: 1px 1px gray;
-}
+    .applications-icon {
+        padding: 2px;
+        background-color: #DDD;
+        border: 2px solid #333;
+        border-radius: 5px;
+        gap: 10px;
 
-.windowbarclose {
-    position: relative;
-    width: 17px;
-    height: 17px;
-    border: 1px solid black;
-    box-shadow: 1px 1px gray;
-    margin: 2px 2px 2px 3px;
-}
+        img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+        }
+    }
 
-.windowbarclose:before,
-.windowbarclose:after {
-    position: absolute;
-    content: '';
-    width: 90%;
-    height: 0px;
-    border: 1px solid black;
-    left: 0px;
-    top: calc(50% - 1px);
-}
-
-.windowbarclose:hover {
-    background-color: gray;
-}
-
-.windowbarclose:before {
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.windowbarclose:after {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-
-.windowtitleframe {
-    padding: 0 1px;
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-    width: 50%;
-}
-
-.windowbarend {
-    margin-top: 1px;
-    width: inherit;
-}
-
-.windowtitle {
-    margin: 0 3px;
-    white-space: nowrap;
-    width: fit-content;
-    font-family: "Open Sans", sans-serif;
-    font-size: 1em;
-    font-weight: 500;
-}
-
-.windowbardecoration {
-    border-top: 1px solid black;
-    border-bottom: 1px solid grey;
-    margin: 2px 0;
-}
-
-/* Default window frame decoration */
-
-.windowframe {
-    position: absolute;
-    background-color: darkgray;
-    border: 1px solid black;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
-    overflow: hidden;
-}
-
-/* Default static window frame decoration */
-
-.staticwindowframe {
-    position: absolute;
-    background-color: darkgray;
-    border: 6px solid black;
-}
-
-.staticwindowframe:before {
-    content: "";
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    z-index: -1;
-    border: 2px solid white;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
-}
-
-/* A button style with old school style */
-button {
-    font-family: "Open Sans", sans-serif;
-    font-size: 1em;
-    font-weight: 500;
-    border: 2px solid black;
-    padding: 5px 15px;
-    border-radius: 50vh;
-    margin: 5px;
-}
-
-button:hover {
-    background-color: darkgray;
-}
-
-/* Static Window container with bottom buttons */
-.marginflexcontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 5px;
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
-    position: relative;
-    overflow: hidden;
-}
-
-.top {
-    text-align: left;
-}
-
-.bottom {
-    text-align: center;
-}
-
-/* Standard Window container */
-
-.margincontainer {
-    margin: 5px;
-    width: calc(100% - 10px);
-    height: calc(100% - 1.5em - 11px);
-    position: relative;
-    overflow: hidden;
+    .applications-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: black;
+    }
 }
 
 /* Use to hide HTML resources that could be shown at a later time */
 
 .hiddenResources {
-    display: none;
+    display: block;
 }
