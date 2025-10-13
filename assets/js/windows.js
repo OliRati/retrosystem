@@ -3,6 +3,7 @@
  */
 
 /* Startup position for new window without position */
+
 let origX = 50;
 let origY = 50;
 
@@ -16,9 +17,11 @@ function nextWindowPos() {
 }
 
 /* The desktop background */
+
 const background = document.getElementById("background");
 
 /* The list of all windows created */
+
 let windowList = [];
 
 /* Add a title bar to window */
@@ -118,6 +121,7 @@ function getTopmostWindow() {
 }
 
 /* Window type mask */
+
 const WINMASK_CLOSABLE = 1;
 const WINMASK_RESIZABLE = 2;
 const WINMASK_MOVABLE = 4;
@@ -125,11 +129,16 @@ const WINMASK_MOVABLE = 4;
 /* Remove a window */
 
 function removeWindow(win) {
-    /* Remove that window from list */
     const index = windowList.indexOf(win);
     if (index > -1) {
-        windowList.splice(index, 1);
-        win.remove();
+        if (typeof win.onCloseWindow === 'function') {
+            /* If closing is allowed */
+            if (win.onCloseWindow()) {
+                /* Remove that window from list */
+                windowList.splice(index, 1);
+                win.remove();
+            }
+        }
     }
 }
 
@@ -150,13 +159,7 @@ document.addEventListener('keydown', function (event) {
 
     // Handle Close window on Escape key
     if (event.key === 'Escape') {
-        if (typeof topWin.onCloseWindow === 'function') {
-            if (topWin.onCloseWindow()) {
-                removeWindow(topWin);
-            }
-        } else {
-            removeWindow(topWin);
-        }
+        removeWindow(topWin);
     }
 });
 

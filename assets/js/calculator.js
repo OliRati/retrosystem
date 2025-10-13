@@ -16,6 +16,7 @@ function calculatorWindow() {
         let operator = "";
         let valueLast = "";
         let value = "";
+        let operated = false;
 
         // Defines callback functions
 
@@ -23,6 +24,7 @@ function calculatorWindow() {
             valueLast = "";
             operator = "";
             value = "";
+            operated = false;
             updateLcdDisplay("");
         }
 
@@ -31,6 +33,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + "(" + value + "/100)");
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = "";
                 operator = "";
@@ -43,6 +46,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = value;
                 operator = "/";
@@ -56,6 +60,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = value;
                 operator = "*";
@@ -69,6 +74,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = value;
                 operator = "-";
@@ -82,6 +88,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = value;
                 operator = "+";
@@ -95,6 +102,7 @@ function calculatorWindow() {
                 if (operator) {
                     let newvalue = eval(valueLast + operator + value);
                     value = newvalue.toString();
+                    operated = true;
                 }
                 valueLast = "";
                 operator = "";
@@ -102,56 +110,64 @@ function calculatorWindow() {
             }
         }
 
-        function calcNumpad0() {
-            if (value != "") {
-                value += "0";
+        function inputNumber(nb) {
+            if (operated) {
+                operated = false;
+                value = nb;
                 updateLcdDisplay(value);
+            }
+            else {
+                if ((nb != "0") && (value=="0")) {
+                    value = nb;
+                    updateLcdDisplay(value);
+                    return;
+                } 
+                
+                if (value != "0") {
+                    value += nb;
+                    updateLcdDisplay(value);
+                }
             }
         }
 
+        function calcNumpad0() {
+            inputNumber("0");
+        }
+
         function calcNumpad1() {
-            value += "1";
-            updateLcdDisplay(value);
+            inputNumber("1");
         }
 
         function calcNumpad2() {
-            value += "2";
-            updateLcdDisplay(value);
+            inputNumber("2");
         }
 
         function calcNumpad3() {
-            value += "3";
-            updateLcdDisplay(value);
+            inputNumber("3");
         }
 
         function calcNumpad4() {
-            value += "4";
-            updateLcdDisplay(value);
+            inputNumber("4");
         }
 
         function calcNumpad5() {
-            value += "5";
-            updateLcdDisplay(value);
+            inputNumber("5");
         }
 
         function calcNumpad6() {
-            value += "6";
-            updateLcdDisplay(value);
+            inputNumber("6");
         }
 
         function calcNumpad7() {
-            value += "7";
-            updateLcdDisplay(value);
+            inputNumber("7");
         }
 
         function calcNumpad8() {
-            value += "8";
-            updateLcdDisplay(value);
+            inputNumber("8");
         }
 
         function calcNumpad9() {
-            value += "9";
-            updateLcdDisplay(value);
+            inputNumber("9");
         }
 
         function calcDecimal() {

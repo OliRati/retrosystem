@@ -239,7 +239,7 @@ menuEarthSystem.addEventListener("click", () => {
 
     if (!aboutEarthSystemOpened) {
         aboutEarthSystemOpened = true;
-        let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0);
+        let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0, () => { return !aboutEarthSystemOpened; });
 
         function closeAboutBox() {
             aboutEarthSystemOpened = false;
