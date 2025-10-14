@@ -134,6 +134,13 @@ function removeWindow(win) {
         if (typeof win.onCloseWindow === 'function') {
             /* If closing is allowed */
             if (win.onCloseWindow()) {
+                
+                /* Remove event listeners to prevent memory leaks */
+                if (win._dragWindowHandler) {
+                    win.removeEventListener("mousedown", win._dragWindowHandler );
+                    win.removeEventListener("touchstart", win._dragWindowHandler);
+                }
+
                 /* Remove that window from list */
                 windowList.splice(index, 1);
                 win.remove();
@@ -202,7 +209,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
 
     div.style.zIndex = getMaxZIndex() + 1;
 
-    if ((posx === -1) || (posy === -2)) {
+    if ((posx === -1) || (posy === -1)) {
         posx = origX;
         posy = origY;
         nextWindowPos();
@@ -232,11 +239,15 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
 
     if (winmask & WINMASK_CLOSABLE) {
         const closebtn = div.getElementsByClassName("windowbarclose");
+
         if (closebtn.length === 1) {
-            closebtn[0].addEventListener('click', () => {
-                if (onCloseWindow())
-                    removeWindow(div);
-            });
+
+            function closeButtonAction() {
+                closebtn[0].removeEventListener('click', closeButtonAction);
+                removeWindow(div);
+            }
+
+            closebtn[0].addEventListener('click', closeButtonAction);
         }
     }
 
@@ -333,6 +344,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
         }
     }
 
+    div._dragWindowHandler = dragWindow; /* Save a reference in DOM element */
     div.addEventListener("mousedown", dragWindow);
     div.addEventListener("touchstart", dragWindow, { passive: false });
 
