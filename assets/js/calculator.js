@@ -117,12 +117,12 @@ function calculatorWindow() {
                 updateLcdDisplay(value);
             }
             else {
-                if ((nb != "0") && (value=="0")) {
+                if ((nb != "0") && (value == "0")) {
                     value = nb;
                     updateLcdDisplay(value);
                     return;
-                } 
-                
+                }
+
                 if (value != "0") {
                     value += nb;
                     updateLcdDisplay(value);
@@ -171,15 +171,22 @@ function calculatorWindow() {
         }
 
         function calcDecimal() {
-            if (value != "") {
-                if (!value.includes('.')) {
-                    value += ".";
-                    updateLcdDisplay(value);
-                }
+            if (operated) {
+                operated = false;
+                value = "0.";
+                updateLcdDisplay(value);
             }
             else {
-                value += "0.";
-                updateLcdDisplay(value);
+                if (value != "") {
+                    if (!value.includes('.')) {
+                        value += ".";
+                        updateLcdDisplay(value);
+                    }
+                }
+                else {
+                    value = "0.";
+                    updateLcdDisplay(value);
+                }
             }
         }
 

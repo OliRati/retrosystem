@@ -334,7 +334,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
     }
 
     div.addEventListener("mousedown", dragWindow);
-    div.addEventListener("touchstart", dragWindow);
+    div.addEventListener("touchstart", dragWindow, { passive: false });
 
     return div;
 }
