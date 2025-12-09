@@ -1,4 +1,6 @@
 import { calculatorWindow } from "./calculator.js";
+import { debugToolsWindow } from "./debugtools.js";
+import { helpWindow } from "./help.js";
 
 import {
     createWindow,
@@ -98,67 +100,20 @@ menuAbout.addEventListener("click", () => {
     adjustMenuStates(3);
 });
 
-/* Debugging tools */
+/* Debug Tools Window */
 
-let debugShown = false;
 var menuShowDebug = document.getElementById("menuShowDebug");
 menuShowDebug.addEventListener("click", () => {
-
-    function debugAddNewWindow() {
-        let width = Math.floor((Math.random() * 300) + 300);
-        let height = Math.floor((Math.random() * 400) + 200);
-
-        let newWin = createWindow("newWindow", "New " + winid, -1, -1, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
-
-        let content = newWin.getElementsByClassName("margincontainer");
-        if (content.length > 0) {
-            content[0].innerHTML = `
-        <p class="title">New window size ` + width + `x` + height + `</p>
-        `;
-        }
-
-        newSystemStatus("Window " + winid + " Created.");
-
-        winid++;
-    }
-
-    function onCloseWindow() {
-        debugShown = false;
-
-        document.getElementById("debugAddNewWindow").removeEventListener('click', debugAddNewWindow);
-
-        return true;
-    }
-
-    if (!debugShown) {
-        debugShown = true;
-        let newWin = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-
-        document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
-    }
-
+    debugToolsWindow();
     adjustMenuStates(-1);
 });
 
-let winid = 0;
-
-let helpShown = false;
+/* Help Window */
 var menuHelp = document.getElementById("menuHelp");
 menuHelp.addEventListener("click", () => {
+    helpWindow();
     adjustMenuStates(-1);
 
-    function onCloseWindow() {
-        helpShown = false;
-        return true;
-    }
-
-    if (!helpShown) {
-        helpShown = true;
-        let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        newSystemStatus("Help opened.");
-
-        winid++;
-    }
 });
 
 var menuViewCalculator = document.getElementById("menuViewCalculator");
