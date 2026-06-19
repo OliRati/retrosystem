@@ -42,7 +42,6 @@ function debugToolsWindow() {
 
         document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
     }
-
 }
 
 export { debugToolsWindow };

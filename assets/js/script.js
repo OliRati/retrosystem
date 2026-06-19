@@ -1,6 +1,8 @@
+import { getApplication, registerApplication } from "./appregistry.js";
 import { calculatorWindow } from "./calculator.js";
 import { debugToolsWindow } from "./debugtools.js";
 import { helpWindow } from "./help.js";
+import { appManagerWindow } from "./appmanager.js";
 
 import {
     createWindow,
@@ -10,6 +12,21 @@ import {
     WINMASK_RESIZABLE,
     WINMASK_MOVABLE
 } from "./windows.js";
+
+// Register available applications
+registerApplication("calculator", "Calculator", "./assets/img/Ionic-Ionicons-Calculator.svg", calculatorWindow);
+registerApplication("invaders", "SpaceInvaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", helpWindow);
+
+/*
+ * Launch a new application
+ */
+
+function launchApp( name ) {
+   const app = getApplication(name);
+   app?.launch();
+}
+
+export { launchApp };
 
 /* Currently shown menu */
 
@@ -207,20 +224,10 @@ menuEarthSystem.addEventListener("click", () => {
 });
 
 const menuApplications = document.getElementById("menuapplications");
-let menuApplicationsOpened = false;
 menuApplications.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    function onCloseWindow() {
-        menuApplicationsOpened = false;
-        return true;
-    }
-
-    if (!menuApplicationsOpened) {
-        menuApplicationsOpened = true;
-        let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-        newSystemStatus("Applications manager opened.");
-    }
+    appManagerWindow();
 });
 
 var menuLogout = document.getElementById("menulogout");
@@ -241,13 +248,17 @@ footerFrame.addEventListener("click", () => {
         adjustMenuStates(-1);
 });
 
-/* Add window to desktop */
+/*
+ * Add a few window on desktop on startup
+ */
 
+// Simple Hello Window
 const window1 = createWindow("helloWindow", "Hello", 25, 25, 250, 350);
 
+// Simple World Window
 const window2 = createWindow("worldWindow", "World", 75, 75, 250, 350);
 
-/* ClickMe Window creation and interface for Click me button */
+// A ClickMe Window with buttons inside
 
 const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK_MOVABLE);
 
