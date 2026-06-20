@@ -1,5 +1,5 @@
 /*
- * Gestion du registre des applications
+ * Application register management
  */
 
 const applicationRegistry = new Map();

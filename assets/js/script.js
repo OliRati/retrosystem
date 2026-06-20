@@ -2,6 +2,7 @@ import { getApplication, registerApplication } from "./appregistry.js";
 import { calculatorWindow } from "./calculator.js";
 import { debugToolsWindow } from "./debugtools.js";
 import { helpWindow } from "./help.js";
+import { invadersWindow } from "./invaders.js";
 import { appManagerWindow } from "./appmanager.js";
 
 import {
@@ -14,8 +15,9 @@ import {
 } from "./windows.js";
 
 // Register available applications
+registerApplication("help", "Help", "./assets/img/help.svg", helpWindow);
 registerApplication("calculator", "Calculator", "./assets/img/Ionic-Ionicons-Calculator.svg", calculatorWindow);
-registerApplication("invaders", "SpaceInvaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", helpWindow);
+registerApplication("invaders", "Invaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", invadersWindow);
 
 /*
  * Launch a new application
