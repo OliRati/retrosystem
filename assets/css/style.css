@@ -166,10 +166,12 @@ footer {
     flex-wrap: wrap;
     gap: 10px;
 
-    >div {
+    .applications-item {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: fit-content;
+        height: fit-content;
     }
 
     .applications-icon {
@@ -178,6 +180,7 @@ footer {
         border: 2px solid #333;
         border-radius: 5px;
         gap: 10px;
+        transition: 0.3s all;
 
         img {
             width: 75px;
@@ -189,6 +192,7 @@ footer {
     .applications-icon:hover {
         cursor: pointer;
         background-color: #BBB;
+        transition: 0.3s all;
     }
 
     .applications-name {
