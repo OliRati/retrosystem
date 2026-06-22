@@ -170,6 +170,19 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+document.addEventListener('keyup', function (event) {
+    const topWin = getTopmostWindow();
+    if (!topWin) return;
+
+    // If the window contains a focused input, let it handle the event
+    const focusedInput = topWin.querySelector('input:focus, textarea:focus');
+    if (focusedInput) return; // Let the input handle it
+
+    // Handle the event for the topmost window
+    // dispatch a custom event
+    const customEvent = new KeyboardEvent('window-keyup', event);
+    topWin.dispatchEvent(customEvent);
+});
 
 /* Create a new window on top of others
  *-------------------------------------------------

@@ -20,7 +20,7 @@ function invadersWindow() {
     invadersWindowOpened = true;
 
     const newWin = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
-    newSystemStatus("Invaders opened.");
+    newSystemStatus("Opening invaders...");
 
     const windowContent = newWin.querySelector("#invadersWindow") || newWin.querySelector(".margincontainer");
     if (!windowContent) return;
@@ -44,9 +44,9 @@ function invadersWindow() {
     infoBlock.style.flexWrap = "wrap";
 
     const scoreLabel = createInfoLabel("Score", "0");
-    const levelLabel = createInfoLabel("Niveau", "1");
-    const livesLabel = createInfoLabel("Vies", "3");
-    const statusLabel = createInfoLabel("État", "Prêt");
+    const levelLabel = createInfoLabel("Level", "1");
+    const livesLabel = createInfoLabel("Lifes", "3");
+    const statusLabel = createInfoLabel("State", "Ready");
 
     infoBlock.append(scoreLabel.container, levelLabel.container, livesLabel.container, statusLabel.container);
 
@@ -57,7 +57,7 @@ function invadersWindow() {
 
     const startButton = document.createElement("button");
     startButton.setAttribute("type", "button");
-    startButton.textContent = "Démarrer";
+    startButton.textContent = "Play";
     startButton.style.flex = "1";
     startButton.style.minWidth = "90px";
     // Prevent the start button from receiving focus so space/enter won't trigger it
@@ -333,7 +333,7 @@ function invadersWindow() {
         state.alienDrop = 15;
         state.shootCooldown = 0;
         player.x = canvas.width / 2 - constants.playerWidth / 2;
-        statusLabel.field.textContent = "En jeu";
+        statusLabel.field.textContent = "Playing";
         pauseButton.disabled = false;
         pauseButton.textContent = "Pause";
         updateInfoDisplay();
@@ -363,10 +363,10 @@ function invadersWindow() {
     function gameOver() {
         state.running = false;
         state.paused = false;
-        statusLabel.field.textContent = "Terminé";
+        statusLabel.field.textContent = "Ended";
         messageOverlay.textContent = "GAME OVER";
         pauseButton.disabled = true;
-        startButton.textContent = "Rejouer";
+        startButton.textContent = "Play";
         addHighScore(state.score);
         updateHighScoreDisplay();
     }
@@ -375,7 +375,7 @@ function invadersWindow() {
         if (!state.running || state.paused) return;
         state.paused = true;
         statusLabel.field.textContent = "Pause";
-        pauseButton.textContent = "Reprendre";
+        pauseButton.textContent = "Continue";
         if (reason) messageOverlay.textContent = reason;
     }
 
@@ -384,7 +384,7 @@ function invadersWindow() {
         state.paused = false;
         statusLabel.field.textContent = "En jeu";
         pauseButton.textContent = "Pause";
-        if (messageOverlay.textContent === "Perte de focus") messageOverlay.textContent = "";
+        if (messageOverlay.textContent === "Lost focus") messageOverlay.textContent = "";
         state.animationFrame = window.requestAnimationFrame(gameLoop);
     }
 
@@ -739,7 +739,7 @@ function invadersWindow() {
 
     function handleDocumentMouseDown(event) {
         if (!windowContent.contains(event.target) && state.running && !state.paused) {
-            pauseGame("Perte de focus");
+            pauseGame("Lost focus");
         }
     }
 
@@ -751,7 +751,7 @@ function invadersWindow() {
 
     function handleWindowBlur() {
         if (state.running && !state.paused) {
-            pauseGame("Perte de focus");
+            pauseGame("Lost focus");
         }
     }
 
@@ -773,7 +773,7 @@ function invadersWindow() {
             state.running = true;
             state.paused = false;
         }
-        startButton.textContent = "Rejouer";
+        startButton.textContent = "Restart";
     });
 
     pauseButton.addEventListener("click", () => {
@@ -786,7 +786,7 @@ function invadersWindow() {
     });
 
     newWin.addEventListener("window-keydown", handleWindowKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
+    newWin.addEventListener("window-keyup", handleKeyUp);
     document.addEventListener("mousedown", handleDocumentMouseDown);
     window.addEventListener("blur", handleWindowBlur);
     windowContent.addEventListener("mousedown", handleWindowMouseDown);
