@@ -382,9 +382,9 @@ function invadersWindow() {
     function resumeGame() {
         if (!state.running || !state.paused) return;
         state.paused = false;
-        statusLabel.field.textContent = "En jeu";
+        statusLabel.field.textContent = "Playing";
         pauseButton.textContent = "Pause";
-        if (messageOverlay.textContent === "Lost focus") messageOverlay.textContent = "";
+        if (messageOverlay.textContent === "Lost focus" || messageOverlay.textContent === "Paused") messageOverlay.textContent = "";
         state.animationFrame = window.requestAnimationFrame(gameLoop);
     }
 
@@ -781,7 +781,7 @@ function invadersWindow() {
         if (state.paused) {
             resumeGame();
         } else {
-            pauseGame("Pause manuelle");
+            pauseGame("Paused");
         }
     });
 
@@ -789,7 +789,7 @@ function invadersWindow() {
     newWin.addEventListener("window-keyup", handleKeyUp);
     document.addEventListener("mousedown", handleDocumentMouseDown);
     window.addEventListener("blur", handleWindowBlur);
-    windowContent.addEventListener("mousedown", handleWindowMouseDown);
+//    windowContent.addEventListener("mousedown", handleWindowMouseDown);
 
     updateHighScoreDisplay();
     draw();
