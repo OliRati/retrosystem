@@ -272,7 +272,6 @@ function calculatorWindow() {
                 clearMemory();
                 break;
             default:
-                console.log(event.key);
                 break;
         }
     }
