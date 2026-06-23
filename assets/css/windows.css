@@ -132,11 +132,13 @@ button {
     padding: 5px 15px;
     border-radius: 50vh;
     margin: 5px;
+    transition: 0.3s all;
 }
 
 button:hover {
     cursor: pointer;
     background-color: darkgray;
+    transition: 0.3s all;
 }
 
 /* Static Window container with bottom buttons */

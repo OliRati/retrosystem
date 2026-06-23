@@ -80,7 +80,7 @@ body {
     left: 0;
 }
 
-.header-shadow {
+.footer-shadow {
     bottom: 0;
     left: 0;
 }
@@ -149,8 +149,8 @@ body {
 }
 
 .menuitem {
-    padding-left: .3em;
-    padding-right: .3em;
+    padding: .2em .4em;
+    transition: 0.3s all;
 }
 
 .menuitem::first-letter {
@@ -161,6 +161,7 @@ body {
     cursor: pointer;
     background-color: #666;
     color: #FFF;
+    transition: 0.3s all;
 }
 
 .menuitem i {
