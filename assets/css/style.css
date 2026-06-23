@@ -54,35 +54,35 @@ body {
     overflow: hidden;
 }
 
+header,
+footer {
+    position: relative;
+    width: 100vw;
+    height: 1.6em;
+}
+
+.header-menu,
+.footer-status,
+.header-shadow,
+.footer-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .header-menu,
 .footer-status {
-    position: relative;
     z-index: 16384;
-
     display: flex;
-    height: 1.6em;
-    width: 100vw;
-
     background-color: white;
 }
 
 .header-shadow,
 .footer-shadow {
-    position: absolute;
-    z-index: -16384;
-    width: 100vw;
-    height: 1.6em;
+    z-index: 0;
     box-shadow: 0 0 30px rgba(0, 0, 0, 5);
-}
-
-.header-shadow {
-    top: 0;
-    left: 0;
-}
-
-.footer-shadow {
-    bottom: 0;
-    left: 0;
 }
 
 /* Menu items styles */
@@ -127,11 +127,12 @@ body {
 #aboutbox {
     display: none;
     position: absolute;
-    top: 1.5em;
+    z-index: 16385;
+    top: 100%;
     left: 0;
-    width: 300px;
+    text-wrap-mode: nowrap;
+    width: fit-content;/* 300px; */
     background-color: #BBB;
-    border: #BBB 2px solid;
     border: 1px solid black;
     padding: 10px;
     z-index: 1;
