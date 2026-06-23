@@ -5,7 +5,7 @@
     background-color: white;
     border-bottom: 1px solid black;
     padding: 0 1px;
-    height: 23px;
+    height: 24px;
     width: 100%;
     user-select: none;
     position: relative;
@@ -18,21 +18,22 @@
     width: 10px;
 }
 
-.windowbarcube {
-    width: 17px;
-    height: 17px;
-    margin: 2px 3px;
+.windowbarcube,
+.windowbarclose {
+    width: 19px;
+    height: 19px;
     border: 1px solid black;
     box-shadow: 1px 1px gray;
 }
 
+.windowbarcube {
+    margin: 2px 3px;
+}
+
 .windowbarclose {
     position: relative;
-    width: 17px;
-    height: 17px;
-    border: 1px solid black;
-    box-shadow: 1px 1px gray;
     margin: 2px 2px 2px 3px;
+    transition: 0.3s all;
 }
 
 .windowbarclose:before,
@@ -49,6 +50,7 @@
 .windowbarclose:hover {
     cursor: pointer;
     background-color: gray;
+    transition: 0.3s all;
 }
 
 .windowbarclose:before {
