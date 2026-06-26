@@ -95,11 +95,18 @@
 
 /* Default window frame decoration */
 
+.windowfocus {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
+}
+
+.windownofocus {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 5);
+}
+
 .windowframe {
     position: absolute;
     background-color: darkgray;
     border: 1px solid black;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
     overflow: hidden;
 }
 
@@ -120,7 +127,6 @@
     bottom: -4px;
     z-index: -1;
     border: 2px solid white;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 5);
 }
 
 /* A button style with old school style */

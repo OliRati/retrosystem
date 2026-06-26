@@ -95,6 +95,16 @@ function bringWindowTopmost(div) {
         div.style.zIndex = zmax + 1;
     }
 
+    windowList.forEach(window => {
+        if (window !== div) {
+            window.classList.remove('windowfocus');
+            window.classList.add('windownofocus');
+        } else {
+            window.classList.add('windowfocus');
+            window.classList.remove('windownofocus');
+        }
+    });
+
     if (zmin > 0) {
         // Reorder all windows zIndex
         windowList.forEach(window => {
@@ -103,6 +113,7 @@ function bringWindowTopmost(div) {
             window.style.zIndex = zwin;
         });
     }
+
 }
 
 /* Find the topmost window */
@@ -249,6 +260,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
     }
 
     windowList.push(div);
+
+    bringWindowTopmost(div);
 
     if (winmask & WINMASK_CLOSABLE) {
         const closebtn = div.getElementsByClassName("windowbarclose");
