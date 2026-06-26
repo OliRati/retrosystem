@@ -95,15 +95,7 @@ function bringWindowTopmost(div) {
         div.style.zIndex = zmax + 1;
     }
 
-    windowList.forEach(window => {
-        if (window !== div) {
-            window.classList.remove('windowfocus');
-            window.classList.add('windownofocus');
-        } else {
-            window.classList.add('windowfocus');
-            window.classList.remove('windownofocus');
-        }
-    });
+    updateWindowsFocus();
 
     if (zmin > 0) {
         // Reorder all windows zIndex
@@ -131,6 +123,23 @@ function getTopmostWindow() {
     return topmost;
 }
 
+/* Update the focussed window to the Topmost one */
+function updateWindowsFocus() {
+    const topWin = getTopmostWindow();
+
+    if (!topWin) return;
+
+    windowList.forEach(window => {
+        if (window !== topWin) {
+            window.classList.remove('windowfocus');
+            window.classList.add('windownofocus');
+        } else {
+            window.classList.add('windowfocus');
+            window.classList.remove('windownofocus');
+        }
+    });
+}
+
 /* Window type mask */
 
 const WINMASK_CLOSABLE = 1;
@@ -155,6 +164,9 @@ function removeWindow(win) {
                 /* Remove that window from list */
                 windowList.splice(index, 1);
                 win.remove();
+
+                /* Update windows focus state */
+                updateWindowsFocus();
             }
         }
     }
