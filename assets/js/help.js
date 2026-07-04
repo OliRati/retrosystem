@@ -1,9 +1,7 @@
 import {
     createWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 let helpShown = false;
@@ -16,7 +14,7 @@ function helpWindow() {
 
     if (!helpShown) {
         helpShown = true;
-        let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
         newSystemStatus("Help opened.");
     }
 }

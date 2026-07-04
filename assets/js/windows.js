@@ -142,9 +142,12 @@ function updateWindowsFocus() {
 
 /* Window type mask */
 
-const WINMASK_CLOSABLE = 1;
-const WINMASK_RESIZABLE = 2;
-const WINMASK_MOVABLE = 4;
+const WINMASK = {
+    CLOSABLE: 1 << 0,
+    RESIZABLE: 1 << 1,
+    MOVABLE: 1 << 2,
+    MINIMIZABLE: 1 << 3
+};
 
 /* Remove a window */
 
@@ -154,10 +157,10 @@ function removeWindow(win) {
         if (typeof win.onCloseWindow === 'function') {
             /* If closing is allowed */
             if (win.onCloseWindow()) {
-                
+
                 /* Remove event listeners to prevent memory leaks */
                 if (win._dragWindowHandler) {
-                    win.removeEventListener("mousedown", win._dragWindowHandler );
+                    win.removeEventListener("mousedown", win._dragWindowHandler);
                     win.removeEventListener("touchstart", win._dragWindowHandler);
                 }
 
@@ -216,9 +219,9 @@ document.addEventListener('keyup', function (event) {
  *                if posx and or posy is -1 then activete auto positionning
  * width, height  width and height of new window
  * winmask        Creation mask for window type
- *                  WINMASK_CLOSABLE         A window with a close button in title bar
- *                  WINMASK_MOVABLE          A window with a title bar to move it on background 
- *                  const WINMASK_RESIZABLE  A resizable window ( not implemented yet ) 
+ *                  WINMASK.CLOSABLE         A window with a close button in title bar
+ *                  WINMASK.MOVABLE          A window with a title bar to move it on background 
+ *                  WINMASK.RESIZABLE        A resizable window ( not implemented yet ) 
  * 
  * onCloseWindow  Function called when the window is close by the title bar cross icon
  *                if function return true, closing is allowed, otherwise disabled
@@ -226,7 +229,7 @@ document.addEventListener('keyup', function (event) {
  * return the element newly creted in the DOM
  */
 
-function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CLOSABLE | WINMASK_MOVABLE, onCloseWindow = () => { return true }) {
+function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CLOSABLE | WINMASK.MOVABLE, onCloseWindow = () => { return true }) {
     const background = document.getElementById('background');
     const clientWidth = background.getBoundingClientRect().width;
     const clientHeight = background.getBoundingClientRect().height;
@@ -236,9 +239,9 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
     // Attach the closing callback to the DOM element
     div.onCloseWindow = onCloseWindow;
 
-    if (winmask & WINMASK_MOVABLE) {
+    if (winmask & WINMASK.MOVABLE) {
         div.className = 'windowframe';
-        div.appendChild(addWindowFrame(title, winmask & WINMASK_CLOSABLE));
+        div.appendChild(addWindowFrame(title, winmask & WINMASK.CLOSABLE));
     }
     else
         div.className = 'staticwindowframe';
@@ -275,7 +278,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
 
     bringWindowTopmost(div);
 
-    if (winmask & WINMASK_CLOSABLE) {
+    if (winmask & WINMASK.CLOSABLE) {
         const closebtn = div.getElementsByClassName("windowbarclose");
 
         if (closebtn.length === 1) {
@@ -292,7 +295,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
     const windowWidth = div.getBoundingClientRect().width;
     const windowHeight = div.getBoundingClientRect().height;
 
-    if (winmask & WINMASK_MOVABLE) {
+    if (winmask & WINMASK.MOVABLE) {
         /* Ensure the full window size is in background area */
         if ((div.getBoundingClientRect().top + windowHeight) > clientHeight)
             div.style.top = (clientHeight - windowHeight) + "px";
@@ -327,7 +330,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK_CL
 
         bringWindowTopmost(div);
 
-        if (winmask & WINMASK_MOVABLE) {
+        if (winmask & WINMASK.MOVABLE) {
             /* Mouse down on title bar => move window */
             const titlebarheight = div.firstChild.getBoundingClientRect().height;
             const windowframetop = div.getBoundingClientRect().top;
@@ -406,7 +409,5 @@ export {
     createWindow,
     removeWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 };

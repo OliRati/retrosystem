@@ -4,9 +4,7 @@ import { launchApp } from "./script.js";
 import {
     createWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 let appManagerShown = false;
@@ -39,7 +37,7 @@ function appManagerWindow() {
             return true;
         }
 
-        let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
         newSystemStatus("Applications manager opened.");
 
         const appContainer = document.getElementById('applications-container');

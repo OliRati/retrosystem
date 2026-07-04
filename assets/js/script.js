@@ -9,9 +9,7 @@ import {
     createWindow,
     removeWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 // Register available applications
@@ -262,7 +260,7 @@ const window2 = createWindow("worldWindow", "World", 75, 75, 250, 350);
 
 // A ClickMe Window with buttons inside
 
-const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK_MOVABLE);
+const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK.MOVABLE);
 
 let color = 0;
 

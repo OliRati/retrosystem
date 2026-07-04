@@ -1,9 +1,7 @@
 import {
     createWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 let debugShown = false;
@@ -14,7 +12,7 @@ function debugToolsWindow() {
         let width = Math.floor((Math.random() * 300) + 300);
         let height = Math.floor((Math.random() * 400) + 200);
 
-        let newWin = createWindow("newWindow", "New " + winid, -1, -1, width, height, WINMASK_MOVABLE | WINMASK_CLOSABLE);
+        let newWin = createWindow("newWindow", "New " + winid, -1, -1, width, height, WINMASK.MOVABLE | WINMASK.CLOSABLE);
 
         let content = newWin.getElementsByClassName("margincontainer");
         if (content.length > 0) {
@@ -38,7 +36,7 @@ function debugToolsWindow() {
 
     if (!debugShown) {
         debugShown = true;
-        let newWin = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+        let newWin = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
 
         document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
     }

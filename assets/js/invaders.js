@@ -1,9 +1,7 @@
 import {
     createWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 const STORAGE_KEY = "retrosystem_invaders_hi_scores";
@@ -19,7 +17,7 @@ function invadersWindow() {
     if (invadersWindowOpened) return;
     invadersWindowOpened = true;
 
-    const newWin = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK_MOVABLE | WINMASK_CLOSABLE, onCloseWindow);
+    const newWin = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
     newSystemStatus("Opening invaders...");
 
     const windowContent = newWin.querySelector("#invadersWindow") || newWin.querySelector(".margincontainer");

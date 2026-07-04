@@ -1,9 +1,7 @@
 import {
     createWindow,
     newSystemStatus,
-    WINMASK_CLOSABLE,
-    WINMASK_RESIZABLE,
-    WINMASK_MOVABLE
+    WINMASK
 } from "./windows.js";
 
 let calculatorShown = false;
@@ -220,7 +218,7 @@ function calculatorWindow() {
 
     let newWin = createWindow("calculatorWindow", "Calculator",
         -1, -1, 290, 430,
-        WINMASK_MOVABLE | WINMASK_CLOSABLE,
+        WINMASK.MOVABLE | WINMASK.CLOSABLE,
         onCloseCalculator
     );
 
