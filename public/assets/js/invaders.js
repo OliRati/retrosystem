@@ -340,6 +340,11 @@ function invadersWindow() {
         if (!state.animationFrame) {
             state.animationFrame = window.requestAnimationFrame(gameLoop);
         }
+
+        // Release all game control keys
+        controls.left = false;
+        controls.right = false;
+        controls.shoot = false;
     }
 
     function nextLevel() {
@@ -702,9 +707,8 @@ function invadersWindow() {
                 controls.right = true;
                 controls.left = false;
                 break;
-            case " ":
-            case "Spacebar":
-            case "Space":
+            case "f":
+            case "F":
                 controls.shoot = true;
                 break;
             default:
@@ -725,9 +729,8 @@ function invadersWindow() {
             case "D":
                 controls.right = false;
                 break;
-            case " ":
-            case "Spacebar":
-            case "Space":
+            case "f":
+            case "F":
                 controls.shoot = false;
                 break;
             default:
