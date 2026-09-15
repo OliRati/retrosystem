@@ -210,7 +210,7 @@ document.addEventListener('keyup', function (event) {
     topWin.dispatchEvent(customEvent);
 });
 
-/* Create a new window on top of others
+/* createWindow   Create a new window on top of others
  *-------------------------------------------------
  * id             id of dom element to bring into window at creation
  *                or 0 for custom drawn content
