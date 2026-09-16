@@ -171,7 +171,7 @@ function invadersWindow() {
         maxRows: 5,
         maxCols: 10,
         maxHighScores: 5,
-        bombChance: 0.004,
+        bombChance: 0.0004,
         bunkerCount: 3,
         bunkerWidth: 34,
         bunkerHeight: 16,
@@ -500,7 +500,7 @@ function invadersWindow() {
 
         state.aliens.forEach(alien => {
             if (!alien.alive) return;
-            if (Math.random() < constants.bombChance + state.level * 0.0015) {
+            if (Math.random() < constants.bombChance + state.level * constants.bombChance / 5.0) {
                 const dropX = alien.x + constants.alienWidth / 2 - 2;
                 const dropY = alien.y + constants.alienHeight;
                 state.bombs.push({ x: dropX, y: dropY, width: 4, height: 10 });
