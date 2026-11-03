@@ -29,6 +29,7 @@ Access a deployed version [Here](https://olirati.github.io/retrosystem/)
 - CSS visual effects and transitions
 - Modular organization of JavaScript code
 - Stylish interface with retro icons and typography
+- Integrated text editor with browser-local autosave, text file import/export, and basic formatting
 
 ## 📂 Project Structure
 
@@ -48,7 +49,6 @@ Access a deployed version [Here](https://olirati.github.io/retrosystem/)
 ## 📈 Possible Improvements
 
 - Add a notification system
-- Integrate localStorage to save the state
 - Create a task manager or an integrated mini-game
 - Enhanced accessibility (keyboard shortcuts, ARIA)
 

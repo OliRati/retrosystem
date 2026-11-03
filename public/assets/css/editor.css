@@ -1,0 +1,104 @@
+.text-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.editor-filebar,
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+}
+
+.editor-filebar {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #777;
+}
+
+.editor-toolbar {
+    flex-wrap: wrap;
+}
+
+.editor-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background: #eee;
+    color: #111;
+    cursor: pointer;
+}
+
+.editor-action:hover {
+    background: #ccc;
+}
+
+.editor-filebar input[type="text"] {
+    flex: 1;
+    min-width: 80px;
+    height: 28px;
+    padding: 3px 6px;
+}
+
+#editorOpen {
+    display: none;
+}
+
+#editorHeading {
+    height: 30px;
+    margin-left: auto;
+}
+
+.editor-content {
+    flex: 1 1 auto;
+    min-height: 100px;
+    overflow: auto;
+    padding: 10px;
+    border: 1px solid #555;
+    background: #fff;
+    color: #111;
+    font: 16px/1.5 "Open Sans", sans-serif;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.editor-content:focus {
+    outline: 2px solid #555;
+    outline-offset: -2px;
+}
+
+.editor-content ul,
+.editor-content ol {
+    padding-left: 2em;
+}
+
+.editor-content ul li {
+    list-style: disc;
+}
+
+.editor-content ol li {
+    list-style: decimal;
+}
+
+.editor-status {
+    flex: 0 0 auto;
+    min-height: 1em;
+    color: #333;
+    font-size: .8em;
+}
+
+.editor-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}

@@ -4,6 +4,7 @@ import { debugToolsWindow } from "./debugtools.js";
 import { helpWindow } from "./help.js";
 import { invadersWindow } from "./invaders.js";
 import { appManagerWindow } from "./appmanager.js";
+import { textEditorWindow } from "./texteditor.js";
 
 import {
     createWindow,
@@ -16,6 +17,7 @@ import {
 registerApplication("help", "Help", "./assets/img/help.svg", helpWindow);
 registerApplication("calculator", "Calculator", "./assets/img/Ionic-Ionicons-Calculator.svg", calculatorWindow);
 registerApplication("invaders", "Invaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", invadersWindow);
+registerApplication("texteditor", "Text Editor", "./assets/img/text-editor.svg", textEditorWindow);
 
 /*
  * Launch a new application
@@ -138,6 +140,12 @@ menuViewCalculator.addEventListener("click", () => {
     adjustMenuStates(-1);
 
     calculatorWindow();
+});
+
+var menuViewTextEditor = document.getElementById("menuViewTextEditor");
+menuViewTextEditor.addEventListener("click", () => {
+    adjustMenuStates(-1);
+    textEditorWindow();
 });
 
 var menuCoche = [
