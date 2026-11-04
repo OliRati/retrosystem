@@ -1,14 +1,18 @@
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
-let calculatorShown = false;
+let calculatorWindowHandle = undefined;
 
 function calculatorWindow() {
 
-    if (calculatorShown) return;
+    if (calculatorWindowHandle != undefined) {
+        bringWindowTopmost(calculatorWindowHandle);
+        return;
+    }
 
     // Defines vars for calculator
 
@@ -190,8 +194,6 @@ function calculatorWindow() {
     }
 
     function onCloseCalculator() {
-        calculatorShown = false;
-
         // Free all event listeners
         document.getElementById("calcClear").removeEventListener('click', clearMemory);
         document.getElementById("calcPercent").removeEventListener('click', calcPercent);
@@ -212,11 +214,13 @@ function calculatorWindow() {
         document.getElementById("calc9").removeEventListener('click', calcNumpad9);
         document.getElementById("calcDecimal").removeEventListener('click', calcDecimal);
 
+        calculatorWindowHandle = undefined;
+
         // Allow window to close
         return true;
     }
 
-    let newWin = createWindow("calculatorWindow", "Calculator",
+    calculatorWindowHandle = createWindow("calculatorWindow", "Calculator",
         -1, -1, 290, 430,
         WINMASK.MOVABLE | WINMASK.CLOSABLE,
         onCloseCalculator
@@ -293,11 +297,9 @@ function calculatorWindow() {
     document.getElementById("calc9").addEventListener('click', calcNumpad9);
     document.getElementById("calcDecimal").addEventListener('click', calcDecimal);
 
-    newWin.addEventListener("window-keydown", handleWindowKeyDown);
+    calculatorWindowHandle.addEventListener("window-keydown", handleWindowKeyDown);
 
     newSystemStatus("Opening calculator...");
-
-    calculatorShown = true;
 }
 
 export { calculatorWindow };

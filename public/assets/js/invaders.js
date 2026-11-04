@@ -1,26 +1,30 @@
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
 const STORAGE_KEY = "retrosystem_invaders_hi_scores";
-let invadersWindowOpened = false;
+let invadersWindowHandle = undefined;
 
 function invadersWindow() {
+
+    if (invadersWindowHandle != undefined) {
+        bringWindowTopmost(invadersWindowHandle);
+        return;
+    }
+
     function onCloseWindow() {
-        invadersWindowOpened = false;
         cleanupGame();
+        invadersWindowHandle = undefined;
         return true;
     }
 
-    if (invadersWindowOpened) return;
-    invadersWindowOpened = true;
-
-    const newWin = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    invadersWindowHandle = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
     newSystemStatus("Opening invaders...");
 
-    const windowContent = newWin.querySelector("#invadersWindow") || newWin.querySelector(".margincontainer");
+    const windowContent = invadersWindowHandle.querySelector("#invadersWindow") || invadersWindowHandle.querySelector(".margincontainer");
     if (!windowContent) return;
 
     windowContent.innerHTML = "";
@@ -148,7 +152,7 @@ function invadersWindow() {
         active: true,
         animationFrame: null,
         highScores: loadHighScores(),
-        activeWindow: newWin
+        activeWindow: invadersWindowHandle
     };
 
     const constants = {
@@ -763,7 +767,7 @@ function invadersWindow() {
         }
         document.removeEventListener("keyup", handleKeyUp);
         document.removeEventListener("mousedown", handleDocumentMouseDown);
-        newWin.removeEventListener("window-keydown", handleWindowKeyDown);
+        invadersWindowHandle.removeEventListener("window-keydown", handleWindowKeyDown);
         window.removeEventListener("blur", handleWindowBlur);
         windowContent.removeEventListener("mousedown", handleWindowMouseDown);
     }
@@ -786,8 +790,8 @@ function invadersWindow() {
         }
     });
 
-    newWin.addEventListener("window-keydown", handleWindowKeyDown);
-    newWin.addEventListener("window-keyup", handleKeyUp);
+    invadersWindowHandle.addEventListener("window-keydown", handleWindowKeyDown);
+    invadersWindowHandle.addEventListener("window-keyup", handleKeyUp);
     document.addEventListener("mousedown", handleDocumentMouseDown);
     window.addEventListener("blur", handleWindowBlur);
 //    windowContent.addEventListener("mousedown", handleWindowMouseDown);

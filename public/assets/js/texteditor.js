@@ -1,12 +1,13 @@
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
 const STORAGE_KEY = "retrosystem-text-editor";
 const ALLOWED_TAGS = new Set(["B", "BR", "DIV", "EM", "H2", "H3", "I", "LI", "OL", "P", "STRONG", "U", "UL"]);
-let editorShown = false;
+let textEditorWindowHandle = undefined;
 
 function sanitizeDocument(html) {
     const parsed = new DOMParser().parseFromString(html, "text/html");
@@ -32,10 +33,12 @@ function sanitizeDocument(html) {
 }
 
 function textEditorWindow() {
-    if (editorShown) return;
+    if (textEditorWindowHandle != undefined) {
+        bringWindowTopmost(textEditorWindowHandle);
+        return;
+    }
 
-    editorShown = true;
-    const newWin = createWindow(
+    textEditorWindowHandle = createWindow(
         "textEditorWindow",
         "Text Editor",
         -1,
@@ -44,14 +47,14 @@ function textEditorWindow() {
         520,
         WINMASK.MOVABLE | WINMASK.CLOSABLE,
         () => {
-            editorShown = false;
+            textEditorWindowHandle = undefined;
             return true;
         }
     );
-    const editor = newWin.querySelector("#editorContent");
-    const filename = newWin.querySelector("#editorFilename");
-    const status = newWin.querySelector("#editorStatus");
-    const fileInput = newWin.querySelector("#editorOpen");
+    const editor = textEditorWindowHandle.querySelector("#editorContent");
+    const filename = textEditorWindowHandle.querySelector("#editorFilename");
+    const status = textEditorWindowHandle.querySelector("#editorStatus");
+    const fileInput = textEditorWindowHandle.querySelector("#editorOpen");
 
     function setStatus(message) {
         status.textContent = message;
@@ -98,7 +101,7 @@ function textEditorWindow() {
         }
     });
 
-    newWin.querySelectorAll("[data-command]").forEach(button => {
+    textEditorWindowHandle.querySelectorAll("[data-command]").forEach(button => {
         button.addEventListener("mousedown", event => event.preventDefault());
         button.addEventListener("click", () => {
             editor.focus();
@@ -107,13 +110,13 @@ function textEditorWindow() {
         });
     });
 
-    newWin.querySelector("#editorHeading").addEventListener("change", event => {
+    textEditorWindowHandle.querySelector("#editorHeading").addEventListener("change", event => {
         editor.focus();
         document.execCommand("formatBlock", false, event.target.value);
         saveLocally();
     });
 
-    newWin.querySelector("#editorNew").addEventListener("click", () => {
+    textEditorWindowHandle.querySelector("#editorNew").addEventListener("click", () => {
         editor.replaceChildren();
         filename.value = "document.txt";
         saveLocally();
@@ -121,7 +124,7 @@ function textEditorWindow() {
         setStatus("New document ready.");
     });
 
-    newWin.querySelector("#editorSave").addEventListener("click", async () => {
+    textEditorWindowHandle.querySelector("#editorSave").addEventListener("click", async () => {
         const content = editor.innerText;
         const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
         const requestedName = (filename.value.trim() || "document.txt")

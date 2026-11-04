@@ -1,13 +1,19 @@
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
-let debugShown = false;
+let debugTollsWindowHandle = undefined;
 let winid = 0;
 
 function debugToolsWindow() {
+    if (debugTollsWindowHandle != undefined) {
+        bringWindowTopmost(debugTollsWindowHandle);
+        return;
+    }
+
     function debugAddNewWindow() {
         let width = Math.floor((Math.random() * 300) + 300);
         let height = Math.floor((Math.random() * 400) + 200);
@@ -27,19 +33,14 @@ function debugToolsWindow() {
     }
 
     function onCloseWindow() {
-        debugShown = false;
-
         document.getElementById("debugAddNewWindow").removeEventListener('click', debugAddNewWindow);
-
+        debugTollsWindowHandle = undefined;
         return true;
     }
 
-    if (!debugShown) {
-        debugShown = true;
-        let newWin = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    debugTollsWindowHandle = createWindow("debugWindow", "Debugging", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
 
-        document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
-    }
+    document.getElementById("debugAddNewWindow").addEventListener('click', debugAddNewWindow);
 }
 
 export { debugToolsWindow };

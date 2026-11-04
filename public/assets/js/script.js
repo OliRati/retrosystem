@@ -130,9 +130,9 @@ menuShowDebug.addEventListener("click", () => {
 /* Help Window */
 var menuHelp = document.getElementById("menuHelp");
 menuHelp.addEventListener("click", () => {
-    helpWindow();
     adjustMenuStates(-1);
 
+    helpWindow();
 });
 
 var menuViewCalculator = document.getElementById("menuViewCalculator");
@@ -145,6 +145,7 @@ menuViewCalculator.addEventListener("click", () => {
 var menuViewTextEditor = document.getElementById("menuViewTextEditor");
 menuViewTextEditor.addEventListener("click", () => {
     adjustMenuStates(-1);
+    
     textEditorWindow();
 });
 

@@ -150,7 +150,6 @@ function bringWindowTopmost(div) {
             window.style.zIndex = zwin;
         });
     }
-
 }
 
 /* Find the topmost window */
@@ -262,7 +261,7 @@ document.addEventListener('keyup', function (event) {
  * title          Title of window
  * poxx, poxy     Position relative to background area of new window
  *                if posx and or posy is -1 then activete auto positionning
- * width, height  width and height of new window
+ * width, height  width and height of new window constrained by desktop area size
  * winmask        Creation mask for window type
  *                  WINMASK.CLOSABLE         A window with a close button in title bar
  *                  WINMASK.MOVABLE          A window with a title bar to move it on background 
@@ -430,12 +429,9 @@ function newSystemStatus(text) {
     }, 5000);
 }
 
-function changecolor() {
-    console.log("changecolor");
-}
-
 export {
     createWindow,
+    bringWindowTopmost,
     removeWindow,
     newSystemStatus,
     WINMASK

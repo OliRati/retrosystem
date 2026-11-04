@@ -3,21 +3,25 @@ import { launchApp } from "./script.js";
 
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
-let appManagerShown = false;
+let appManagerWindowHandle = undefined;
 
 function appManagerWindow() {
-    if (!appManagerShown) {
+    if (appManagerWindowHandle != undefined) {
+        bringWindowTopmost(appManagerWindowHandle);
+        return;
+    }
 
-        function createAppListHTML() {
-            const apps = getAllApplications();
-            let html = '';
+    function createAppListHTML() {
+        const apps = getAllApplications();
+        let html = '';
 
-            apps.forEach(([name, app]) => {
-                html += `
+        apps.forEach(([name, app]) => {
+            html += `
                         <div class="applications-item" data-app="${name}">
                             <div class="applications-icon">
                                 <img src="${app.icon}" alt="Application icon">
@@ -27,32 +31,29 @@ function appManagerWindow() {
                             </div>
                         </div>
                         `;
+        });
+
+        return html;
+    }
+
+    function onCloseWindow() {
+        appManagerWindowHandle = undefined;
+        return true;
+    }
+
+    appManagerWindowHandle = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    newSystemStatus("Applications manager opened.");
+
+    const appContainer = document.getElementById('applications-container');
+    if (appContainer) {
+        appContainer.innerHTML = createAppListHTML();
+
+        appContainer.querySelectorAll('.applications-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const appName = item.dataset.app;
+                launchApp(appName);
             });
-
-            return html;
-        }
-
-        function onCloseWindow() {
-            appManagerShown = false;
-            return true;
-        }
-
-        let newWin = createWindow("applicationsmanager", "Applications Manager", 50, 50, 300, 350, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
-        newSystemStatus("Applications manager opened.");
-
-        const appContainer = document.getElementById('applications-container');
-        if (appContainer) {
-            appContainer.innerHTML = createAppListHTML();
-
-            appContainer.querySelectorAll('.applications-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const appName = item.dataset.app;
-                    launchApp(appName);
-                });
-            });
-        }
-
-        appManagerShown = true;
+        });
     }
 }
 

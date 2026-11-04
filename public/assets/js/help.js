@@ -1,22 +1,25 @@
 import {
     createWindow,
+    bringWindowTopmost,
     newSystemStatus,
     WINMASK
 } from "./windows.js";
 
-let helpShown = false;
+let helpWindowHandle = undefined;
 
 function helpWindow() {
+    if (helpWindowHandle != undefined) {
+        bringWindowTopmost(helpWindowHandle);
+        return;
+    }
+
     function onCloseWindow() {
-        helpShown = false;
+        helpWindowHandle = undefined;
         return true;
     }
 
-    if (!helpShown) {
-        helpShown = true;
-        let newWin = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
-        newSystemStatus("Help opened.");
-    }
+    helpWindowHandle = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    newSystemStatus("Help opened.");
 }
 
 export { helpWindow };
