@@ -16,9 +16,54 @@ function nextWindowPos() {
     }
 }
 
-/* The desktop background */
+/* The desktop area background */
 
-const background = document.getElementById("background");
+const desktopArea = document.getElementById("background");
+
+/* Ensure the full window remain inside the desktop area */
+
+function clipWindowToDesktop(window) {
+    const desktopAreaRect = desktopArea.getBoundingClientRect();
+    const windowAreaRect = window.getBoundingClientRect();
+
+    if (windowAreaRect.height > desktopAreaRect.height) {
+        window.style.height = desktopAreaRect.height + "px";
+        windowAreaRect.height = desktopAreaRect.height;
+    }
+
+    if (windowAreaRect.width > desktopAreaRect.width) {
+        window.style.width = desktopAreaRect.width + "px";
+        windowAreaRect.width = desktopAreaRect.width;
+    }
+
+    if ((windowAreaRect.top + windowAreaRect.height) > desktopAreaRect.height) {
+        window.style.top = (desktopAreaRect.height - windowAreaRect.height) + "px";
+    }
+
+    if ((windowAreaRect.left + windowAreaRect.width) > desktopAreaRect.width) {
+        window.style.left = (desktopAreaRect.width - windowAreaRect.width) + "px";
+    }
+}
+
+/* Place window at the center of the desktop area */
+
+function centerWindowToDesktop(window) {
+    const desktopAreaRect = desktopArea.getBoundingClientRect();
+    const windowAreaRect = window.getBoundingClientRect();
+
+    if (windowAreaRect.height > desktopAreaRect.height) {
+        window.style.height = desktopAreaRect.height + "px";
+        windowAreaRect.height = desktopAreaRect.height;
+    }
+
+    if (windowAreaRect.width > desktopAreaRect.width) {
+        window.style.width = desktopAreaRect.width + "px";
+        windowAreaRect.width = desktopAreaRect.width;
+    }
+
+    window.style.left = ((desktopAreaRect.width - windowAreaRect.width) / 2) + "px";
+    window.style.top = ((desktopAreaRect.height - windowAreaRect.height) / 2) + "px";
+}
 
 /* The list of all windows created */
 
@@ -230,10 +275,6 @@ document.addEventListener('keyup', function (event) {
  */
 
 function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CLOSABLE | WINMASK.MOVABLE, onCloseWindow = () => { return true }) {
-    const background = document.getElementById('background');
-    const clientWidth = background.getBoundingClientRect().width;
-    const clientHeight = background.getBoundingClientRect().height;
-
     const div = document.createElement('div');
 
     // Attach the closing callback to the DOM element
@@ -259,7 +300,7 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CL
     div.style.width = width + "px";
     div.style.height = height + "px";
 
-    background.appendChild(div);
+    desktopArea.appendChild(div);
 
     if (id) {
         let content = document.getElementById(id);
@@ -292,29 +333,17 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CL
         }
     }
 
-    const windowWidth = div.getBoundingClientRect().width;
-    const windowHeight = div.getBoundingClientRect().height;
-
     if (winmask & WINMASK.MOVABLE) {
-        /* Ensure the full window size is in background area */
-        if ((div.getBoundingClientRect().top + windowHeight) > clientHeight)
-            div.style.top = (clientHeight - windowHeight) + "px";
-
-        if ((div.getBoundingClientRect().left + windowWidth) > clientWidth)
-            div.style.left = (clientWidth - windowWidth) + "px";
+        clipWindowToDesktop(div);
     } else {
-        /* Place unmovable window at the center of background area */
-        div.style.left = ((clientWidth - windowWidth) / 2) + "px";
-        div.style.top = ((clientHeight - windowHeight) / 2) + "px";
+        centerWindowToDesktop(div);
     }
 
     let isDragging = false;
 
     function dragWindow(event) {
-        const background = document.getElementById('background');
-
-        const clientwidth = background.getBoundingClientRect().width;
-        const clientheight = background.getBoundingClientRect().height;
+        const desktopAreaRect = desktopArea.getBoundingClientRect();
+        const windowAreaRect = div.getBoundingClientRect();
 
         function getCoords(e) {
             if (e.touches && e.touches.length > 0) {
@@ -324,8 +353,8 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CL
         }
 
         const coords = getCoords(event);
-        let shiftX = coords.x - div.getBoundingClientRect().left;
-        let shiftY = coords.y - div.getBoundingClientRect().top
+        let shiftX = coords.x - windowAreaRect.left;
+        let shiftY = coords.y - windowAreaRect.top
             + document.getElementById('mainmenu').getBoundingClientRect().height;
 
         bringWindowTopmost(div);
@@ -343,11 +372,11 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CL
                     let posy = y - shiftY;
 
                     if (posx < 0) posx = 0;
-                    if (posx + width > clientwidth)
-                        posx = clientwidth - width;
+                    if (posx + windowAreaRect.width > desktopAreaRect.width)
+                        posx = desktopAreaRect.width - windowAreaRect.width;
                     if (posy < 0) posy = 0;
-                    if (posy + height > clientheight)
-                        posy = clientheight - height;
+                    if (posy + windowAreaRect.height > desktopAreaRect.height)
+                        posy = desktopAreaRect.height - windowAreaRect.height;
 
                     div.style.left = posx + 'px';
                     div.style.top = posy + 'px';
