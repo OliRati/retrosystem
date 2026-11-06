@@ -104,14 +104,10 @@ footer {
 #statusframe {
     display: flex;
     flex-direction: row;
-    margin-left: .5em;
-    margin-right: .5em;
     font-family: "Open Sans", sans-serif;
     font-size: 1em;
     font-weight: 500;
-    margin-top: auto;
-    /* Vertical center */
-    margin-bottom: auto;
+    margin: auto .5em;
     user-select: none;
 }
 
@@ -119,7 +115,7 @@ footer {
 #menuconfigframe,
 #menuviewframe,
 #menuaboutframe {
-/*    position: relative; */
+    height: 100%;
 }
 
 #earthbox,
@@ -151,15 +147,17 @@ footer {
     /* Bottom shadow */
 }
 
+.menuhead,
 .menuitem {
     padding: .2em .4em;
-    transition: 0.3s all;
 }
 
+.menuhead::first-letter,
 .menuitem::first-letter {
     font-weight: 700;
 }
 
+.menuhead:hover,
 .menuitem:hover {
     cursor: pointer;
     background-color: #666;

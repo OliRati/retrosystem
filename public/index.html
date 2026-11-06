@@ -21,65 +21,93 @@
         <div class="header-shadow">
         </div>
         <div class="header-menu">
-            <div id="menuframe">
+            <nav id="menuframe">
                 <div id="menuearthframe">
-                    <p id="menuearth" class="menuitem">
+                    <div id="menuearth" class="menuhead">
                         <i class="fa-solid fa-earth-europe"></i>
-                    </p>
+                    </div>
                     <div id="earthbox" class="menushadow">
-                        <p id="menuearthsystem" class="menuitem">About This Earth System</p>
-                        <p class="menuseparator"></p>
-                        <p id="menuapplications" class="menuitem">Applications</p>
-                        <p id="menulogout" class="menuitem">Log Out</p>
+                        <div id="menuearthsystem" class="menuitem">
+                            About This Earth System
+                        </div>
+                        <div class="menuseparator"></div>
+                        <div id="menuapplications" class="menuitem">
+                            Applications
+                        </div>
+                        <div id="menulogout" class="menuitem">
+                            Log Out
+                        </div>
                     </div>
                 </div>
                 <div id="menuconfigframe">
-                    <p id="menuconfig" class="menuitem">
+                    <div id="menuconfig" class="menuhead">
                         Config
-                    </p>
+                    </div>
                     <div id="configbox" class="menushadow">
-                        <p id="menunotransition" class="menuitem"><i id="menucoche0" class="fa-regular fa-square"></i>No
-                            transition</p>
-                        <p id="menurandomtransition" class="menuitem"><i id="menucoche1"
-                                class="fa-regular fa-square"></i>Random transition</p>
-                        <p id="menuorderedtransition" class="menuitem"><i id="menucoche2"
-                                class="fa-regular fa-square-check"></i>Ordered transition</p>
-                        <p id="menuslowmovetransition" class="menuitem"><i id="menucoche3"
-                                class="fa-regular fa-square"></i>Slowmove</p>
-                        <p id="menurollontransition" class="menuitem"><i id="menucoche4"
-                                class="fa-regular fa-square"></i>Rollon</p>
-                        <p id="menurotatetransition" class="menuitem"><i id="menucoche5"
-                                class="fa-regular fa-square"></i>Rotate</p>
-                        <p id="menuturntransition" class="menuitem"><i id="menucoche6"
-                                class="fa-regular fa-square"></i>Turn
-                        </p>
+                        <div id="menunotransition" class="menuitem">
+                            <i id="menucoche0" class="fa-regular fa-square"></i>No transition
+                        </div>
+                        <div id="menurandomtransition" class="menuitem">
+                            <i id="menucoche1" class="fa-regular fa-square"></i>Random transition
+                        </div>
+                        <div id="menuorderedtransition" class="menuitem">
+                            <i id="menucoche2" class="fa-regular fa-square-check"></i>Ordered transition
+                        </div>
+                        <div id="menuslowmovetransition" class="menuitem">
+                            <i id="menucoche3" class="fa-regular fa-square"></i>Slowmove
+                        </div>
+                        <div id="menurollontransition" class="menuitem">
+                            <i id="menucoche4" class="fa-regular fa-square"></i>Rollon
+                        </div>
+                        <div id="menurotatetransition" class="menuitem">
+                            <i id="menucoche5" class="fa-regular fa-square"></i>Rotate
+                        </div>
+                        <div id="menuturntransition" class="menuitem">
+                            <i id="menucoche6" class="fa-regular fa-square"></i>Turn
+                        </div>
                     </div>
                 </div>
                 <div id="menuviewframe">
-                    <p id="menuview" class="menuitem">
+                    <div id="menuview" class="menuhead">
                         View
-                    </p>
+                    </div>
                     <div id="viewbox" class="menushadow">
-                        <p id="menuShowDebug" class="menuitem">Debugging tools</p>
-                        <p id="menuHelp" class="menuitem">Help</p>
-                        <p id="menuViewCalculator" class="menuitem">Calculator</p>
-                        <p id="menuViewTextEditor" class="menuitem">Text Editor</p>
+                        <div id="menuShowDebug" class="menuitem">
+                            Debugging tools
+                        </div>
+                        <div id="menuHelp" class="menuitem">
+                            Help
+                        </div>
+                        <div id="menuViewCalculator" class="menuitem">
+                            Calculator
+                        </div>
+                        <div id="menuViewTextEditor" class="menuitem">
+                            Text Editor
+                        </div>
                     </div>
                 </div>
                 <div id="menuaboutframe">
-                    <p id="menuabout" class="menuitem">
+                    <div id="menuabout" class="menuhead">
                         About
-                    </p>
+                    </div>
                     <div id="aboutbox" class="menushadow">
-                        <p class="title">The RetroSystem Demo</p>
-                        <p class="menuseparator"></p>
-                        <p class="text">A little demo featuring old style</p>
-                        <p class="text">computer interface.</p>
-                        <p class="menuseparator"></p>
-                        <p class="text">Bring to you by OliRati, Have fun ;-)</p>
+                        <div class="title">
+                            The RetroSystem Demo
+                        </div>
+                        <div class="menuseparator"></div>
+                        <div class="text">
+                            A little demo featuring old style
+                        </div>
+                        <div class="text">
+                            computer interface.
+                        </div>
+                        <div class="menuseparator"></div>
+                        <div class="text">
+                            Bring to you by OliRati, Have fun ;-)
+                        </div>
                     </div>
                 </div>
-            </div>
+            </nav>
         </div>
     </header>
 
@@ -206,7 +234,8 @@
 
         <div class="margincontainer text-editor" id="textEditorWindow">
             <div class="editor-filebar">
-                <button type="button" class="editor-action" id="editorNew" aria-label="New document" title="New document">
+                <button type="button" class="editor-action" id="editorNew" aria-label="New document"
+                    title="New document">
                     <i class="fa-regular fa-file"></i>
                 </button>
                 <label class="editor-action" for="editorOpen" aria-label="Open text file" title="Open text file">
@@ -214,7 +243,8 @@
                     <span class="editor-visually-hidden">Open</span>
                 </label>
                 <input id="editorOpen" type="file" accept=".txt,.md,text/plain">
-                <button type="button" class="editor-action" id="editorSave" aria-label="Download document" title="Download document">
+                <button type="button" class="editor-action" id="editorSave" aria-label="Download document"
+                    title="Download document">
                     <i class="fa-regular fa-floppy-disk"></i>
                 </button>
                 <input type="text" id="editorFilename" value="document.txt" aria-label="Document filename">
@@ -226,13 +256,16 @@
                 <button type="button" class="editor-action" data-command="italic" aria-label="Italic" title="Italic">
                     <i class="fa-solid fa-italic"></i>
                 </button>
-                <button type="button" class="editor-action" data-command="underline" aria-label="Underline" title="Underline">
+                <button type="button" class="editor-action" data-command="underline" aria-label="Underline"
+                    title="Underline">
                     <i class="fa-solid fa-underline"></i>
                 </button>
-                <button type="button" class="editor-action" data-command="insertUnorderedList" aria-label="Bulleted list" title="Bulleted list">
+                <button type="button" class="editor-action" data-command="insertUnorderedList"
+                    aria-label="Bulleted list" title="Bulleted list">
                     <i class="fa-solid fa-list-ul"></i>
                 </button>
-                <button type="button" class="editor-action" data-command="insertOrderedList" aria-label="Numbered list" title="Numbered list">
+                <button type="button" class="editor-action" data-command="insertOrderedList" aria-label="Numbered list"
+                    title="Numbered list">
                     <i class="fa-solid fa-list-ol"></i>
                 </button>
                 <select id="editorHeading" aria-label="Text style">
