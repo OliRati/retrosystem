@@ -45,6 +45,31 @@ let selectedChecklist = 2;
  * Main menu fonctionality implementation
  */
 
+/* Ensure the full submenu window remain inside the desktop area */
+
+function clipMenuFrameToDesktop(menuFrame) {
+    const desktopArea = document.getElementById("background");
+    const desktopAreaRect = desktopArea.getBoundingClientRect();
+
+    const parent = menuFrame.parentElement;
+    const parentRect = parent.getBoundingClientRect();
+
+    menuFrame.style.width="fit-content";
+    menuFrame.style.top = parentRect.top + parentRect.height + "px";
+    menuFrame.style.left = parentRect.left + "px";
+
+    const windowAreaRect = menuFrame.getBoundingClientRect();
+
+    if (windowAreaRect.width > desktopAreaRect.width) {
+        menuFrame.style.width = desktopAreaRect.width + "px";
+        windowAreaRect.width = desktopAreaRect.width;
+    }
+
+    if ((windowAreaRect.left + windowAreaRect.width) > desktopAreaRect.width) {
+        menuFrame.style.left = (desktopAreaRect.width - windowAreaRect.width) + "px";
+    }
+}
+
 function adjustMenuStates(i) {
     if ((i != 0) && menuEarthShown) {
         menuEarthShown = false;
@@ -73,6 +98,7 @@ menuEarth.addEventListener("click", () => {
     if (menuEarthShown) {
         document.getElementById("earthbox").style.display = "block";
         document.getElementById("earthbox").style.animation = "movemenu .4s forwards";
+        clipMenuFrameToDesktop(document.getElementById("earthbox"));
     }
     else
         document.getElementById("earthbox").style.display = "none";
@@ -86,6 +112,7 @@ menuConfig.addEventListener("click", () => {
     if (menuConfigShown) {
         document.getElementById("configbox").style.display = "block";
         document.getElementById("configbox").style.animation = "movemenu .4s forwards";
+        clipMenuFrameToDesktop(document.getElementById("configbox"));
     }
     else
         document.getElementById("configbox").style.display = "none";
@@ -99,6 +126,7 @@ menuView.addEventListener("click", () => {
     if (menuViewShown) {
         document.getElementById("viewbox").style.display = "block";
         document.getElementById("viewbox").style.animation = "movemenu .4s forwards";
+        clipMenuFrameToDesktop(document.getElementById("viewbox"));
     }
     else
         document.getElementById("viewbox").style.display = "none";
@@ -112,6 +140,7 @@ menuAbout.addEventListener("click", () => {
     if (menuAboutShown) {
         document.getElementById("aboutbox").style.display = "block";
         document.getElementById("aboutbox").style.animation = "movemenu .4s forwards";
+        clipMenuFrameToDesktop(document.getElementById("aboutbox"));
     }
     else
         document.getElementById("aboutbox").style.display = "none";
@@ -173,7 +202,6 @@ var menuNoTransition = document.getElementById("menunotransition");
 var menuNoTransitionCoche = document.getElementById("menunotransitioncoche");
 menuNoTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
-
     adjustChecklist(0);
 });
 
