@@ -10,7 +10,8 @@ import {
     createWindow,
     removeWindow,
     newSystemStatus,
-    WINMASK
+    WINMASK,
+    bringWindowTopmost
 } from "./windows.js";
 
 // Register available applications
@@ -23,9 +24,9 @@ registerApplication("texteditor", "Text Editor", "./assets/img/text-editor.svg",
  * Launch a new application
  */
 
-function launchApp( name ) {
-   const app = getApplication(name);
-   app?.launch();
+function launchApp(name) {
+    const app = getApplication(name);
+    app?.launch();
 }
 
 export { launchApp };
@@ -54,7 +55,7 @@ function clipMenuFrameToDesktop(menuFrame) {
     const parent = menuFrame.parentElement;
     const parentRect = parent.getBoundingClientRect();
 
-    menuFrame.style.width="fit-content";
+    menuFrame.style.width = "fit-content";
     menuFrame.style.top = parentRect.top + parentRect.height + "px";
     menuFrame.style.left = parentRect.left + "px";
 
@@ -174,7 +175,7 @@ menuViewCalculator.addEventListener("click", () => {
 var menuViewTextEditor = document.getElementById("menuViewTextEditor");
 menuViewTextEditor.addEventListener("click", () => {
     adjustMenuStates(-1);
-    
+
     textEditorWindow();
 });
 
@@ -242,19 +243,30 @@ menuTurnTransition.addEventListener("click", () => {
 });
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
-let aboutEarthSystemOpened = false;
+let aboutEarthSystemHandle = undefined;
+let aboutEarthSystemClosing = false;
 menuEarthSystem.addEventListener("click", () => {
     adjustMenuStates(-1);
 
-    if (!aboutEarthSystemOpened) {
-        aboutEarthSystemOpened = true;
-        let newWin = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0, () => { return !aboutEarthSystemOpened; });
+    if (aboutEarthSystemHandle != undefined) {
+        bringWindowTopmost(aboutEarthSystemHandle);
+    } else {
+        function onCloseWindow() {
+            if (aboutEarthSystemClosing) {
+                aboutEarthSystemHandle = undefined;
+                return true;
+            }
+            return false;
+        }
 
         function closeAboutBox() {
-            aboutEarthSystemOpened = false;
             document.getElementById("closeaboutearthsystem").removeEventListener("click", closeAboutBox);
-            removeWindow(newWin);
+            aboutEarthSystemClosing = true;
+            removeWindow(aboutEarthSystemHandle);
+            aboutEarthSystemClosing = false;
         }
+
+        aboutEarthSystemHandle = createWindow("aboutearthsystem", "About Earth System", 0, 0, 300, 350, 0, onCloseWindow);
 
         document.getElementById("closeaboutearthsystem").addEventListener("click", closeAboutBox);
     }
