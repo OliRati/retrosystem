@@ -31,6 +31,10 @@ function launchApp(name) {
 
 export { launchApp };
 
+/*
+ * Main menu fonctionality implementation
+ */
+
 /* Currently shown menu */
 
 let menuEarthShown = false;
@@ -41,10 +45,6 @@ let menuAboutShown = false;
 /* Selected item in config menu - default is Ordered transition */
 
 let selectedChecklist = 2;
-
-/*
- * Main menu fonctionality implementation
- */
 
 /* Ensure the full submenu window remain inside the desktop area */
 
@@ -149,15 +149,19 @@ menuAbout.addEventListener("click", () => {
     adjustMenuStates(3);
 });
 
-/* Debug Tools Window */
 
+/*
+ * View menu section
+ */
+
+/* Debug Tools Window menu item */
 var menuShowDebug = document.getElementById("menuShowDebug");
 menuShowDebug.addEventListener("click", () => {
     debugToolsWindow();
     adjustMenuStates(-1);
 });
 
-/* Help Window */
+/* Help Window menu item */
 var menuHelp = document.getElementById("menuHelp");
 menuHelp.addEventListener("click", () => {
     adjustMenuStates(-1);
@@ -165,6 +169,7 @@ menuHelp.addEventListener("click", () => {
     helpWindow();
 });
 
+/* Calculator Window menu item */
 var menuViewCalculator = document.getElementById("menuViewCalculator");
 menuViewCalculator.addEventListener("click", () => {
     adjustMenuStates(-1);
@@ -172,12 +177,17 @@ menuViewCalculator.addEventListener("click", () => {
     calculatorWindow();
 });
 
+/* Text Editor Window menu item */
 var menuViewTextEditor = document.getElementById("menuViewTextEditor");
 menuViewTextEditor.addEventListener("click", () => {
     adjustMenuStates(-1);
 
     textEditorWindow();
 });
+
+/*
+ * Config menu section
+ */
 
 var menuCoche = [
     document.getElementById("menucoche0"),
@@ -200,7 +210,6 @@ function adjustChecklist(nb) {
 }
 
 var menuNoTransition = document.getElementById("menunotransition");
-var menuNoTransitionCoche = document.getElementById("menunotransitioncoche");
 menuNoTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
     adjustChecklist(0);
@@ -241,6 +250,10 @@ menuTurnTransition.addEventListener("click", () => {
     adjustMenuStates(-1);
     adjustChecklist(6);
 });
+
+/*
+ * Earth menu section
+ */
 
 var menuEarthSystem = document.getElementById("menuearthsystem");
 let aboutEarthSystemHandle = undefined;
@@ -302,14 +315,13 @@ footerFrame.addEventListener("click", () => {
  */
 
 // Simple Hello Window
-const window1 = createWindow("helloWindow", "Hello", 25, 25, 250, 350);
+// const window1 = createWindow("helloWindow", "Hello", 25, 25, 250, 350);
 
 // Simple World Window
-const window2 = createWindow("worldWindow", "World", 75, 75, 250, 350);
+// const window2 = createWindow("worldWindow", "World", 75, 75, 250, 350);
 
 // A ClickMe Window with buttons inside
-
-const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK.MOVABLE);
+// const window6 = createWindow("clickmeWindow", "ClickMe", 125, 125, 250, 350, WINMASK.MOVABLE);
 
 let color = 0;
 
@@ -338,3 +350,6 @@ function exitClickWindow() {
 }
 
 exitwindow.addEventListener('click', exitClickWindow);
+
+// Open Help application
+launchApp("help");

@@ -9,7 +9,13 @@
 .title {
     font-size: 1.2em;
     font-weight: 700;
-    color: black;
+    color: #000000;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #101010;
 }
 
 .text {
