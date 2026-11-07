@@ -17,8 +17,9 @@ import {
 // Register available applications
 registerApplication("help", "Help", "./assets/img/help.svg", helpWindow);
 registerApplication("calculator", "Calculator", "./assets/img/Ionic-Ionicons-Calculator.svg", calculatorWindow);
-registerApplication("invaders", "Invaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", invadersWindow);
 registerApplication("texteditor", "Text Editor", "./assets/img/text-editor.svg", textEditorWindow);
+registerApplication("invaders", "Invaders", "./assets/img/Pictogrammers-Material-Space-invaders.svg", invadersWindow);
+registerApplication("debug", "Debug Tools", "./assets/img/debug-tools.svg", debugToolsWindow);
 
 /*
  * Launch a new application
@@ -154,13 +155,6 @@ menuAbout.addEventListener("click", () => {
  * View menu section
  */
 
-/* Debug Tools Window menu item */
-var menuShowDebug = document.getElementById("menuShowDebug");
-menuShowDebug.addEventListener("click", () => {
-    debugToolsWindow();
-    adjustMenuStates(-1);
-});
-
 /* Help Window menu item */
 var menuHelp = document.getElementById("menuHelp");
 menuHelp.addEventListener("click", () => {
@@ -183,6 +177,14 @@ menuViewTextEditor.addEventListener("click", () => {
     adjustMenuStates(-1);
 
     textEditorWindow();
+});
+
+/* Invaders Window menu item */
+var menuViewInvaders = document.getElementById("menuViewInvaders");
+menuViewInvaders.addEventListener("click", () => {
+    adjustMenuStates(-1);
+
+    invadersWindow();
 });
 
 /*
