@@ -223,6 +223,8 @@ function invadersWindow() {
         updateInfoDisplay();
         updateHighScoreDisplay();
         messageOverlay.textContent = "";
+        canvasOverlay.style.display = "none";
+
         if (!state.animationFrame) {
             state.animationFrame = window.requestAnimationFrame(gameLoop);
         }
@@ -243,9 +245,13 @@ function invadersWindow() {
         state.initialAlienCount = state.aliens.filter(a => a.alive).length || 1;
         state.alienSpeed = constants.alienBaseSpeed + (state.level - 1) * 0.06;
         state.shootCooldown = 0;
-        messageOverlay.textContent = `Niveau ${state.level}`;
+        messageOverlay.textContent = `Level ${state.level}`;
+        canvasOverlay.style.display = "flex";
         setTimeout(() => {
-            if (!state.paused && state.running) messageOverlay.textContent = "";
+            if (!state.paused && state.running) {
+                messageOverlay.textContent = "";
+                canvasOverlay.style.display = "none";
+            }
         }, 1000);
     }
 
@@ -258,7 +264,7 @@ function invadersWindow() {
         setTimeout(() => {
             canvasOverlay.style.display = "none";
             canvasHiscoreOverlay.style.display = "flex";
-        }, 2000);
+        }, 3000);
         pauseButton.disabled = true;
         startButton.textContent = "Play";
         addHighScore(state.score);
@@ -266,11 +272,18 @@ function invadersWindow() {
     }
 
     function pauseGame(reason) {
-        if (!state.running || state.paused) return;
+        if (!state.running || state.paused)
+            return;
+
         state.paused = true;
+
         statusValue.textContent = "Pause";
         pauseButton.textContent = "Continue";
-        if (reason) messageOverlay.textContent = reason;
+
+        if (reason) {
+            messageOverlay.textContent = reason;
+            canvasOverlay.style.display = "flex";
+        }
     }
 
     function resumeGame() {
@@ -278,7 +291,10 @@ function invadersWindow() {
         state.paused = false;
         statusValue.textContent = "Playing";
         pauseButton.textContent = "Pause";
-        if (messageOverlay.textContent === "Lost focus" || messageOverlay.textContent === "Paused") messageOverlay.textContent = "";
+        if (messageOverlay.textContent === "Lost focus" || messageOverlay.textContent === "Paused") {
+            messageOverlay.textContent = "";
+            canvasOverlay.style.display = "none";
+        }
         state.animationFrame = window.requestAnimationFrame(gameLoop);
     }
 
