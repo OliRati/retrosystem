@@ -124,22 +124,6 @@
 
         <div class="margincontainer" id="applicationsmanager">
             <div class="applications-container" id="applications-container">
-                <div id="app-launch-calculator">
-                    <div class="applications-icon">
-                        <img src="./assets/img/Ionic-Ionicons-Calculator.svg" alt="Application icon">
-                    </div>
-                    <div class="applications-name">
-                        Calculator
-                    </div>
-                </div>
-                <div id="app-launch-invaders">
-                    <div class="applications-icon">
-                        <img src="./assets/img/Pictogrammers-Material-Space-invaders.svg" alt="Application icon">
-                    </div>
-                    <div class="applications-name">
-                        Space Invaders
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -186,11 +170,6 @@
             <p id="demo">Click button below to change color</p>
             <button id="changeColorClickWindow">Click me</button>
             <button id="exitClickWindow">Exit</button>
-        </div>
-
-        <div class="margincontainer" id="invadersWindow">
-            <p class="title">A classic video game recreation</p>
-            <p class="paragraph">Stay tuned...</p>
         </div>
 
         <div class="margincontainer" id="calculatorWindow">
@@ -276,6 +255,59 @@
             <div id="editorContent" class="editor-content" contenteditable="true" role="textbox"
                 aria-label="Document text" aria-multiline="true" spellcheck="true"></div>
             <p id="editorStatus" class="editor-status" aria-live="polite">Saved in this browser</p>
+        </div>
+
+        <div class="margincontainer" id="invadersWindow">
+            <div id="invadersContent">
+                <div id="invadersStatusRow">
+                    <div id="invadersInfoBlock">
+                        <div class="invadersInfo">
+                            <span class="invadersInfoLabel">Score</span>
+                            <span class="invadersInfoValue" id="invadersScoreValue">0</span>
+                        </div>
+                        <div class="invadersInfo">
+                            <span class="invadersInfoLabel">Level</span>
+                            <span class="invadersInfoValue" id="invadersLevelValue">1</span>
+                        </div>
+                        <div class="invadersInfo">
+                            <span class="invadersInfoLabel">Lifes</span>
+                            <span class="invadersInfoValue" id="invadersLifesValue">3</span>
+                        </div>
+                        <div class="invadersInfo">
+                            <span class="invadersInfoLabel">State</span>
+                            <span class="invadersInfoValue" id="invadersStateValue">Ready</span>
+                        </div>
+                    </div>
+                    <div id="invadersControlBlock">
+                        <button id="invadersStartButton">Play</button>
+                        <button id="invadersPauseButton">Pause</button>
+                    </div>
+                </div>
+
+                <div id="invadersCanvasContainer">
+                    <canvas width="280" height="260" id="invadersCanvas">
+                    </canvas>
+
+                    <div id="invadersCanvasHiscoreOverlay">
+                        <div id="invadersScoreBoard">
+                            <div id="invadersHiScoreTitle">
+                                Hi-Scores
+                            </div>
+                            <div id="invadersHiscoreList">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="invadersCanvasOverlay">
+                        <div id="invadersCanvasOverlayMessage">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="invadersInstructions">
+                    Keys: <b>←</b> <b>→</b> Move tank, <b>F</b> Fire
+                </div>
+            </div>
         </div>
 
         <div class="margincontainer" id="debugWindow">

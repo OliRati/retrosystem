@@ -21,113 +21,36 @@ function invadersWindow() {
         return true;
     }
 
-    invadersWindowHandle = createWindow("invadersWindow", "Invaders", -1, -1, 300, 410, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    invadersWindowHandle = createWindow("invadersWindow", "Invaders", -1, -1, 300, 440, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
     newSystemStatus("Opening invaders...");
 
-    const windowContent = invadersWindowHandle.querySelector("#invadersWindow") || invadersWindowHandle.querySelector(".margincontainer");
+    const windowContent = invadersWindowHandle.querySelector("#invadersContent");
     if (!windowContent) return;
 
-    windowContent.innerHTML = "";
-    windowContent.style.display = "flex";
-    windowContent.style.flexDirection = "column";
-    windowContent.style.height = "100%";
-    windowContent.style.gap = "10px";
-    windowContent.style.boxSizing = "border-box";
+    const scoreValue = invadersWindowHandle.querySelector("#invadersScoreValue");
+    scoreValue.textContent = "0";
+    const levelValue = invadersWindowHandle.querySelector("#invadersLevelValue");
+    levelValue.textContent = "1";
+    const lifesValue = invadersWindowHandle.querySelector("#invadersLifesValue");
+    lifesValue.textContent = "3";
+    const statusValue = invadersWindowHandle.querySelector("#invadersStateValue");
+    statusValue.textContent = "Ready";
 
-    const statusRow = document.createElement("div");
-    statusRow.style.display = "flex";
-    statusRow.style.justifyContent = "space-between";
-    statusRow.style.alignItems = "center";
-    statusRow.style.gap = "8px";
-
-    const infoBlock = document.createElement("div");
-    infoBlock.style.display = "flex";
-    infoBlock.style.gap = "8px";
-    infoBlock.style.flexWrap = "wrap";
-
-    const scoreLabel = createInfoLabel("Score", "0");
-    const levelLabel = createInfoLabel("Level", "1");
-    const livesLabel = createInfoLabel("Lifes", "3");
-    const statusLabel = createInfoLabel("State", "Ready");
-
-    infoBlock.append(scoreLabel.container, levelLabel.container, livesLabel.container, statusLabel.container);
-
-    const controlBlock = document.createElement("div");
-    controlBlock.style.display = "flex";
-    controlBlock.style.gap = "6px";
-    controlBlock.style.flexWrap = "wrap";
-
-    const startButton = document.createElement("button");
-    startButton.setAttribute("type", "button");
+    const startButton = invadersWindowHandle.querySelector("#invadersStartButton");
     startButton.textContent = "Play";
-    startButton.style.flex = "1";
-    startButton.style.minWidth = "90px";
-    // Prevent the start button from receiving focus so space/enter won't trigger it
-    startButton.tabIndex = -1;
-
-    const pauseButton = document.createElement("button");
+    const pauseButton = invadersWindowHandle.querySelector("#invadersPauseButton");
     pauseButton.textContent = "Pause";
-    pauseButton.disabled = true;
-    pauseButton.style.flex = "1";
-    pauseButton.style.minWidth = "90px";
 
-    controlBlock.append(startButton, pauseButton);
-    statusRow.append(infoBlock, controlBlock);
-    windowContent.appendChild(statusRow);
+    const canvas = invadersWindowHandle.querySelector("#invadersCanvas");
 
-    const canvasWrapper = document.createElement("div");
-    canvasWrapper.style.flex = "1";
-    canvasWrapper.style.display = "flex";
-    canvasWrapper.style.justifyContent = "center";
-    canvasWrapper.style.alignItems = "center";
+    const canvasOverlay = invadersWindowHandle.querySelector("#invadersCanvasOverlay");
+    const messageOverlay = invadersWindowHandle.querySelector("#invadersCanvasOverlayMessage");
+    messageOverlay.textContent = "";
+    canvasOverlay.style.display = "flex";
 
-    const canvas = document.createElement("canvas");
-    canvas.width = 280;
-    canvas.height = 260;
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    canvas.style.maxWidth = "100%";
-    canvas.style.maxHeight = "100%";
-    canvas.style.background = "#000";
-    canvas.style.display = "block";
-    canvas.style.border = "1px solid #999";
-    canvas.style.borderRadius = "4px";
-
-    canvasWrapper.appendChild(canvas);
-    windowContent.appendChild(canvasWrapper);
-
-    const footerRow = document.createElement("div");
-    footerRow.style.display = "flex";
-    footerRow.style.flexDirection = "column";
-    footerRow.style.gap = "8px";
-
-    const instructions = document.createElement("div");
-    instructions.textContent = "Touches : ← → pour bouger, Espace pour tirer. Cliquez dans la fenêtre pour reprendre le jeu.";
-    instructions.style.fontSize = "12px";
-    instructions.style.color = "#ddd";
-    instructions.style.minHeight = "1.2em";
-
-    const scoreBoard = document.createElement("div");
-    scoreBoard.style.display = "grid";
-    scoreBoard.style.gridTemplateColumns = "1fr 1fr";
-    scoreBoard.style.gap = "6px";
-    scoreBoard.style.fontSize = "12px";
-    scoreBoard.style.color = "#eee";
-    scoreBoard.style.alignItems = "flex-start";
-
-    const hiScoreTitle = document.createElement("div");
-    hiScoreTitle.textContent = "Meilleurs scores";
-    hiScoreTitle.style.fontWeight = "bold";
-    hiScoreTitle.style.gridColumn = "1 / -1";
-
-    const hiScoreList = document.createElement("div");
-    hiScoreList.style.display = "grid";
-    hiScoreList.style.rowGap = "2px";
-    hiScoreList.style.gridColumn = "1 / -1";
-
-    scoreBoard.append(hiScoreTitle, hiScoreList);
-    footerRow.append(instructions, scoreBoard);
-    windowContent.appendChild(footerRow);
+    const canvasHiscoreOverlay = invadersWindowHandle.querySelector("#invadersCanvasHiscoreOverlay");
+    const hiScoreList = invadersWindowHandle.querySelector("#invadersHiscoreList");
+    canvasHiscoreOverlay.style.display = "flex";
 
     const ctx = canvas.getContext("2d");
 
@@ -197,47 +120,6 @@ function invadersWindow() {
         shoot: false
     };
 
-    const messageOverlay = document.createElement("div");
-    messageOverlay.style.position = "absolute";
-    messageOverlay.style.top = "0";
-    messageOverlay.style.left = "0";
-    messageOverlay.style.right = "0";
-    messageOverlay.style.bottom = "0";
-    messageOverlay.style.display = "flex";
-    messageOverlay.style.alignItems = "center";
-    messageOverlay.style.justifyContent = "center";
-    messageOverlay.style.pointerEvents = "none";
-    messageOverlay.style.color = "#fff";
-    messageOverlay.style.fontFamily = "monospace";
-    messageOverlay.style.fontSize = "18px";
-    messageOverlay.style.textAlign = "center";
-    messageOverlay.style.padding = "10px";
-    messageOverlay.style.background = "rgba(0,0,0,0.35)";
-    messageOverlay.textContent = "";
-    canvasWrapper.style.position = "relative";
-    canvasWrapper.appendChild(messageOverlay);
-
-    function createInfoLabel(label, value) {
-        const container = document.createElement("div");
-        container.style.display = "flex";
-        container.style.flexDirection = "column";
-        container.style.minWidth = "70px";
-        container.style.fontSize = "12px";
-        container.style.color = "#ddd";
-
-        const title = document.createElement("span");
-        title.textContent = label;
-        title.style.fontWeight = "bold";
-        title.style.color = "#fff";
-
-        const field = document.createElement("span");
-        field.textContent = value;
-        field.style.marginTop = "2px";
-
-        container.append(title, field);
-        return {container, field};
-    }
-
     function loadHighScores() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (!stored) return [];
@@ -264,7 +146,7 @@ function invadersWindow() {
         hiScoreList.innerHTML = "";
         if (state.highScores.length === 0) {
             const emptyLine = document.createElement("div");
-            emptyLine.textContent = "Aucun score enregistré.";
+            emptyLine.textContent = "Empty";
             hiScoreList.appendChild(emptyLine);
             return;
         }
@@ -335,7 +217,7 @@ function invadersWindow() {
         state.alienDrop = 15;
         state.shootCooldown = 0;
         player.x = canvas.width / 2 - constants.playerWidth / 2;
-        statusLabel.field.textContent = "Playing";
+        statusValue.textContent = "Playing";
         pauseButton.disabled = false;
         pauseButton.textContent = "Pause";
         updateInfoDisplay();
@@ -370,8 +252,13 @@ function invadersWindow() {
     function gameOver() {
         state.running = false;
         state.paused = false;
-        statusLabel.field.textContent = "Ended";
+        statusValue.textContent = "Ended";
         messageOverlay.textContent = "GAME OVER";
+        canvasOverlay.style.display = "flex";
+        setTimeout(() => {
+            canvasOverlay.style.display = "none";
+            canvasHiscoreOverlay.style.display = "flex";
+        }, 2000);
         pauseButton.disabled = true;
         startButton.textContent = "Play";
         addHighScore(state.score);
@@ -381,7 +268,7 @@ function invadersWindow() {
     function pauseGame(reason) {
         if (!state.running || state.paused) return;
         state.paused = true;
-        statusLabel.field.textContent = "Pause";
+        statusValue.textContent = "Pause";
         pauseButton.textContent = "Continue";
         if (reason) messageOverlay.textContent = reason;
     }
@@ -389,16 +276,16 @@ function invadersWindow() {
     function resumeGame() {
         if (!state.running || !state.paused) return;
         state.paused = false;
-        statusLabel.field.textContent = "Playing";
+        statusValue.textContent = "Playing";
         pauseButton.textContent = "Pause";
         if (messageOverlay.textContent === "Lost focus" || messageOverlay.textContent === "Paused") messageOverlay.textContent = "";
         state.animationFrame = window.requestAnimationFrame(gameLoop);
     }
 
     function updateInfoDisplay() {
-        scoreLabel.field.textContent = String(state.score);
-        levelLabel.field.textContent = String(state.level);
-        livesLabel.field.textContent = String(state.lives);
+        scoreValue.textContent = String(state.score);
+        levelValue.textContent = String(state.level);
+        lifesValue.textContent = String(state.lives);
     }
 
     function updateState(delta) {
@@ -778,6 +665,7 @@ function invadersWindow() {
             state.running = true;
             state.paused = false;
         }
+        canvasHiscoreOverlay.style.display = "none";
         startButton.textContent = "Restart";
     });
 
