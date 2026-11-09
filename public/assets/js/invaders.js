@@ -54,6 +54,35 @@ function invadersWindow() {
 
     const ctx = canvas.getContext("2d");
 
+    const constants = {
+        playerWidth: 30,
+        playerHeight: 10,
+        playerSpeed: 3.8,
+        bulletSpeed: 6,
+        bombSpeed: 1.6,
+        bombSpeedIncreasePerLevel: 0.06,
+        // Adjusted to be a bit more compact like original
+        alienWidth: 20,
+        alienHeight: 14,
+        alienPaddingX: 8,
+        alienPaddingY: 10,
+        alienMargin: 12,
+        // Dynamic speed parameters (tuned for classic pacing)
+        alienBaseSpeed: 0.12,
+        alienSpeedRange: 1.6,
+        playerY: canvas.height - 24,
+        maxRows: 5,
+        maxCols: 10,
+        maxHighScores: 8,
+        bombChance: 0.0004,
+        bunkerCount: 3,
+        bunkerWidth: 34,
+        bunkerHeight: 16,
+        bunkerSpacing: 30,
+        bunkerHealth: 4,
+        scoreByType: [100, 60, 30]
+    };
+
     const state = {
         started: false,
         running: false,
@@ -76,35 +105,6 @@ function invadersWindow() {
         animationFrame: null,
         highScores: loadHighScores(),
         activeWindow: invadersWindowHandle
-    };
-
-    const constants = {
-        playerWidth: 30,
-        playerHeight: 10,
-        playerSpeed: 3.8,
-        bulletSpeed: 6,
-        bombSpeed: 1.6,
-        bombSpeedIncreasePerLevel: 0.06,
-        // Adjusted to be a bit more compact like original
-        alienWidth: 20,
-        alienHeight: 14,
-        alienPaddingX: 8,
-        alienPaddingY: 10,
-        alienMargin: 12,
-        // Dynamic speed parameters (tuned for classic pacing)
-        alienBaseSpeed: 0.12,
-        alienSpeedRange: 1.6,
-        playerY: canvas.height - 24,
-        maxRows: 5,
-        maxCols: 10,
-        maxHighScores: 5,
-        bombChance: 0.0004,
-        bunkerCount: 3,
-        bunkerWidth: 34,
-        bunkerHeight: 16,
-        bunkerSpacing: 30,
-        bunkerHealth: 4,
-        scoreByType: [100, 60, 30]
     };
 
     const player = {
@@ -144,17 +144,11 @@ function invadersWindow() {
 
     function updateHighScoreDisplay() {
         hiScoreList.innerHTML = "";
-        if (state.highScores.length === 0) {
-            const emptyLine = document.createElement("div");
-            emptyLine.textContent = "Empty";
-            hiScoreList.appendChild(emptyLine);
-            return;
-        }
-        state.highScores.forEach((score, index) => {
+        for (let index = 0; index < constants.maxHighScores; index++) {
             const line = document.createElement("div");
-            line.textContent = `${index + 1}. ${score}`;
+            line.textContent = `${index + 1}. ${state.highScores[index] ?? "---"}`;
             hiScoreList.appendChild(line);
-        });
+        }
     }
 
     function buildAliens(level) {
