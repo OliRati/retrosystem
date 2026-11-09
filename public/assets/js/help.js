@@ -1,5 +1,6 @@
 import {
     createWindow,
+    removeWindow,
     bringWindowTopmost,
     newSystemStatus,
     WINMASK
@@ -13,13 +14,21 @@ function helpWindow() {
         return;
     }
 
+    helpWindowHandle = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
+    newSystemStatus("Help opened.");
+
+    const closeButton = document.getElementById("helpCloseButton");
+    closeButton.addEventListener('click', exitClickCloseButton);
+
+    function exitClickCloseButton() {
+        removeWindow(helpWindowHandle);
+    }
+
     function onCloseWindow() {
+        closeButton.removeEventListener('click', exitClickCloseButton);
         helpWindowHandle = undefined;
         return true;
     }
-
-    helpWindowHandle = createWindow("helpWindow", "Help", -1, -1, 300, 400, WINMASK.MOVABLE | WINMASK.CLOSABLE, onCloseWindow);
-    newSystemStatus("Help opened.");
 }
 
 export { helpWindow };

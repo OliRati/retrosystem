@@ -7,6 +7,12 @@
 
     <title>RetroSystem - JavaScript Web project | OliRati</title>
 
+    <meta name="description"
+        content="OliRati's portfolio - Full-Stack Web & Mobile Developer building fast, accessible and maintainable web applications with PHP, JavaScript, MySQL and modern web technologies.">
+
+    <meta name="keywords"
+        content="full-stack developer, web developer, mobile web developer, PHP developer, JavaScript developer, PHP, JavaScript, MySQL, HTML5, CSS3, responsive web development, web applications, accessibility, portfolio">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -156,13 +162,20 @@
             <p class="paragraph">A new world is happening. Stay tuned.</p>
         </div>
 
-        <div class="margincontainer" id="helpWindow">
-            <p class="title">Welcome to RetroSyetem !</p>
-            <p class="paragraph">This is a retro-style desktop you can explore. Open the <b>Earth</b> menu to browse the
-                applications, or use <b>View</b> to open tools like the calculator and text editor. Drag a window by its
-                title bar, click inside it to bring it to the front, and use the <b>X</b> to close it. You can also
-                explore the other menus to discover more features.</p>
-            <p class="subtitle">Have fun !</p>
+        <div class="marginflexcontainer" id="helpWindow">
+            <div class="top">
+                <p class="title">Welcome to RetroSyetem !</p>
+                <p class="paragraph">This is a retro-style desktop you can explore. Open the <b>Earth</b> menu to browse
+                    the
+                    applications, or use <b>View</b> to open tools like the calculator and text editor. Drag a window by
+                    its
+                    title bar, click inside it to bring it to the front, and use the <b>X</b> to close it. You can also
+                    explore the other menus to discover more features.</p>
+                <p class="subtitle">Have fun !</p>
+            </div>
+            <div class="bottom">
+                <button id="helpCloseButton">Close</button>
+            </div>
         </div>
 
         <div class="margincontainer" id="clickmeWindow">

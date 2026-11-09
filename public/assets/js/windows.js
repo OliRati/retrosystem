@@ -299,20 +299,24 @@ function createWindow(id, title, posx, posy, width, height, winmask = WINMASK.CL
     div.style.width = width + "px";
     div.style.height = height + "px";
 
-    desktopArea.appendChild(div);
+    const divContent = document.createElement('div');
+    divContent.classList.add("windowContent");
 
     if (id) {
         let content = document.getElementById(id);
         if (content) {
-            div.innerHTML += content.outerHTML;
+            divContent.innerHTML = content.outerHTML;
         }
         else {
-            div.innerHTML += `
+            divContent.innerHTML = `
                 <div class="margincontainer">
                     <p class="error">Error id="` + id + `' Undefined in DOM.</p>
                 </div>`;
         }
     }
+
+    div.appendChild(divContent);
+    desktopArea.appendChild(div);
 
     windowList.push(div);
 
