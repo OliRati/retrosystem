@@ -84,7 +84,7 @@ function addWindowFrame(title, closebutton = false) {
                 </div>
                 <div class="windowbarcube">
                 </div>
-                <div class="windowtitleframe">
+                <div class="windowbartitleframe">
                     <div class="windowbarend">
                         <div class="windowbardecoration"></div>
                         <div class="windowbardecoration"></div>
@@ -92,7 +92,7 @@ function addWindowFrame(title, closebutton = false) {
                         <div class="windowbardecoration"></div>
                         <div class="windowbardecoration"></div>
                     </div>
-                    <div class="windowtitle">`+ title + `</div>
+                    <div class="windowbartitle">`+ title + `</div>
                     <div class="windowbarend">
                         <div class="windowbardecoration"></div>
                         <div class="windowbardecoration"></div>

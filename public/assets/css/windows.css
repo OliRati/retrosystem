@@ -65,7 +65,7 @@
     transform: rotate(-45deg);
 }
 
-.windowtitleframe {
+.windowbartitleframe {
     padding: 0 1px;
     display: flex;
     justify-content: center;
@@ -78,7 +78,7 @@
     width: inherit;
 }
 
-.windowtitle {
+.windowbartitle {
     margin: 0 3px;
     white-space: nowrap;
     width: fit-content;
