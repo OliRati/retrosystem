@@ -223,51 +223,54 @@
             </div>
         </div>
 
-        <div class="margincontainer text-editor" id="textEditorWindow">
-            <div class="editor-filebar">
-                <button type="button" class="editor-action" id="editorNew" aria-label="New document"
-                    title="New document">
-                    <i class="fa-regular fa-file"></i>
-                </button>
-                <label class="editor-action" for="editorOpen" aria-label="Open text file" title="Open text file">
-                    <i class="fa-regular fa-folder-open"></i>
-                    <span class="editor-visually-hidden">Open</span>
-                </label>
-                <input id="editorOpen" type="file" accept=".txt,.md,text/plain">
-                <button type="button" class="editor-action" id="editorSave" aria-label="Download document"
-                    title="Download document">
-                    <i class="fa-regular fa-floppy-disk"></i>
-                </button>
-                <input type="text" id="editorFilename" value="document.txt" aria-label="Document filename">
+        <div class="margincontainer" id="textEditorWindow">
+            <div class="text-editor">
+                <div class="editor-filebar">
+                    <button type="button" class="editor-action" id="editorNew" aria-label="New document"
+                        title="New document">
+                        <i class="fa-regular fa-file"></i>
+                    </button>
+                    <label class="editor-action" for="editorOpen" aria-label="Open text file" title="Open text file">
+                        <i class="fa-regular fa-folder-open"></i>
+                        <span class="editor-visually-hidden">Open</span>
+                    </label>
+                    <input id="editorOpen" type="file" accept=".txt,.md,text/plain">
+                    <button type="button" class="editor-action" id="editorSave" aria-label="Download document"
+                        title="Download document">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                    </button>
+                    <input type="text" id="editorFilename" value="document.txt" aria-label="Document filename">
+                </div>
+                <div class="editor-toolbar" role="toolbar" aria-label="Text formatting">
+                    <button type="button" class="editor-action" data-command="bold" aria-label="Bold" title="Bold">
+                        <i class="fa-solid fa-bold"></i>
+                    </button>
+                    <button type="button" class="editor-action" data-command="italic" aria-label="Italic"
+                        title="Italic">
+                        <i class="fa-solid fa-italic"></i>
+                    </button>
+                    <button type="button" class="editor-action" data-command="underline" aria-label="Underline"
+                        title="Underline">
+                        <i class="fa-solid fa-underline"></i>
+                    </button>
+                    <button type="button" class="editor-action" data-command="insertUnorderedList"
+                        aria-label="Bulleted list" title="Bulleted list">
+                        <i class="fa-solid fa-list-ul"></i>
+                    </button>
+                    <button type="button" class="editor-action" data-command="insertOrderedList"
+                        aria-label="Numbered list" title="Numbered list">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </button>
+                    <select id="editorHeading" aria-label="Text style">
+                        <option value="p">Paragraph</option>
+                        <option value="h2">Heading</option>
+                        <option value="h3">Subheading</option>
+                    </select>
+                </div>
+                <div id="editorContent" class="editor-content" contenteditable="true" role="textbox"
+                    aria-label="Document text" aria-multiline="true" spellcheck="true"></div>
+                <p id="editorStatus" class="editor-status" aria-live="polite">Saved in this browser</p>
             </div>
-            <div class="editor-toolbar" role="toolbar" aria-label="Text formatting">
-                <button type="button" class="editor-action" data-command="bold" aria-label="Bold" title="Bold">
-                    <i class="fa-solid fa-bold"></i>
-                </button>
-                <button type="button" class="editor-action" data-command="italic" aria-label="Italic" title="Italic">
-                    <i class="fa-solid fa-italic"></i>
-                </button>
-                <button type="button" class="editor-action" data-command="underline" aria-label="Underline"
-                    title="Underline">
-                    <i class="fa-solid fa-underline"></i>
-                </button>
-                <button type="button" class="editor-action" data-command="insertUnorderedList"
-                    aria-label="Bulleted list" title="Bulleted list">
-                    <i class="fa-solid fa-list-ul"></i>
-                </button>
-                <button type="button" class="editor-action" data-command="insertOrderedList" aria-label="Numbered list"
-                    title="Numbered list">
-                    <i class="fa-solid fa-list-ol"></i>
-                </button>
-                <select id="editorHeading" aria-label="Text style">
-                    <option value="p">Paragraph</option>
-                    <option value="h2">Heading</option>
-                    <option value="h3">Subheading</option>
-                </select>
-            </div>
-            <div id="editorContent" class="editor-content" contenteditable="true" role="textbox"
-                aria-label="Document text" aria-multiline="true" spellcheck="true"></div>
-            <p id="editorStatus" class="editor-status" aria-live="polite">Saved in this browser</p>
         </div>
 
         <div class="margincontainer" id="invadersWindow">
